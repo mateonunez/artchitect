@@ -19,38 +19,36 @@ namespace App\Http\Controllers\Brokers;
 
 use App\Lib\Message;
 use Illuminate\Http\Request;
+use App\Core\Brokers\RabbitMQ;
 use Illuminate\Http\JsonResponse;
 use PhpAmqpLib\Message\AMQPMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 class RabbitMQController extends Controller
 {
-    /** @var \PhpAmqpLib\Connection\AMQPStreamConnection */
-    protected $connection;
-
-    /** @var \PhpAmqpLib\Channel\AMQPChannel */
-    protected $channel;
+    /** @var \App\Core\Brokers\RabbitMQ */
+    protected $rabbitMQClient;
 
     /**
      * @return void
      */
     public function __construct()
     {
-        $this->connection = new AMQPStreamConnection(
+        $this->rabbitMQClient = new RabbitMQ(
             'architect_rabbitmq',
             5672,
             'architect',
             'architect'
         );
 
-        $this->channel = $this->connection->channel();
-
-        $this->channel->queue_declare('architect-queue', false, true, false, false);
-        $this->channel->exchange_declare('architect-exchange', AMQPExchangeType::DIRECT, false, true, false);
-        $this->channel->queue_bind('architect-queue', 'architect-exchange', 'red');
+        $this->rabbitMQClient->bind(
+            'architect-exchange',
+            'architect-queue',
+            'red'
+        );
     }
 
     /**
@@ -74,9 +72,7 @@ class RabbitMQController extends Controller
             );
         }
 
-        $message = new AMQPMessage($request->get('message'));
-
-        $this->channel->basic_publish($message, 'architect-exchange', 'red');
+        $message = $this->rabbitMQClient->produce($request->get('message'));
 
         return $this->sendResponse(
             data: [
@@ -95,7 +91,7 @@ class RabbitMQController extends Controller
      */
     public function consume(Request $request): JsonResponse
     {
-        $message = $this->channel->basic_get('architect-queue');
+        $message = $this->rabbitMQClient->consume();
 
         if (!$message) {
             return $this->sendError(
@@ -104,9 +100,6 @@ class RabbitMQController extends Controller
                 statusCode: JsonResponse::HTTP_OK
             );
         }
-
-        $message->ack();
-
 
         return $this->sendResponse(
             data: [
