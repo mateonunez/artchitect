@@ -14,13 +14,13 @@ services:
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     depends_on:
-      - architect_database_mysql_laravel
+      - architect_database_mysql
     networks:
       - architect_network
 
   # MySQL Service
-  architect_database_mysql_laravel:
-    container_name: architect_database_mysql_laravel
+  architect_database_mysql:
+    container_name: architect_database_mysql
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
@@ -29,7 +29,7 @@ services:
     ports:
       - 3360:3306
     environment:
-      MYSQL_DATABASE: architect_database_mysql_laravel
+      MYSQL_DATABASE: architect_database_mysql
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect
@@ -37,8 +37,8 @@ services:
       - architect_network
 
   # MySQL Testing Service
-  architect_database_mysql_laravel_testing:
-    container_name: architect_database_mysql_laravel_testing
+  architect_database_mysql_testing:
+    container_name: architect_database_mysql_testing
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
@@ -47,7 +47,7 @@ services:
     ports:
       - 3370:3306
     environment:
-      MYSQL_DATABASE: architect_database_mysql_laravel_testing
+      MYSQL_DATABASE: architect_database_mysql_testing
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect
@@ -69,6 +69,22 @@ services:
     environment:
       - NGINX_FPM_HOST=architect_backend_php_laravel
       - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+    networks:
+      - architect_network
+
+  # RabbitMQ Service
+  architect_rabbitmq:
+    container_name: architect_rabbitmq
+    image: rabbitmq:3.9-management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: architect
+      RABBITMQ_DEFAULT_PASS: architect
+    ports:
+      # AMQP protocol port
+      - 5672:5672
+      # UI Management port
+      - 15672:15672
     networks:
       - architect_network
 
