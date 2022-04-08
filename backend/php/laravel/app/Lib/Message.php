@@ -26,6 +26,7 @@ class Message
     public const CREDENTIALS_KO = "[00015] - Invalid credentials.";
     public const INVALID_DATE = "[00016] - Invalid date.";
     public const NO_QUERY_PROVIDED = "[00017] - No query provided.";
+    public const NO_DATA = "[00018] - No data.";
 
     /**
      * Messages

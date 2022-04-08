@@ -58,6 +58,7 @@ Route::group([
             'prefix' => 'rabbitmq',
             'as' => 'rabbitmq.'
         ], function () {
+            Route::get('/consume', [\App\Http\Controllers\Brokers\RabbitMQController::class, 'consume']);
             Route::post('/produce', [\App\Http\Controllers\Brokers\RabbitMQController::class, 'produce']);
         });
     });
