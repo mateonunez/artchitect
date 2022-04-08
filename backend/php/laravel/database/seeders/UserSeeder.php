@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         $payloadAdmin = [
-            'name' => 'Admin',
-            'email' => 'admin@sabicom.com',
-            'password' => Hash::make('sabicom'),
+            'name' => 'God',
+            'email' => 'god@architect.com',
+            'password' => Hash::make('architect'),
             'email_verified_at' => Carbon::now()
         ];
 
