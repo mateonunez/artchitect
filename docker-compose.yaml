@@ -1,0 +1,78 @@
+version: "3.8"
+
+services:
+  # PHP Service
+  architect_backend_php_laravel:
+    container_name: architect_backend_php_laravel
+    build:
+      context: ./backend/php/laravel
+      dockerfile: ./.docker/php/Dockerfile
+    expose:
+      - 9000
+    working_dir: /usr/src/architect/backend/php/laravel
+    volumes:
+      - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
+      - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    depends_on:
+      - architect_database_mysql_laravel
+    networks:
+      - architect_network
+
+  # MySQL Service
+  architect_database_mysql_laravel:
+    container_name: architect_database_mysql_laravel
+    image: mysql:8.0.20
+    platform: linux/x86_64
+    restart: always
+    volumes:
+      - ./database/mysql/architect:/var/lib/mysql
+    ports:
+      - 3360:3306
+    environment:
+      MYSQL_DATABASE: architect_database_mysql_laravel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: architect
+      MYSQL_PASSWORD: architect
+    networks:
+      - architect_network
+
+  # MySQL Testing Service
+  architect_database_mysql_laravel_testing:
+    container_name: architect_database_mysql_laravel_testing
+    image: mysql:8.0.20
+    platform: linux/x86_64
+    restart: always
+    volumes:
+      - ./database/mysql/architect_testing:/var/lib/mysql
+    ports:
+      - 3370:3306
+    environment:
+      MYSQL_DATABASE: architect_database_mysql_laravel_testing
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: architect
+      MYSQL_PASSWORD: architect
+    networks:
+      - architect_network
+
+  # Nginx Service
+  architect_nginx:
+    container_name: architect_nginx
+    build:
+      context: ./backend/php/laravel
+      dockerfile: ./.docker/nginx/Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    depends_on:
+      - architect_backend_php_laravel
+    environment:
+      - NGINX_FPM_HOST=architect_backend_php_laravel
+      - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+    networks:
+      - architect_network
+
+# Docker Network
+networks:
+  architect_network:
+    driver: bridge
