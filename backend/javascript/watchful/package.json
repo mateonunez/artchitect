@@ -1,0 +1,38 @@
+{
+  "name": "watchful",
+  "version": "1.0.0",
+  "description": "Queues Watchful",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon src/index.ts",
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateonunez/architect.git"
+  },
+  "keywords": [
+    "watchful",
+    "javascript",
+    "queue",
+    "mateonunez"
+  ],
+  "author": "mateonunez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mateonunez/architect/issues"
+  },
+  "homepage": "https://github.com/mateonunez/architect#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
