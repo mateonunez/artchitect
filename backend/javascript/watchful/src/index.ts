@@ -1,9 +1,16 @@
+import dotenv from 'dotenv';
 import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 
 (async () => {
+  dotenv.config();
+
+  const { RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_USER, RABBITMQ_PASS } = process.env;
+
   const connection: Connection = await client.connect(
-    'amqp://architect:architect@architect_rabbitmq:5672'
+    `amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}`
   );
+
+  console.log(`amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}`);
 
   const channel: Channel = await connection.createChannel();
 
@@ -24,5 +31,3 @@ import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 
   await channel.consume('architect-queue', consumer(channel));
 })();
-
-console.log('hello');
