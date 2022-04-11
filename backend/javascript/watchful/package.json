@@ -26,8 +26,10 @@
   },
   "homepage": "https://github.com/mateonunez/architect#readme",
   "devDependencies": {
+    "@types/amqplib": "^0.8.2",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
+    "amqplib": "^0.8.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "nodemon": "^2.0.15",

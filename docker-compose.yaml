@@ -18,6 +18,21 @@ services:
     networks:
       - architect_network
 
+  # Watchful service
+  architect_backend_javascript_watchful:
+    container_name: architect_backend_javascript_watchful
+    build:
+      context: ./backend/javascript/watchful
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/backend/javascript/watchful
+    volumes:
+      - /usr/src/architect/backend/javascript/watchful/node_modules
+      - ./backend/javascript/watchful:/usr/src/architect/backend/javascript/watchful
+    depends_on:
+      - architect_rabbitmq
+    networks:
+      - architect_network
+
   # MySQL Service
   architect_database_mysql:
     container_name: architect_database_mysql

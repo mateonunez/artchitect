@@ -1,18 +1,28 @@
-interface User {
-  name: string;
-  id: number;
-}
+import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 
-class UserAccount {
-  name: string;
-  id: number;
+(async () => {
+  const connection: Connection = await client.connect(
+    'amqp://architect:architect@architect_rabbitmq:5672'
+  );
 
-  constructor(name: string, id: number) {
-    this.name = name;
-    this.id = id;
-  }
-}
+  const channel: Channel = await connection.createChannel();
 
-const user: User = new UserAccount('Murphy', 1);
+  await channel.assertExchange('architect-exchange', 'direct', {
+    durable: true
+  });
+  await channel.assertQueue('architect-queue');
 
-console.log(user);
+  const consumer =
+    (channel: Channel) =>
+    (message: ConsumeMessage | null): void => {
+      if (message) {
+        console.log('Message received: ', message.content.toString());
+
+        channel.ack(message);
+      }
+    };
+
+  await channel.consume('architect-queue', consumer(channel));
+})();
+
+console.log('hello');
