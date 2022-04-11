@@ -21,11 +21,8 @@ use App\Lib\Message;
 use Illuminate\Http\Request;
 use App\Core\Brokers\RabbitMQ;
 use Illuminate\Http\JsonResponse;
-use PhpAmqpLib\Message\AMQPMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use PhpAmqpLib\Exchange\AMQPExchangeType;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 class RabbitMQController extends Controller
 {
@@ -38,10 +35,10 @@ class RabbitMQController extends Controller
     public function __construct()
     {
         $this->rabbitMQClient = new RabbitMQ(
-            'architect_rabbitmq',
-            5672,
-            'architect',
-            'architect'
+            config('queue.connections.rabbitmq.host'),
+            config('queue.connections.rabbitmq.port'),
+            config('queue.connections.rabbitmq.user'),
+            config('queue.connections.rabbitmq.password')
         );
 
         $this->rabbitMQClient->bind(
