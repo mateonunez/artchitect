@@ -24,8 +24,8 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec sabickend_laravel composer install
-docker-compose exec sabickend_laravel php artisan prepare:env
+docker-compose exec architect_backend_php_laravel composer install
+docker-compose exec architect_backend_php_laravel php artisan prepare:env
 ```
 
 ### Testing
@@ -44,7 +44,34 @@ DB_PASSWORD=root
 Then run the `docker-compose` commands
 
 ```bash
-docker-compose exec sabickend_laravel php artisan migrate:fresh --seed --env=testing
-docker-compose exec sabickend_laravel php artisan passport:install --env=testing
-docker-compose exec sabickend_laravel php artisan test 
+docker-compose exec architect_backend_php_laravel php artisan migrate:fresh --seed --env=testing
+docker-compose exec architect_backend_php_laravel php artisan passport:install --env=testing
+docker-compose exec architect_backend_php_laravel php artisan test 
+```
+
+## Backend Javascript Watchful
+
+Watchful is a simple program that checks and handles the queue.
+
+### Set up
+
+Set your environment variables
+
+```bash
+RABBITMQ_HOST=architect_rabbitmq
+RABBITMQ_PORT=5672
+RABBITMQ_USER=architect
+RABBITMQ_PASS=architect
+```
+
+Then run the `docker-compose` commands
+
+```bash
+docker-compose build && docker-compose up -d
+```
+
+After the installation you must run the following commands:
+
+```bash
+docker-compose exec architect_backend_javascript_watchful npm run install
 ```

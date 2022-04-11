@@ -32,13 +32,35 @@ Route::group([
     'middleware' => 'auth:api',
     'as' => 'app.'
 ], function () {
-    // Users
+    /**
+     * Users
+     */
     Route::group([
         'prefix' => 'users',
         'as' => 'users.'
     ], function () {
         // Profile
         Route::get('/me', [\App\Http\Controllers\UserController::class, 'me']);
+    });
+
+    /**
+     * Brokers
+     */
+    Route::group([
+        'prefix' => 'brokers',
+        'as' => 'brokers.',
+        'namespace' => 'Brokers'
+    ], function () {
+        /**
+         * RabbitMQ
+         */
+        Route::group([
+            'prefix' => 'rabbitmq',
+            'as' => 'rabbitmq.'
+        ], function () {
+            Route::get('/consume', [\App\Http\Controllers\Brokers\RabbitMQController::class, 'consume']);
+            Route::post('/produce', [\App\Http\Controllers\Brokers\RabbitMQController::class, 'produce']);
+        });
     });
 
     /**
