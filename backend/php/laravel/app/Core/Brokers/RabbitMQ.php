@@ -48,7 +48,7 @@ class RabbitMQ implements BrokerInterface
         string $password,
     ) {
         $this->host = $host;
-        $this->port = $port;
+        $this->port = (int) $port;
         $this->user = $user;
         $this->password = $password;
 

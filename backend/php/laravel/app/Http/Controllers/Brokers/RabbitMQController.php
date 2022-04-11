@@ -38,8 +38,9 @@ class RabbitMQController extends Controller
             config('queue.connections.rabbitmq.host'),
             config('queue.connections.rabbitmq.port'),
             config('queue.connections.rabbitmq.user'),
-            config('queue.connections.rabbitmq.password')
+            config('queue.connections.rabbitmq.pass')
         );
+
 
         $this->rabbitMQClient->bind(
             'architect-exchange',
