@@ -8,9 +8,9 @@ Set your environment variables
 
 ```bash
 DB_CONNECTION=mysql
-DB_HOST=sabickend_database
+DB_HOST=architect_database
 DB_PORT=3306
-DB_DATABASE=sabickend
+DB_DATABASE=architect
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
@@ -34,9 +34,9 @@ Set your environment variables
 
 ```env
 DB_CONNECTION=mysql
-DB_HOST=sabickend_database
+DB_HOST=architect_database
 DB_PORT=3306
-DB_DATABASE=sabickend_test
+DB_DATABASE=architect_test
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
