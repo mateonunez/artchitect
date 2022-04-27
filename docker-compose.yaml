@@ -21,6 +21,7 @@ services:
   # Watchful service
   architect_backend_javascript_watchful:
     container_name: architect_backend_javascript_watchful
+    restart: always
     build:
       context: ./backend/javascript/watchful
       dockerfile: ./.docker/Dockerfile
