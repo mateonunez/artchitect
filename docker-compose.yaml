@@ -34,6 +34,21 @@ services:
     networks:
       - architect_network
 
+  # Balancer service Rust
+  architect_backend_rust_balancer:
+    container_name: architect_backend_rust_balancer
+    build:
+      context: ./backend/rust/balancer
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/backend/rust/balancer
+    ports:
+      - 5000:5000
+    volumes:
+      # - /usr/src/architect/backend/rust/balancer/target
+      - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
+    networks:
+      - architect_network
+
   # MySQL Service
   architect_database_mysql:
     container_name: architect_database_mysql
