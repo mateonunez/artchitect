@@ -91,7 +91,11 @@ class RabbitMQ implements BrokerInterface
      */
     public function produce(string $message)
     {
-        $message = new AMQPMessage($message);
+        $decoded = json_decode($message, true);
+
+        $decoded['timestamp'] = time();
+
+        $message = new AMQPMessage(json_encode($decoded));
 
         $this->channel->basic_publish($message, $this->exchange, $this->routingKey);
 
