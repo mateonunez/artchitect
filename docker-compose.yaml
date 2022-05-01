@@ -44,8 +44,22 @@ services:
     ports:
       - 5000:5000
     volumes:
-      # - /usr/src/architect/backend/rust/balancer/target
       - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
+    networks:
+      - architect_network
+
+  # Balancer service Javascript
+  architect_backend_javascript_balancer:
+    container_name: architect_backend_javascript_balancer
+    build:
+      context: ./backend/javascript/balancer
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/backend/javascript/balancer
+    ports:
+      - 5010:5010
+    volumes:
+      - /usr/src/architect/backend/javascript/balancer/node_modules
+      - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
     networks:
       - architect_network
 
