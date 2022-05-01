@@ -4,11 +4,10 @@ const dotenv = require('dotenv');
 const app = express();
 dotenv.config();
 
-const HOST = process.env.HOST || '127.0.0.1';
-const PORT = process.env.PORT || 5010;
+const { BALANCER_HOST, BALANCER_PORT } = process.env;
 
 app.get('/', (req, res) => {
-  res.send(`Hello guest, I'm a Balancer running on the port: ${port}!`);
+  res.send(`Hello guest, I'm a Balancer running on the port: ${BALANCER_PORT}!`);
 });
 
 app.use((req, res, next) => {
@@ -16,6 +15,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`Starting Balancer at ${PROXY_HOST}:${PROXY_PORT}`);
+app.listen(BALANCER_PORT, BALANCER_HOST, () => {
+  console.log(`Starting Balancer at ${BALANCER_HOST}:${BALANCER_PORT}`);
 });
