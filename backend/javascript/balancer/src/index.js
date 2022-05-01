@@ -8,11 +8,7 @@ const { BALANCER_HOST, BALANCER_PORT } = process.env;
 
 app.get('/', (req, res) => {
   res.send(`Hello guest, I'm a Balancer running on the port: ${BALANCER_PORT}!`);
-});
-
-app.use((req, res, next) => {
-  console.log('Time: ', Date.now());
-  next();
+  console.log('Welcome to the JS Balancer. Time: ' + Date.now());
 });
 
 app.listen(BALANCER_PORT, BALANCER_HOST, () => {
