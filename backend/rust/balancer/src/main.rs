@@ -12,7 +12,7 @@ async fn main() -> std::io::Result<()> {
     App::new()
         .route("/", web::get().to(say_hi))
   })
-  .bind(("127.0.0.1", 5000))?
+  .bind(("architect_backend_rust_balancer", 5000))?
   .run()
   .await
 }
