@@ -1,21 +1,25 @@
-use actix_web::{web, App, HttpRequest, HttpServer, Responder};
-use log::info;
-use log::Level;
+extern crate actix_web;
+
+use actix_web::{web, App, HttpServer, Responder};
+use log::{debug, info};
+use std::{env, io};
 
 const PORT: i32 = 5000;
 
 async fn say_hi() -> impl Responder {
-  format!("Hello guest, I'm a Balancer running on the port: {}!", PORT)
+  let message: String = format!("Hello guest, I'm a Balancer running on the port: {}!", PORT);
+  debug!("{}", message);
+
+  message
 }
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-  console_log::init_with_level(Level::Debug);
-
-  info!("Welcome to the Rust Balancer.");
+#[actix_rt::main]
+async fn main() -> io::Result<()> {
+  env::set_var("RUST_LOG", "debug");
+  env_logger::init();
 
   HttpServer::new(|| App::new().route("/", web::get().to(say_hi)))
-    .bind(("architect_backend_rust_balancer", 5000))?
+    .bind(("127.0.0.1", 5000))?
     .run()
     .await
 }
