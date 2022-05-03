@@ -42,8 +42,9 @@ services:
       dockerfile: ./.docker/Dockerfile
     working_dir: /usr/src/architect/backend/rust/balancer
     ports:
-      - 5000:5000
+      - 5500:5500
     volumes:
+      - /usr/src/architect/backend/rust/balancer/target
       - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
     networks:
       - architect_network

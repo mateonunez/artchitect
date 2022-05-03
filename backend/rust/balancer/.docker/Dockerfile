@@ -1,11 +1,23 @@
 FROM rust:1.59
 
+WORKDIR /usr/src/architect/backend/rust
+
+# Creates new project
+RUN USER=root cargo new balancer
+
+COPY Cargo.* /usr/src/architect/backend/rust/balancer
+
 WORKDIR /usr/src/architect/backend/rust/balancer
 
-COPY ./ ./
+RUN cargo build --release
 
-RUN cargo install --path .
+COPY src /usr/src/architect/backend/rust/balancer/src/
 
-EXPOSE 5000
+RUN cargo build --release \
+  && mv target/release/balancer-rust /bin 
 
-CMD ["balancer-rust"]
+WORKDIR /
+
+EXPOSE 5500
+
+CMD ["/bin/balancer-rust"]

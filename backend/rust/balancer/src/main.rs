@@ -4,7 +4,7 @@ use actix_web::{web, App, HttpServer, Responder};
 use log::{debug, info};
 use std::{env, io};
 
-const PORT: i32 = 5000;
+const PORT: i32 = 5500;
 
 async fn say_hi() -> impl Responder {
   let message: String = format!("Hello guest, I'm a Balancer running on the port: {}!", PORT);
@@ -19,7 +19,7 @@ async fn main() -> io::Result<()> {
   env_logger::init();
 
   HttpServer::new(|| App::new().route("/", web::get().to(say_hi)))
-    .bind(("127.0.0.1", 5000))?
+    .bind(("architect_backend_rust_balancer", 5500))?
     .run()
     .await
 }
