@@ -1,7 +1,7 @@
 FROM nginx:latest
 
 ENV NGINX_ROOT /usr/src/architect/backend/php/laravel/public
-ENV NGINX_FPM_HOST localhost
+ENV NGINX_FPM_HOST architect_backend_php_laravel
 ENV NGINX_FPM_PORT 9000
 
 RUN rm -f /etc/nginx/conf.d/default.conf
