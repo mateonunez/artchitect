@@ -75,3 +75,38 @@ After the installation you must run the following commands:
 ```bash
 docker-compose exec architect_backend_javascript_watchful npm run install
 ```
+
+## Backend Javascript Balancer
+
+This simple backend is used just for activate a balancing strategy
+
+### Set up
+
+Set your environment variables
+
+```bash
+BALANCER_HOST=architect_backend_javascript_balancer
+BALANCER_PORT=5010
+```
+
+Then run the `docker-compose` commands
+
+```bash
+docker-compose build && docker-compose up -d
+```
+
+After the installation you must run the following commands:
+
+```bash
+docker-compose exec architect_backend_javascript_balancer npm run install
+```
+
+## Backend Rust Balancer
+
+This simple backend is used just for activate a balancing strategy
+
+Run the `docker-compose` commands
+
+```bash
+docker-compose build && docker-compose up -d
+```
