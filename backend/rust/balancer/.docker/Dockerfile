@@ -18,6 +18,4 @@ RUN cargo build --release \
 
 WORKDIR /
 
-EXPOSE 5500
-
 CMD ["/bin/balancer-rust"]

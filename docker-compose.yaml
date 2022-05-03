@@ -41,8 +41,8 @@ services:
       context: ./backend/rust/balancer
       dockerfile: ./.docker/Dockerfile
     working_dir: /usr/src/architect/backend/rust/balancer
-    ports:
-      - 5500:5500
+    expose:
+      - 5500
     volumes:
       - /usr/src/architect/backend/rust/balancer/target
       - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
@@ -56,8 +56,8 @@ services:
       context: ./backend/javascript/balancer
       dockerfile: ./.docker/Dockerfile
     working_dir: /usr/src/architect/backend/javascript/balancer
-    ports:
-      - 5010:5010
+    expose:
+      - 5010
     volumes:
       - /usr/src/architect/backend/javascript/balancer/node_modules
       - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
@@ -113,13 +113,23 @@ services:
     depends_on:
       - architect_backend_php_laravel
     environment:
-      - NGINX_FPM_HOST=architect_backend_php_laravel
+      - NGINX_FPM_HOSTNGINX_FPM_HOST=architect_backend_php_laravel
       - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
     networks:
       - architect_network
 
   # Nginx Balancer Service
-
+  architect_nginx_balancer:
+    container_name: architect_nginx_balancer
+    build:
+      context: ./nginx/balancer
+      dockerfile: ./Dockerfile
+    environment:
+      - NGINX_FPM_HOST=architect_nginx_balancer
+    ports:
+      - 8080:80
+    networks:
+      - architect_network
 
   # RabbitMQ Service
   architect_rabbitmq:
