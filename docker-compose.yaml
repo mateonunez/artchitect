@@ -34,6 +34,36 @@ services:
     networks:
       - architect_network
 
+  # Balancer service Rust
+  architect_backend_rust_balancer:
+    container_name: architect_backend_rust_balancer
+    build:
+      context: ./backend/rust/balancer
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/backend/rust/balancer
+    expose:
+      - 5500
+    volumes:
+      - /usr/src/architect/backend/rust/balancer/target
+      - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
+    networks:
+      - architect_network
+
+  # Balancer service Javascript
+  architect_backend_javascript_balancer:
+    container_name: architect_backend_javascript_balancer
+    build:
+      context: ./backend/javascript/balancer
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/backend/javascript/balancer
+    expose:
+      - 5010
+    volumes:
+      - /usr/src/architect/backend/javascript/balancer/node_modules
+      - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
+    networks:
+      - architect_network
+
   # MySQL Service
   architect_database_mysql:
     container_name: architect_database_mysql
@@ -70,11 +100,11 @@ services:
     networks:
       - architect_network
 
-  # Nginx Service
-  architect_nginx:
-    container_name: architect_nginx
+  # Nginx Laravel Service
+  architect_nginx_laravel:
+    container_name: architect_nginx_laravel
     build:
-      context: ./nginx
+      context: ./nginx/laravel
       dockerfile: ./Dockerfile
     ports:
       - 8000:80
@@ -83,8 +113,21 @@ services:
     depends_on:
       - architect_backend_php_laravel
     environment:
-      - NGINX_FPM_HOST=architect_backend_php_laravel
+      - NGINX_FPM_HOSTNGINX_FPM_HOST=architect_backend_php_laravel
       - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+    networks:
+      - architect_network
+
+  # Nginx Balancer Service
+  architect_nginx_balancer:
+    container_name: architect_nginx_balancer
+    build:
+      context: ./nginx/balancer
+      dockerfile: ./Dockerfile
+    environment:
+      - NGINX_FPM_HOST=architect_nginx_balancer
+    ports:
+      - 8080:80
     networks:
       - architect_network
 
