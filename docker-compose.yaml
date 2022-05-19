@@ -161,6 +161,7 @@ services:
     ports:
       - 3030:3000
     volumes:
+      - /usr/src/architect/frontend/react/authentication/node_modules
       - ./frontend/react/authentication:/usr/src/architect/frontend/react/authentication
     depends_on:
       - architect_rabbitmq

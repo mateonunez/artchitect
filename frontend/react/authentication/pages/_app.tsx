@@ -1,8 +1,16 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { Head } from 'components/common';
+import type { AppProps } from 'next/app';
+import React from 'react';
+import 'styles/global.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <React.StrictMode>
+        <Head />
+
+        <Component {...pageProps} />
+      </React.StrictMode>
+    </>
+  );
 }
-
-export default MyApp
