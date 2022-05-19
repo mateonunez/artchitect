@@ -147,6 +147,25 @@ services:
     networks:
       - architect_network
 
+  # User Authentication
+  architect_frontend_authentication:
+    container_name: architect_frontend_authentication
+    build:
+      context: ./frontend/react/authentication
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/frontend/react/authentication
+    restart: always
+    ports:
+      - 3030:3000
+    volumes:
+      - ./frontend/react/authentication:/usr/src/architect/frontend/react/authentication
+    depends_on:
+      - architect_rabbitmq
+    env_file:
+      - ./frontend/react/authentication/.env.local
+    networks:
+      - architect_network
+
 # Docker Network
 networks:
   architect_network:
