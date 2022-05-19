@@ -27,6 +27,18 @@
   --green: #50e3c2;
   --bright-green: #3afacf;
   --gray: #999;
+
+  --accent-9: #111827;
+  --accent-8: #1f2937;
+  --accent-7: #374151;
+  --accent-6: #4b5563;
+  --accent-5: #6b7280;
+  --accent-4: #9ca3af;
+  --accent-3: #d1d5db;
+  --accent-2: #e5e7eb;
+  --accent-1: #ffffff;
+  --accent-0: #f9fafb;
+
   --font-sans: 'Inter', sans-serif;
   --font-mono: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
@@ -66,19 +78,6 @@ button {
 ::selection {
   background-color: var(--amber);
   color: var(--fg);
-}
-
-.container {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.title {
-  @apply text-transparent text-7xl bg-clip-text font-incompleeta leading-none font-extrabold;
-  @apply bg-gradient-to-r from-amber-500 to-blue-500 via-rose-500 animate-gradient-xy;
-  margin: 0 auto 0 auto;
-  line-height: 1.5;
 }
 
 .subtitle {
