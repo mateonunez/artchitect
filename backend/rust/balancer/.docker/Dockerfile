@@ -16,6 +16,4 @@ COPY src /usr/src/architect/backend/rust/balancer/src/
 RUN cargo build --release \
   && mv target/release/balancer-rust /bin 
 
-WORKDIR /
-
 CMD ["/bin/balancer-rust"]

@@ -128,6 +128,9 @@ services:
       - NGINX_FPM_HOST=architect_nginx_balancer
     ports:
       - 8080:80
+    depends_on:
+      - architect_backend_javascript_balancer
+      - architect_backend_rust_balancer
     networks:
       - architect_network
 
