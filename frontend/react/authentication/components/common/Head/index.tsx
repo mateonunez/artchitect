@@ -1,6 +1,6 @@
 import NextHead from 'next/head';
 
-import seo from 'core/config/seo.json';
+import seo from 'lib/config/seo.json';
 import { DefaultSeo } from 'next-seo';
 
 export default function Head() {
