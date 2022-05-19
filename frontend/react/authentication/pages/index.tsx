@@ -1,6 +1,25 @@
-import type { NextPage } from 'next';
+import { resolveUser } from 'lib/user';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 
-const Home: NextPage = () => {
+export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+  const { isAuthenticated } = await resolveUser(req).catch(() => ({
+    isAuthenticated: false
+  }));
+
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/auth/login'
+      }
+    };
+  }
+
+  return {
+    props: {}
+  };
+}
+
+const HomePage: NextPage = () => {
   return (
     <>
       <div className="title">Hello World</div>
@@ -8,4 +27,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default HomePage;
