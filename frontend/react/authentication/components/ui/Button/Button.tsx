@@ -69,10 +69,6 @@ const Button: FC<Props> = forwardRef(
 
     const Component: any | ComponentType<HTMLAttributes<HTMLButtonElement>> = element as any;
 
-    useEffect(() => {
-      console.log(disabled, loading);
-    }, [disabled, loading]);
-
     return (
       <>
         <Component
