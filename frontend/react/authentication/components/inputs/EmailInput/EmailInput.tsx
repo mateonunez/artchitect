@@ -3,7 +3,7 @@ import s from './EmailInput.module.css';
 import cn from 'classnames';
 
 import { MailIcon } from 'components/icons';
-import { FC, forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { FC, forwardRef, Ref, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { Input } from '../../ui/Input';
 import { Text } from '../../ui/Text';
 
@@ -11,11 +11,11 @@ const EmailInput = (props: any, ref: Ref<any>) => {
   const [email, setEmail] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
 
-  const validate = () => {
+  const validate = useCallback(() => {
     setIsValidEmail(
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length > 0 && email.length < 255
     );
-  };
+  }, [email]);
 
   const handleEmailInput = (e: any) => {
     setEmail(e.target.value);
@@ -23,7 +23,8 @@ const EmailInput = (props: any, ref: Ref<any>) => {
   };
 
   useImperativeHandle(ref, () => ({
-    value: email
+    value: email,
+    valid: isValidEmail
   }));
 
   return (

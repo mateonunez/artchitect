@@ -11,6 +11,7 @@ import {
   forwardRef,
   HTMLAttributes,
   JSXElementConstructor,
+  useEffect,
   useRef
 } from 'react';
 
@@ -68,6 +69,10 @@ const Button: FC<Props> = forwardRef(
 
     const Component: any | ComponentType<HTMLAttributes<HTMLButtonElement>> = element as any;
 
+    useEffect(() => {
+      console.log(disabled, loading);
+    }, [disabled, loading]);
+
     return (
       <>
         <Component
@@ -81,7 +86,7 @@ const Button: FC<Props> = forwardRef(
             ...style
           }}
           {...rest}>
-          {children}
+          {!loading && children}
 
           {loading && (
             <i className={s.loading}>

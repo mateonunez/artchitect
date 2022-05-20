@@ -3,7 +3,7 @@ import s from './PasswordInput.module.css';
 import cn from 'classnames';
 
 import { LockClosedIcon } from 'components/icons';
-import { FC, useImperativeHandle, useState, forwardRef, Ref } from 'react';
+import { FC, useImperativeHandle, useState, forwardRef, Ref, useCallback } from 'react';
 import { Input } from '../../ui/Input';
 import { Text } from '../../ui/Text';
 
@@ -11,9 +11,9 @@ const PasswordInput = (props: any, ref: Ref<any>) => {
   const [password, setPassword] = useState<string>('');
   const [isValidPassword, setIsValidPassword] = useState(false);
 
-  const validate = () => {
-    setIsValidPassword(password.length >= 8);
-  };
+  const validate = useCallback(() => {
+    setIsValidPassword(password.length >= 3);
+  }, [password]);
 
   const handlePasswordInput = (e: any) => {
     setPassword(e.target.value);
@@ -21,7 +21,8 @@ const PasswordInput = (props: any, ref: Ref<any>) => {
   };
 
   useImperativeHandle(ref, () => ({
-    value: password
+    value: password,
+    valid: isValidPassword
   }));
 
   return (
