@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { FC, InputHTMLAttributes } from 'react';
+import { FC, forwardRef, InputHTMLAttributes, Ref } from 'react';
 import s from './Input.module.css';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,12 +8,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
 }
 
-const Input: FC<Props> = ({ className, onChange, fullWidth, ...rest }) => {
+const Input = ({ className, onChange, fullWidth, ...rest }: Props, ref: Ref<any>) => {
   const classNames = cn(className || s.root);
 
   const handleOnChange = (e: any) => {
     if (onChange) {
-      onChange(e.target.value);
+      onChange(e);
     }
 
     return null;
@@ -34,4 +34,4 @@ const Input: FC<Props> = ({ className, onChange, fullWidth, ...rest }) => {
   );
 };
 
-export default Input;
+export default forwardRef(Input);

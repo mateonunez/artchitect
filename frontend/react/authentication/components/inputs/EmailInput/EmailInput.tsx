@@ -3,26 +3,45 @@ import s from './EmailInput.module.css';
 import cn from 'classnames';
 
 import { MailIcon } from 'components/icons';
-import { FC, useState } from 'react';
+import { FC, forwardRef, Ref, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Input } from '../../ui/Input';
 import { Text } from '../../ui/Text';
 
-const EmailInput: FC<any> = props => {
-  const [isValidEmail, setIsValidEmail] = useState(false);
+const EmailInput = (props: any, ref: Ref<any>) => {
+  const [email, setEmail] = useState<string>('');
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+
+  const validate = () => {
+    setIsValidEmail(
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length > 0 && email.length < 255
+    );
+  };
+
+  const handleEmailInput = (e: any) => {
+    setEmail(e.target.value);
+    validate();
+  };
+
+  useImperativeHandle(ref, () => ({
+    value: email
+  }));
 
   return (
     <>
-      <div className={s.root} {...props}>
+      <div className={s.root}>
         <Text className={s.label} clean>
           Email
         </Text>
 
         <Input
           className={cn(s.input, {
-            [s.invalid]: !isValidEmail
+            [s.invalid]: email.length > 0 && !isValidEmail
           })}
+          onChange={handleEmailInput}
+          ref={ref}
           type="email"
           name="email"
+          {...props}
         />
 
         <MailIcon className={s.icon} />
@@ -31,4 +50,4 @@ const EmailInput: FC<any> = props => {
   );
 };
 
-export default EmailInput;
+export default forwardRef(EmailInput);
