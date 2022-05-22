@@ -110,3 +110,13 @@ Run the `docker-compose` commands
 ```bash
 docker-compose build && docker-compose up -d
 ```
+
+## Frontend Next.js Authentication
+
+This simple frontend allows you consume the Auth APIs
+
+Run the `docker-compose` commands
+
+```bash
+docker-compose build && docker-compose up -d
+```
