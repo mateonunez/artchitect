@@ -1,12 +1,13 @@
 import s from './LoginForm.module.css';
 
-import { FC, SyntheticEvent, useRef, useState } from 'react';
+import { FC, SyntheticEvent, useContext, useRef, useState } from 'react';
 
 import { EmailInput } from 'components/inputs/EmailInput';
 import { PasswordInput } from 'components/inputs/PasswordInput';
 import { Button } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
 import { useAuth } from 'lib/hooks/auth';
+import { AuthContext } from 'lib/contexts';
 
 interface Props {
   className?: string;
@@ -14,10 +15,12 @@ interface Props {
 }
 
 const LoginForm: FC<Props> = ({}) => {
-  const auth = useAuth();
+  const { user, doLogin } = useContext(AuthContext);
 
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [error, setError] = useState<string>('');
 
   const emailInputRef = useRef<any>(null);
   const passwordInputRef = useRef<any>(null);
@@ -36,9 +39,11 @@ const LoginForm: FC<Props> = ({}) => {
       setLoading(true);
       setDisabled(true);
 
-      await auth.doLogin({ email: emailInput.value, password: passwordInput.value });
+      await doLogin({ email: emailInput.value, password: passwordInput.value });
     } catch (e: any) {
-      console.error(e.message);
+      const { message } = JSON.parse(e.message);
+
+      setError(message);
     } finally {
       setLoading(false);
       setDisabled(false);
@@ -67,6 +72,10 @@ const LoginForm: FC<Props> = ({}) => {
             </Button>
           </div>
         </form>
+
+        {/* TODO handle this */ user && <p className="text-green-500">{JSON.stringify(user)}</p>}
+
+        {/* TODO handle this */ error && <p className="text-red-500">{error}</p>}
       </Container>
     </>
   );
