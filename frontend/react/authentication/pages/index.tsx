@@ -1,12 +1,12 @@
-import { resolveUser } from 'lib/user';
 import type { GetServerSidePropsContext, NextPage } from 'next';
+import cookie from 'cookie';
+import { useContext } from 'react';
+import { AuthContext } from 'lib/contexts';
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const { isAuthenticated } = await resolveUser(req).catch(() => ({
-    isAuthenticated: false
-  }));
+  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie);
 
-  if (!isAuthenticated) {
+  if (!token) {
     return {
       redirect: {
         destination: '/auth/login'
@@ -14,15 +14,21 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
     };
   }
 
+  // TODO resolve user via server-side
+
   return {
     props: {}
   };
 }
 
 const HomePage: NextPage = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <>
-      <div className="title">Hello World</div>
+      <div className="title">
+        Hello User: {user.name} [{user.email}]
+      </div>
     </>
   );
 };

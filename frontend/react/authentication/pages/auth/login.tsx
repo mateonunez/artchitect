@@ -1,13 +1,13 @@
 import { LoginView } from 'components/views/auth';
-import { resolveUser } from 'lib/user';
+import cookie from 'cookie';
 import { GetServerSidePropsContext, NextPage } from 'next';
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const { isAuthenticated } = await resolveUser(req).catch(() => ({
-    isAuthenticated: false
-  }));
+  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie);
 
-  if (isAuthenticated) {
+  console.log(token);
+
+  if (token) {
     return {
       redirect: {
         destination: '/'

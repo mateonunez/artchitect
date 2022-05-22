@@ -1,3 +1,4 @@
+import { resolveUser } from 'lib/user';
 import { User } from 'lib/user/types';
 import { LoginReponse } from 'pages/api/auth/login'; // TODO move to reusable type
 import { MeResponse } from 'pages/api/users/me';
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    getUser().then((user: MeResponse) => {
+    resolveUser().then((user: MeResponse) => {
       user.data && setUser(user.data);
     });
   }, []);
@@ -54,34 +55,9 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
       throw new Error(JSON.stringify(data));
     }
 
-    const user = await getUser();
+    const user = await resolveUser();
 
     user.data && setUser(user.data);
-
-    return data;
-  };
-
-  /**
-   * Get User
-   */
-  const getUser = async () => {
-    setLoading(true);
-
-    const response = await fetch('/api/users/me', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    const data: MeResponse = await response.json();
-
-    setLoading(false);
-
-    if (!response.ok) {
-      setError(data.message);
-      throw new Error(JSON.stringify(data));
-    }
 
     return data;
   };
