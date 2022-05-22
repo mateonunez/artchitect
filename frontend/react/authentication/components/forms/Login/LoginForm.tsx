@@ -1,11 +1,12 @@
 import s from './LoginForm.module.css';
 
-import { FC, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, SyntheticEvent, useRef, useState } from 'react';
 
 import { EmailInput } from 'components/inputs/EmailInput';
 import { PasswordInput } from 'components/inputs/PasswordInput';
 import { Button } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
+import { useAuth } from 'lib/hooks/auth';
 
 interface Props {
   className?: string;
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const LoginForm: FC<Props> = ({}) => {
+  const auth = useAuth();
+
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -33,9 +36,9 @@ const LoginForm: FC<Props> = ({}) => {
       setLoading(true);
       setDisabled(true);
 
-      return await new Promise(resolve => setTimeout(resolve, 1000));
+      await auth.doLogin({ email: emailInput.value, password: passwordInput.value });
     } catch (e: any) {
-      console.error(e);
+      console.error(e.message);
     } finally {
       setLoading(false);
       setDisabled(false);
