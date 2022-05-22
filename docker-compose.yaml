@@ -128,6 +128,9 @@ services:
       - NGINX_FPM_HOST=architect_nginx_balancer
     ports:
       - 8080:80
+    depends_on:
+      - architect_backend_javascript_balancer
+      - architect_backend_rust_balancer
     networks:
       - architect_network
 
@@ -144,6 +147,26 @@ services:
       - 5672:5672
       # UI Management port
       - 15672:15672
+    networks:
+      - architect_network
+
+  # User Authentication
+  architect_frontend_authentication:
+    container_name: architect_frontend_authentication
+    build:
+      context: ./frontend/react/authentication
+      dockerfile: ./.docker/Dockerfile
+    working_dir: /usr/src/architect/frontend/react/authentication
+    restart: always
+    ports:
+      - 3030:3000
+    volumes:
+      - /usr/src/architect/frontend/react/authentication/node_modules
+      - ./frontend/react/authentication:/usr/src/architect/frontend/react/authentication
+    depends_on:
+      - architect_rabbitmq
+    env_file:
+      - ./frontend/react/authentication/.env.local
     networks:
       - architect_network
 

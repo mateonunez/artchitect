@@ -1,7 +1,7 @@
 extern crate actix_web;
 
 use actix_web::{web, App, HttpServer, Responder};
-use log::{debug, info};
+use log::{debug};
 use std::{env, io};
 
 const PORT: i32 = 5500;

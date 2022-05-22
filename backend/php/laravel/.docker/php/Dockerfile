@@ -28,6 +28,7 @@ RUN apt-get update \
     pdo_pgsql \
     pgsql \
     pcntl \
+    sockets \
     zip \
     && docker-php-ext-enable redis \
     && rm -rf /var/lib/apt/lists/*;

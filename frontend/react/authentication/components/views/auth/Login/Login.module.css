@@ -1,0 +1,17 @@
+.root {
+  margin: auto;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
