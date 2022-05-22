@@ -6,7 +6,6 @@ import { EmailInput } from 'components/inputs/EmailInput';
 import { PasswordInput } from 'components/inputs/PasswordInput';
 import { Button } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
-import { useAuth } from 'lib/hooks/auth';
 import { AuthContext } from 'lib/contexts';
 
 interface Props {

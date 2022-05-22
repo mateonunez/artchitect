@@ -7,6 +7,7 @@ import {
   PropsWithChildren,
   ReactElement,
   ReactNode,
+  useEffect,
   useState
 } from 'react';
 
@@ -24,6 +25,12 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
   const [user, setUser] = useState<User>({} as User);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    getUser().then((user: MeResponse) => {
+      user.data && setUser(user.data);
+    });
+  }, []);
 
   /**
    * Login Action
@@ -48,7 +55,6 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
     }
 
     const user = await getUser();
-    console.log(user);
 
     user.data && setUser(user.data);
 
