@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLoggedIn;
 use App\Lib\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +30,6 @@ class AuthController extends Controller
             ]);
 
             if ($validator->fails()) {
-                // TODO Add log
-                // Log::error(Message::AUTH_KO, __METHOD__, new $this, $request, null, json_encode($validator->errors()->toArray()));
-
                 return $this->sendError(
                     Message::REGISTER_KO,
                     $validator->errors()->toArray(),
@@ -45,14 +43,8 @@ class AuthController extends Controller
 
             $token = $user->createToken(config('app.name'))->accessToken;
 
-            // TODO Add log
-            // Log::info(Message::AUTH_OK, __METHOD__, $user, $request);
-
             return $this->sendResponse(['token' => $token], Message::REGISTER_OK, 201);
         } catch (\Exception $ex) {
-            // TODO Add log
-            // Log::error(Message::AUTH_KO, __METHOD__, new $this, $request, $ex);
-
             return $this->sendError(Message::REGISTER_KO, [$ex->getMessage()], 400);
         }
     }
@@ -75,13 +67,8 @@ class AuthController extends Controller
             ]);
 
             if ($validator->fails()) {
-                // TODO Add log
-                // Log::error(Message::AUTH_KO, __METHOD__, new $this, $request, null, json_encode($validator->errors()->toArray()));
-
                 return $this->sendError(Message::AUTH_KO, $validator->errors()->toArray(), 400);
             }
-
-            // dd($data);
 
             if (Auth::attempt([
                 'email' => $data['email'],
@@ -92,17 +79,14 @@ class AuthController extends Controller
 
                 $token = $user->createToken(config('app.name'))->accessToken;
 
-                // TODO Add log
-                // Log::info(Message::AUTH_OK, __METHOD__, $user, $request);
+                // Dispatching UserLoggedIn event
+                UserLoggedIn::dispatch($user);
 
                 return $this->sendResponse(['token' => $token], Message::AUTH_OK);
             } else {
                 return $this->sendError(Message::CREDENTIALS_KO);
             }
         } catch (\Exception $ex) {
-            // TODO Add log
-            // Log::error(Message::AUTH_KO, __METHOD__, new $this, $request, $ex);
-
             return $this->sendError(Message::AUTH_KO,  [$ex->getMessage()], 400);
         }
     }
