@@ -12,7 +12,7 @@ export default function Login() {
           {/* Login message */}
           <Container>
             <Title className={s.title}>Login</Title>
-            <Text>Welcome Back!</Text>
+            <Text>Hello Dear Architect! Welcome back.</Text>
           </Container>
 
           {/* Login form */}

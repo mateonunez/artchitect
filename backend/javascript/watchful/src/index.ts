@@ -1,7 +1,7 @@
 import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 import dotenv from 'dotenv';
-
 import reducer, { RouterProps } from './router/reducer';
+
 
 export const connect = async (): Promise<Connection> => {
   dotenv.config();
@@ -11,7 +11,7 @@ export const connect = async (): Promise<Connection> => {
   const user: string = process.env.RABBITMQ_USER || 'architect';
   const pass: string = process.env.RABBITMQ_PASS || 'architect';
 
-  console.log(`[watchful ⚡️] Connecting to the broker ${host}:${port}`);
+  console.log(`[watchful ⚡️] Hi Architect, I'm connecting to the broker ${host}:${port}`);
 
   const connection: Connection = await client
     .connect(`amqp://${user}:${pass}@${host}:${port}`)
