@@ -10,6 +10,8 @@ const handler = async (args: RouterProps): Promise<void> => {
 
   console.log(`[ yellow router 🟨 ] Received event ${userLoggedInEvent.event}`);
 
+  channel.ack(message);
+
   return new Promise(resolve => resolve());
 };
 
