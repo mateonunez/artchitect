@@ -87,6 +87,7 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'password' => $data['password']
             ])) {
+                /** @var \App\Models\User $user **/
                 $user = Auth::user();
 
                 $token = $user->createToken(config('app.name'))->accessToken;
