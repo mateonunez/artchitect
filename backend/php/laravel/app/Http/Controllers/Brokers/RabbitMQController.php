@@ -34,13 +34,7 @@ class RabbitMQController extends Controller
      */
     public function __construct()
     {
-        $this->rabbitMQClient = new RabbitMQ(
-            config('queue.connections.rabbitmq.host'),
-            config('queue.connections.rabbitmq.port'),
-            config('queue.connections.rabbitmq.user'),
-            config('queue.connections.rabbitmq.pass')
-        );
-
+        $this->rabbitMQClient = new RabbitMQ(default: true);
 
         $this->rabbitMQClient->bind(
             'architect-exchange',
@@ -70,11 +64,15 @@ class RabbitMQController extends Controller
             );
         }
 
-        $message = $this->rabbitMQClient->produce($request->get('message'));
+        $data = [
+            'message' => $request->get('message')
+        ];
+
+        $message = $this->rabbitMQClient->produce(json_encode($data));
 
         return $this->sendResponse(
             data: [
-                'message' => json_encode($message)
+                'message' => $message
             ],
             message: 'Message sent to RabbitMQ'
         );
