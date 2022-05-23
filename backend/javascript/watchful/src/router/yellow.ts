@@ -6,6 +6,8 @@ const handler = async (args: RouterProps): Promise<void> => {
 
   const { channel, message } = broker;
 
+  console.table(message.properties.headers);
+
   const userLoggedInEvent: UserLoggedIn = JSON.parse(message.content.toString());
 
   console.log(`[ yellow router 🟨 ] Received event ${userLoggedInEvent.event}`);

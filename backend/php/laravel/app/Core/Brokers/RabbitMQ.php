@@ -6,6 +6,8 @@ use App\Interfaces\BrokerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Wire\AMQPTable;
+use stdClass;
 
 class RabbitMQ implements BrokerInterface
 {
@@ -103,7 +105,15 @@ class RabbitMQ implements BrokerInterface
 
         $decoded['timestamp'] = time();
 
-        $message = new AMQPMessage(json_encode($decoded));
+        $headers = new AMQPTable([
+            'x-version' => '1.0.0',
+            'x-producer' => config('app.name'),
+        ]);
+
+        $message = new AMQPMessage(body: json_encode($decoded), properties: [
+            'content_type' => 'application/json',
+            'application_headers' => $headers,
+        ]);
 
         $this->channel->basic_publish($message, $this->exchange, $this->routingKey);
 
