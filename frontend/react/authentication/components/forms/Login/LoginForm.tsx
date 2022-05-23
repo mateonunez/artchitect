@@ -1,12 +1,13 @@
 import s from './LoginForm.module.css';
 
-import { FC, SyntheticEvent, useContext, useRef, useState } from 'react';
+import { FC, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react';
 
 import { EmailInput } from 'components/inputs/EmailInput';
 import { PasswordInput } from 'components/inputs/PasswordInput';
 import { Button } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
 import { AuthContext } from 'lib/contexts';
+import { useRouter } from 'next/router';
 
 interface Props {
   className?: string;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const LoginForm: FC<Props> = ({}) => {
+  const router = useRouter();
   const { user, doLogin } = useContext(AuthContext);
 
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -49,15 +51,21 @@ const LoginForm: FC<Props> = ({}) => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      router.push('/', undefined, { shallow: true });
+    }
+  }, [user]);
+
   return (
     <>
       <Container>
         <form className={s.root} onSubmit={handleLogin}>
           {/* Email input */}
-          <EmailInput ref={emailInputRef} />
+          <EmailInput ref={emailInputRef} placeholder="god@architect.com" />
 
           {/* Password */}
-          <PasswordInput ref={passwordInputRef} />
+          <PasswordInput ref={passwordInputRef} placeholder="architect" />
 
           {/* Submit */}
           <div className="flex mx-auto flex-column">

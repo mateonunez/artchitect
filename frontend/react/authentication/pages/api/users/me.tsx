@@ -1,12 +1,24 @@
+import cookie from 'cookie';
 import { User } from 'lib/user/types';
 import { NextApiRequest, NextApiResponse } from 'next';
-import cookie from 'cookie';
 
 export type MeResponse = {
   success: boolean;
-  data?: User;
+  data?: User | {};
   message: string;
 };
+
+export async function getMe(token: string): Promise<Response> {
+  const response = await fetch('http://architect_nginx_laravel/api/users/me', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return response;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<MeResponse>) {
   if (req.method !== 'GET') {
@@ -19,15 +31,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return;
   }
 
-  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie);
+  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie || '');
 
-  const response = await fetch('http://architect_nginx_laravel/api/users/me', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  });
+  const response = await getMe(token);
 
   const data: MeResponse = await response.json();
 

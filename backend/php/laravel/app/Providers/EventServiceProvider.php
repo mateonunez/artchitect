@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Travel;
+use App\Events\UserLoggedIn;
+use App\Listeners\SendUserLoggedInToBroker;
 use App\Models\User;
-use App\Observers\TravelObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -19,9 +17,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
+        UserLoggedIn::class => [
+            SendUserLoggedInToBroker::class,
+        ]
     ];
 
     /**

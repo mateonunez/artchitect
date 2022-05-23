@@ -42,15 +42,23 @@ class RabbitMQ implements BrokerInterface
      * @return void
      */
     public function __construct(
-        string $host,
-        int $port,
-        string $user,
-        string $password,
+        bool $default,
+        string $host = null,
+        int $port = null,
+        string $user = null,
+        string $password = null,
     ) {
-        $this->host = $host;
-        $this->port = (int) $port;
-        $this->user = $user;
-        $this->password = $password;
+        if ($default) {
+            $this->host = config('queue.connections.rabbitmq.host');
+            $this->port = config('queue.connections.rabbitmq.port');
+            $this->user = config('queue.connections.rabbitmq.user');
+            $this->password = config('queue.connections.rabbitmq.pass');
+        } else {
+            $this->host = $host;
+            $this->port = (int) $port;
+            $this->user = $user;
+            $this->password = $password;
+        }
 
         $this->connection = new AMQPStreamConnection(
             $this->host,
