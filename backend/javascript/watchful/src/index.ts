@@ -58,7 +58,6 @@ export const consumer =
   (channel: Channel) =>
   async (message: ConsumeMessage | null): Promise<void> => {
     if (message) {
-      console.log('here');
       const routingKey: string = message.fields.routingKey;
       const rest: RouterProps = {
         broker: {
