@@ -1,10 +1,10 @@
-import type { GetServerSidePropsContext, NextPage } from 'next';
 import cookie from 'cookie';
-import { useContext } from 'react';
 import { AuthContext } from 'lib/contexts';
+import type { GetServerSidePropsContext, NextPage } from 'next';
+import { useContext } from 'react';
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie);
+  const { ARCHITOKEN: token = null } = cookie.parse(req.headers.cookie || '');
 
   if (!token) {
     return {
