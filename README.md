@@ -120,3 +120,9 @@ Run the `docker-compose` commands
 ```bash
 docker-compose build && docker-compose up -d
 ```
+
+After the installation you must run the following commands:
+
+```bash
+docker-compose exec architect_frontend_authentication npm run install
+```
