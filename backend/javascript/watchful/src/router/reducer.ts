@@ -1,5 +1,5 @@
 import { Channel, ConsumeMessage } from 'amqplib';
-import { yellow } from '.';
+import { colorful, yellow } from '.';
 
 export type RouterOptionsProps = {
   priority?: number;
@@ -19,10 +19,15 @@ export default async function reducer(routingKey: string, rest: RouterProps): Pr
   switch (routingKey) {
     case 'yellow':
       console.log(
-        `[watchful ⚡️] Received message to the yellow queue, forwarding to the yellow handler`
+        `[ watchful 🟨 ] Received message to the yellow queue, forwarding to the yellow handler`
       );
+
       return await yellow(rest);
     default:
-      return;
+      console.log(
+        `[ watchful 🌈 ] Received message to the unknown queue or router-key, forwarding to the default handler 🌈`
+      );
+
+      return await colorful(rest);
   }
 }

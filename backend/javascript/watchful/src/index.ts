@@ -1,20 +1,20 @@
 import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 import dotenv from 'dotenv';
 
-import reducer from './router/reducer';
+import reducer, { RouterProps } from './router/reducer';
 
-dotenv.config();
+export const connect = async (): Promise<Connection> => {
+  dotenv.config();
 
-const RABBITMQ_HOST: string = process.env.RABBITMQ_HOST || 'architect_rabbitmq';
-const RABBITMQ_PORT: string = process.env.RABBITMQ_PORT || '5672';
-const RABBITMQ_USER: string = process.env.RABBITMQ_USER || 'architect';
-const RABBITMQ_PASS: string = process.env.RABBITMQ_PASS || 'architect';
+  const host: string = process.env.RABBITMQ_HOST || 'architect_rabbitmq';
+  const port: string = process.env.RABBITMQ_PORT || '5672';
+  const user: string = process.env.RABBITMQ_USER || 'architect';
+  const pass: string = process.env.RABBITMQ_PASS || 'architect';
 
-const watchful = async (): Promise<void> => {
-  console.log(`[watchful ⚡️] Connecting to the broker ${RABBITMQ_HOST}:${RABBITMQ_PORT}`);
+  console.log(`[watchful ⚡️] Connecting to the broker ${host}:${port}`);
 
   const connection: Connection = await client
-    .connect(`amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}`)
+    .connect(`amqp://${user}:${pass}@${host}:${port}`)
     .catch((err: any) => {
       console.error(`[watchful ⚡️] Error connecting to the broker ${err.message}`);
 
@@ -22,47 +22,66 @@ const watchful = async (): Promise<void> => {
     });
 
   if (connection) {
-    console.log(`[watchful ⚡️] Connected to the broker ${RABBITMQ_HOST}:${RABBITMQ_PORT}`);
+    console.log(`[watchful ⚡️] Connected to the broker ${host}:${port}`);
   }
 
+  return connection;
+};
+
+export const createChannel = async (connection: Connection): Promise<Channel> => {
   const channel: Channel = await connection.createChannel().catch((err: any) => {
     console.error(`[watchful ⚡️] Error creating the channel ${err.message}`);
 
     throw err;
   });
 
-  await channel
-    .assertExchange('architect-exchange', 'direct', {
-      durable: true
-    })
-    .catch((err: any) => {
-      console.error(`[watchful ⚡️] Error asserting the exchange ${err.message}`);
+  return channel;
+};
 
-      throw err;
-    });
+export const assertExchange = async (channel: Channel, exchange: string) => {
+  await channel.assertExchange(exchange, 'direct').catch((err: any) => {
+    console.error(`[watchful ⚡️] Error asserting the exchange ${err.message}`);
 
+    throw err;
+  });
+};
+
+export const assertQueue = async (channel: Channel, queue: string) => {
   await channel.assertQueue('architect-queue').catch((err: any) => {
     console.error(`[watchful ⚡️] Error asserting the queue ${err.message}`);
 
     throw err;
   });
+};
 
-  const consumer =
-    (channel: Channel) =>
-    (message: ConsumeMessage | null): void => {
-      if (message) {
-        reducer(message.fields.routingKey, {
-          broker: {
-            channel,
-            message
-          }
-        });
+export const consumer =
+  (channel: Channel) =>
+  async (message: ConsumeMessage | null): Promise<void> => {
+    if (message) {
+      console.log('here');
+      const routingKey: string = message.fields.routingKey;
+      const rest: RouterProps = {
+        broker: {
+          channel,
+          message
+        }
+      };
 
-        channel.ack(message);
-      }
-    };
+      await reducer(routingKey, rest);
+    }
+  };
 
-  await channel.consume('architect-queue', consumer(channel));
+export const watchful = async (): Promise<void> => {
+  const connection: Connection = await connect();
+  const channel: Channel = await createChannel(connection);
+
+  const exchangeName: string = 'architect-exchange';
+  const queueName: string = 'architect-queue';
+
+  await assertExchange(channel, exchangeName);
+  await assertQueue(channel, queueName);
+
+  await channel.consume(queueName, consumer(channel));
 };
 
 watchful();
