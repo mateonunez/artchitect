@@ -13,5 +13,7 @@ RUN npm install
 # Copy the app
 COPY . /usr/src/architect/frontend/react/homepage/
 
+EXPOSE 3030
+
 # Run the app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build:start"]

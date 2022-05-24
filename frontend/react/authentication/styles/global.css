@@ -18,10 +18,10 @@
 }
 
 :root {
-  --bg: #fff;
-  --bg-secondary: #000;
-  --text: #000;
-  --text-secondary: #fff;
+  --bg: #000;
+  --bg-secondary: #fff;
+  --text: #fff;
+  --text-secondary: #000;
   --pink: #f81ce5;
   --amber: #f59e0b;
   --green: #50e3c2;
