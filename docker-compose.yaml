@@ -175,7 +175,7 @@ services:
     working_dir: /usr/src/architect/frontend/react/homepage
     restart: always
     expose:
-      - 3010
+      - 3030
     volumes:
       - /usr/src/architect/frontend/react/homepage/node_modules
       - ./frontend/react/homepage:/usr/src/architect/frontend/react/homepage
@@ -193,7 +193,7 @@ services:
     working_dir: /usr/src/architect/frontend/react/authentication
     restart: always
     expose:
-      - 3030
+      - 3010
     volumes:
       - /usr/src/architect/frontend/react/authentication/node_modules
       - ./frontend/react/authentication:/usr/src/architect/frontend/react/authentication

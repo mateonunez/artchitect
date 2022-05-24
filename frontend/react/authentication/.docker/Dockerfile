@@ -1,6 +1,6 @@
 FROM node:latest
 
-ENV PORT 3000
+ENV PORT 3010
 
 # Create the directory
 RUN mkdir -p /usr/src/architect/frontend/react/authentication/
