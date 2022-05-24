@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-display: block;
+  src: url('https://assets.vercel.com/raw/upload/v1587415301/fonts/2/inter-var-latin.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'Incompleeta';
+  font-weight: 'normal';
+  font-display: block;
+  src: url('~/assets/fonts/IncompleetaRegular.woff2') format('woff2');
+}
+
+:root {
+  --bg: #000;
+  --bg-secondary: #fff;
+  --text: #fff;
+  --text-secondary: #000;
+  --pink: #f81ce5;
+  --amber: #f59e0b;
+  --green: #50e3c2;
+  --bright-green: #3afacf;
+  --gray: #999;
+
+  --accent-9: #111827;
+  --accent-8: #1f2937;
+  --accent-7: #374151;
+  --accent-6: #4b5563;
+  --accent-5: #6b7280;
+  --accent-4: #9ca3af;
+  --accent-3: #d1d5db;
+  --accent-2: #e5e7eb;
+  --accent-1: #ffffff;
+  --accent-0: #f9fafb;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  transition: color 200ms ease-in-out;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background-color: var(--amber);
+  color: var(--fg);
+}
+
+.title {
+  @apply text-transparent text-7xl bg-clip-text font-incompleeta leading-none font-extrabold;
+  @apply bg-gradient-to-r from-amber-500 to-blue-500 via-rose-500 animate-gradient-xy;
+  margin: 0 auto 0 auto;
+  line-height: 1.5;
+}
+
+.subtitle {
+  @apply text-transparent bg-clip-text font-incompleeta leading-none font-bold;
+  @apply bg-gradient-to-r from-amber-500 to-blue-500 via-rose-500 animate-gradient-x;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .title {
+    @apply text-5xl;
+    line-height: 1.5;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+}

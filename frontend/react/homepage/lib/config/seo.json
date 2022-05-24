@@ -1,0 +1,47 @@
+{
+  "title": "Architect Solution by @mateonunez",
+  "titleTemplate": "%s - Architect",
+  "description": "Hello Stranger! This is the most friendly Architect Solution I have ever seen. I hope you enjoy it!",
+  "openGraph": {
+    "title": "Architect Solution by @mateonunez",
+    "description": "Hello Stranger! This is the most friendly Architect Solution I have ever seen. I hope you enjoy it!",
+    "type": "website",
+    "locale": "it_IT",
+    "url": "https://mateonunez.dev",
+    "site_name": "Architect Solution by @mateonunez",
+    "images": [
+      {
+        "url": "https://mateonunez.dev/card.png",
+        "width": 512,
+        "height": 512,
+        "alt": "Architect Solution by @mateonunez"
+      }
+    ]
+  },
+  "twitter": {
+    "handle": "@mateonunez95",
+    "site": "https://mateonunez.dev",
+    "cardType": "summary_large_image"
+  },
+  "additionalLinkTags": [
+    {
+      "rel": "icon",
+      "href": "/favicon.ico",
+      "type": "image/x-icon"
+    },
+    {
+      "rel": "icon",
+      "href": "/favicon-16x16.png",
+      "type": "image/png"
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "/apple-touch-icon.png",
+      "sizes": "76x76"
+    },
+    {
+      "rel": "manifest",
+      "href": "/site.webmanifest"
+    }
+  ]
+}

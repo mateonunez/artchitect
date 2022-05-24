@@ -111,6 +111,22 @@ Run the `docker-compose` commands
 docker-compose build && docker-compose up -d
 ```
 
+## Frontend Next.js Homepage
+
+This simple frontend allows you consume the Auth APIs
+
+Run the `docker-compose` commands
+
+```bash
+docker-compose build && docker-compose up -d
+```
+
+After the installation you must run the following commands:
+
+```bash
+docker-compose exec architect_frontend_react_homepage npm run install
+```
+
 ## Frontend Next.js Authentication
 
 This simple frontend allows you consume the Auth APIs
@@ -124,5 +140,5 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_frontend_authentication npm run install
+docker-compose exec architect_frontend_react_authentication npm run install
 ```

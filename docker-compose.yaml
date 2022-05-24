@@ -150,9 +150,31 @@ services:
     networks:
       - architect_network
 
+  # Homepage
+  architect_frontend_react_homepage:
+    container_name: architect_frontend_react_homepage
+    build:
+      context: ./frontend/react/homepage
+      dockerfile: ./Dockerfile
+    working_dir: /usr/src/architect/frontend/react/homepage
+    restart: always
+    ports:
+      #This should be exposed by a nginx service
+      - 3010:3000
+    volumes:
+      - ./frontend/react/homepage:/usr/src/architect/frontend/react/homepage
+    depends_on:
+      - architect_nginx_laravel
+      - architect_nginx_balancer
+      - architect_frontend_react_authentication
+    env_file:
+      - ./frontend/react/homepage/.env.local
+    networks:
+      - architect_network
+
   # User Authentication
-  architect_frontend_authentication:
-    container_name: architect_frontend_authentication
+  architect_frontend_react_authentication:
+    container_name: architect_frontend_react_authentication
     build:
       context: ./frontend/react/authentication
       dockerfile: ./.docker/Dockerfile
