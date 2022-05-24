@@ -2,12 +2,12 @@
 
 namespace App\Core\Brokers;
 
+use Illuminate\Support\Str;
+use PhpAmqpLib\Wire\AMQPTable;
 use App\Interfaces\BrokerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Wire\AMQPTable;
-use stdClass;
 
 class RabbitMQ implements BrokerInterface
 {
@@ -103,7 +103,7 @@ class RabbitMQ implements BrokerInterface
     {
         $decoded = json_decode($message, true);
 
-        $decoded['timestamp'] = time();
+        $messageId = Str::uuid();
 
         $headers = new AMQPTable([
             'x-version' => '1.0.0',
@@ -112,7 +112,10 @@ class RabbitMQ implements BrokerInterface
 
         $message = new AMQPMessage(body: json_encode($decoded), properties: [
             'content_type' => 'application/json',
+            'content_encoding' => 'UTF-8',
             'application_headers' => $headers,
+            'message_id' => $messageId,
+            'timestamp' => time()
         ]);
 
         $this->channel->basic_publish($message, $this->exchange, $this->routingKey);
