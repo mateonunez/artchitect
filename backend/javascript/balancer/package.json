@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple backend balanced",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/mateonunez/architect#readme",
   "devDependencies": {
+    "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",

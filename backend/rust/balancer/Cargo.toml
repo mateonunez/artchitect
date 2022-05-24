@@ -11,3 +11,4 @@ log = "0.4"
 actix-web = "4.0.0-beta.3"
 actix-rt = "2.0.2"
 dotenv = "0.15.0"
+serde = { version = "1.0.126", features = ["derive"] }

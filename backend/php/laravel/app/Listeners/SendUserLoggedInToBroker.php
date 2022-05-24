@@ -38,8 +38,14 @@ class SendUserLoggedInToBroker
         $user = $event->user->toArray();
 
         $payload = [
+            'data' => $user,
             'event' => 'user-logged-in',
-            'data' => $user
+            'callbacks' => [
+                'testing_callback' => [
+                    'url' => 'http://architect_nginx_balancer/users/logged-in',
+                    'method' => 'POST',
+                ],
+            ],
         ];
 
         $message = $rabbitMQClient->produce(json_encode($payload));
