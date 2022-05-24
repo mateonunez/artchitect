@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { UserLoggedIn } from '../lib/yellow/types/user-logged-in';
 import { RouterProps } from './reducer';
 
-const handler = async (args: RouterProps): Promise<void> => {
-  const { broker, options } = args;
+const handler = async (props: RouterProps): Promise<void> => {
+  const { broker, options } = props;
 
   const { channel, message } = broker;
 
@@ -16,14 +16,38 @@ const handler = async (args: RouterProps): Promise<void> => {
   await Promise.all(
     Object.keys(callbacks).map(async (callbackKey: any) => {
       const callback = callbacks[callbackKey];
+
       console.log(`[ yellow router 🟨 ] Executing callback ${callbackKey} [${callback.url}]`);
 
-      return await axios({
-        method: callback.method,
+      const response: AxiosResponse = await axios({
         url: callback.url,
-        data: callback.body,
-        headers: callback.headers
-      });
+        method: callback.method,
+        headers: callback.headers,
+        data: {
+          ...callback.body,
+          ...data
+        }
+      })
+        .then((res: AxiosResponse) => res)
+        .catch((error: any) => {
+          console.error(
+            `[ yellow router 🟨 ] Error executing callback ${callbackKey} [${
+              callback.url
+            }], response with code ${
+              error.response.status
+            } and the following data: ${JSON.stringify(error.response.data)}`
+          );
+
+          channel.nack(message, false, false);
+
+          return new Promise((resolve, reject) => reject(error));
+        });
+
+      console.log(
+        `[ yellow router 🟨 ] Executed callback ${callbackKey}, response with code ${
+          response.status
+        } and the following data: ${JSON.stringify(response.data)}`
+      );
     })
   );
 

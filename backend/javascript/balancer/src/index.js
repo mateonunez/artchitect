@@ -12,14 +12,17 @@ const server = () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.get('/users/logged-in', (req, res) => {
+  app.post('/users/logged-in', (req, res) => {
     console.log('[ balancer (JS) ⚖️ ] Called API: /users/logged-in');
+
+    const { id, name, email } = req.body;
+
     res.send({
       loggedIn: true,
       user: {
-        id: '123',
-        name: 'John Doe',
-        email: 'john@doe.com'
+        id,
+        name,
+        email
       },
       appId: 'javascript-balancer'
     });

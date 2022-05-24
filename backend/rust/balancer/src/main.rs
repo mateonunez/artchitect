@@ -1,11 +1,11 @@
 extern crate actix_web;
 
 use actix_web::{web, App, HttpServer, Responder};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use log::{debug};
 use std::{env, io};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 struct User {
   id: String,
   name: String,
@@ -21,13 +21,13 @@ struct UserLoggedIn {
 
 const PORT: i32 = 5500;
 
-async fn user_logged_in() -> impl Responder {
+async fn user_logged_in(data: web::Json<User>) -> impl Responder {
   let user = UserLoggedIn {
     loggedIn: true,
     user: User {
-      id: "1".to_string(),
-      name: "John Doe".to_string(),
-      email: "john@doe.com".to_string(),
+      id: data.id.to_string(),
+      name: data.name.to_string(),
+      email: data.email.to_string(),
     },
     appId: "rust-balancer".to_string(),
   };
@@ -50,7 +50,7 @@ async fn main() -> io::Result<()> {
 
   HttpServer::new(|| {
     App::new()
-      .route("/users/logged-in", web::get().to(user_logged_in))
+      .route("/users/logged-in", web::post().to(user_logged_in))
   })
     .bind(("architect_backend_rust_balancer", 5500))?
     .run()

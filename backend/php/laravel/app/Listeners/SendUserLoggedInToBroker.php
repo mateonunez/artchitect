@@ -43,7 +43,7 @@ class SendUserLoggedInToBroker
             'callbacks' => [
                 'testing_callback' => [
                     'url' => 'http://architect_nginx_balancer/users/logged-in',
-                    'method' => 'GET',
+                    'method' => 'POST',
                 ],
             ],
         ];
