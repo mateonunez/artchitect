@@ -2,7 +2,6 @@ import client, { Channel, Connection, ConsumeMessage } from 'amqplib';
 import dotenv from 'dotenv';
 import reducer, { RouterProps } from './router/reducer';
 
-
 export const connect = async (): Promise<Connection> => {
   dotenv.config();
 
