@@ -31,7 +31,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return;
   }
 
-  const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie || '');
+  const { ARCHITOKEN: token } =
+    cookie.parse(req.headers.cookie || '') ??
+    req.headers.authorization?.substring(0, 'Bearer '.length);
 
   const response = await getMe(token);
 

@@ -16,8 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }): Prom
   const response = await getMe(token);
 
   const data: MeResponse = await response.json();
-
-  const user = data?.data;
+  const { data: user = {} } = data;
 
   if (!user) {
     console.error('User logged out?');
