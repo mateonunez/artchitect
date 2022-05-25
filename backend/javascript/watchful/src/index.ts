@@ -14,10 +14,12 @@ export const connect = async (): Promise<Connection> => {
 
   const connection: Connection = await client
     .connect(`amqp://${user}:${pass}@${host}:${port}`)
-    .catch((err: any) => {
+    .catch(async (err: any) => {
       console.error(`[watchful ⚡️] Error connecting to the broker ${err.message}`);
 
-      throw err;
+      // retry
+      console.log(`[watchful ⚡️] Retrying in 10 seconds...`);
+      return await new Promise(_ => setTimeout(connect, 10000));
     });
 
   if (connection) {
