@@ -2,13 +2,13 @@ import cookie from 'cookie';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getMe, MeResponse } from './api/users/me';
 
-export const getServerSideProps: GetServerSideProps = async ({ req }): Promise<any> => {
-  const { ARCHITOKEN: token = null } = cookie.parse(req.headers.cookie || '');
+export const getServerSideProps: GetServerSideProps = async ({ req, res }): Promise<any> => {
+  const { ARCHITOKEN: token = '' } = cookie.parse(req.headers.cookie || '');
 
   if (!token) {
     return {
       redirect: {
-        destination: '/auth/login'
+        destination: '/login'
       }
     };
   }
@@ -24,9 +24,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }): Promise<a
 
     return {
       redirect: {
-        destination: '/auth/login'
+        destination: '/login'
       }
     };
+  } else {
+    res.writeHead(301, {
+      location: 'http://localhost/',
+      
+    });
+    res.end();
   }
 
   return {
@@ -40,7 +46,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
   return (
     <>
       <div className="title">
-        Hello User: {user?.name} [{user?.email}]
+        Hello User: {user?.name} [{user?.email}], You shouldnt be here.
       </div>
     </>
   );

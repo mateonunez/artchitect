@@ -1,16 +1,8 @@
 import { resolveUser } from 'lib/user';
 import { User } from 'lib/user/types';
-import { LoginReponse } from 'pages/api/auth/login'; // TODO move to reusable type
+import { LoginReponse } from 'pages/api/login'; // TODO move to reusable type
 import { MeResponse } from 'pages/api/users/me';
-import {
-  createContext,
-  JSXElementConstructor,
-  PropsWithChildren,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useState
-} from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
 type DoLoginProps = {
   email: string;
@@ -39,7 +31,7 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
   const doLogin = async ({ email, password }: DoLoginProps) => {
     setLoading(true);
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/auth/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
