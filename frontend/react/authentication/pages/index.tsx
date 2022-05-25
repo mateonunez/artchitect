@@ -29,8 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }): Prom
     };
   } else {
     res.writeHead(301, {
-      location: 'http://localhost/',
-      
+      location: 'http://localhost/'
     });
     res.end();
   }
