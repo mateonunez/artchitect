@@ -37,7 +37,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="m-auto text-center title">Welcome to Home, Architect</div>
 
-        {!user && (
+        {!Object.keys(user).length && (
           <div className="mt-4">
             <a href="/auth/login" className="text-center">
               <button className="px-4 py-2 font-bold text-white rounded bg-slate-500 hover:bg-slate-700">
