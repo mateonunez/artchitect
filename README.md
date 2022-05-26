@@ -124,7 +124,7 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_frontend_react_homepage npm run install
+docker-compose exec architect_frontend_archifront_homepage npm run install
 ```
 
 ## Frontend Next.js Authentication
@@ -140,5 +140,5 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_frontend_react_authentication npm run install
+docker-compose exec architect_frontend_archifront_authentication npm run install
 ```

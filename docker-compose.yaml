@@ -111,8 +111,8 @@ services:
     ports:
       - 80:80
     depends_on:
-      - architect_frontend_react_homepage
-      - architect_frontend_react_authentication
+      - architect_frontend_archifront_homepage
+      - architect_frontend_archifront_authentication
     networks:
       - architect_network
 
@@ -167,40 +167,40 @@ services:
       - architect_network
 
   # Homepage
-  architect_frontend_react_homepage:
-    container_name: architect_frontend_react_homepage
+  architect_frontend_archifront_homepage:
+    container_name: architect_frontend_archifront_homepage
     build:
-      context: ./frontend/react/homepage
+      context: ./frontend/archifront/homepage
       dockerfile: ./.docker/Dockerfile
-    working_dir: /usr/src/architect/frontend/react/homepage
+    working_dir: /usr/src/architect/frontend/archifront/homepage
     restart: always
     expose:
       - 3030
     volumes:
-      - /usr/src/architect/frontend/react/homepage/node_modules
-      - ./frontend/react/homepage:/usr/src/architect/frontend/react/homepage
+      - /usr/src/architect/frontend/archifront/homepage/node_modules
+      - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     env_file:
-      - ./frontend/react/homepage/.env.local
+      - ./frontend/archifront/homepage/.env.local
     networks:
       - architect_network
 
   # User Authentication
-  architect_frontend_react_authentication:
-    container_name: architect_frontend_react_authentication
+  architect_frontend_archifront_authentication:
+    container_name: architect_frontend_archifront_authentication
     build:
-      context: ./frontend/react/authentication
+      context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
-    working_dir: /usr/src/architect/frontend/react/authentication
+    working_dir: /usr/src/architect/frontend/archifront/authentication
     restart: always
     expose:
       - 3010
     volumes:
-      - /usr/src/architect/frontend/react/authentication/node_modules
-      - ./frontend/react/authentication:/usr/src/architect/frontend/react/authentication
+      - /usr/src/architect/frontend/archifront/authentication/node_modules
+      - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     depends_on:
       - architect_backend_php_laravel
     env_file:
-      - ./frontend/react/authentication/.env.local
+      - ./frontend/archifront/authentication/.env.local
     networks:
       - architect_network
 
