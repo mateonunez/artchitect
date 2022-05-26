@@ -73,7 +73,7 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_backend_javascript_watchful npm run install
+docker-compose exec architect_backend_javascript_watchful npm install
 ```
 
 ## Backend Javascript Balancer
@@ -98,7 +98,7 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_backend_javascript_balancer npm run install
+docker-compose exec architect_backend_javascript_balancer npm install
 ```
 
 ## Backend Rust Balancer
@@ -124,7 +124,7 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_frontend_archifront_homepage npm run install
+docker-compose exec architect_frontend_archifront_homepage npm install
 ```
 
 ## Frontend Next.js Authentication
@@ -140,5 +140,5 @@ docker-compose build && docker-compose up -d
 After the installation you must run the following commands:
 
 ```bash
-docker-compose exec architect_frontend_archifront_authentication npm run install
+docker-compose exec architect_frontend_archifront_authentication npm install
 ```
