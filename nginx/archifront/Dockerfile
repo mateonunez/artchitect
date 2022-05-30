@@ -1,6 +1,8 @@
 FROM nginx:latest
 
-ENV NGINX_FPM_HOST localhost
+ENV NGINX_FPM_HOST architect_nginx_archifront
+ENV ARCHIFRONT_AUTHENTICATION_HOST architect_frontend_archifront_authentication
+ENV ARCHIFRONT_HOMEPAGE_HOST architect_frontend_archifront_homepage
 
 RUN rm -f /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/nginx.conf

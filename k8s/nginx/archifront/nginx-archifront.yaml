@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-archifront
+  labels:
+    app: nginx-archifront
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-archifront
+  template:
+    metadata:
+      labels:
+        app: nginx-archifront
+    spec:
+      containers:
+        - name: nginx-archifront
+          image: mateonunez/architect-nginx-archifront:1.2
+          ports:
+            - containerPort: 80
+          env:
+            - name: ARCHIFRONT_HOMEPAGE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archifront-configmap
+                  key: archifront-homepage-host
+            - name: ARCHIFRONT_AUTHENTICATION_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archifront-configmap
+                  key: archifront-authentication-host
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-archifront
+spec:
+  selector:
+    app: nginx-archifront
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30000

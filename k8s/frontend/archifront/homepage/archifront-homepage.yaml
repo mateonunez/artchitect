@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archifront-homepage
+  labels:
+    app: archifront-homepage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: archifront-homepage
+  template:
+    metadata:
+      labels:
+        app: archifront-homepage
+    spec:
+      containers:
+        - name: archifront-homepage
+          image: mateonunez/architect-frontend-archifront-homepage:1.0
+          ports:
+            - containerPort: 3030
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: archifront-homepage-service
+spec:
+  selector:
+    app: archifront-homepage
+  ports:
+    - protocol: TCP
+      port: 3030
+      targetPort: 3030

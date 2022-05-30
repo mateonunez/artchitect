@@ -7,6 +7,7 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
+    image: mateonunez/architect-backend-php-laravel:1.0
     expose:
       - 9000
     working_dir: /usr/src/architect/backend/php/laravel
@@ -25,6 +26,7 @@ services:
     build:
       context: ./backend/javascript/watchful
       dockerfile: ./.docker/Dockerfile
+    image: mateonunez/architect-backend-javascript-watchful:1.0
     working_dir: /usr/src/architect/backend/javascript/watchful
     volumes:
       - /usr/src/architect/backend/javascript/watchful/node_modules
@@ -40,6 +42,7 @@ services:
     build:
       context: ./backend/rust/balancer
       dockerfile: ./.docker/Dockerfile
+    image: mateonunez/architect-backend-rust-balancer:1.0
     working_dir: /usr/src/architect/backend/rust/balancer
     expose:
       - 5500
@@ -55,6 +58,7 @@ services:
     build:
       context: ./backend/javascript/balancer
       dockerfile: ./.docker/Dockerfile
+    image: mateonunez/architect-backend-javascript-balancer:1.0
     working_dir: /usr/src/architect/backend/javascript/balancer
     expose:
       - 5010
@@ -106,8 +110,11 @@ services:
     build:
       context: ./nginx/archifront
       dockerfile: ./Dockerfile
+    image: mateonunez/architect-nginx-archifront:1.2
     environment:
       - NGINX_FPM_HOST=architect_nginx_archifront
+      - ARCHIFRONT_AUTHENTICATION_HOST=architect_frontend_archifront_authentication
+      - ARCHIFRONT_HOMEPAGE_HOST=architect_frontend_archifront_homepage
     ports:
       - 80:80
     depends_on:
@@ -122,6 +129,7 @@ services:
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
+    image: mateonunez/architect-nginx-laravel:1.0
     ports:
       - 8000:80
     volumes:
@@ -140,6 +148,7 @@ services:
     build:
       context: ./nginx/balancer
       dockerfile: ./Dockerfile
+    image: mateonunez/architect-nginx-balancer:1.0
     environment:
       - NGINX_FPM_HOST=architect_nginx_balancer
     ports:
@@ -172,6 +181,7 @@ services:
     build:
       context: ./frontend/archifront/homepage
       dockerfile: ./.docker/Dockerfile
+    image: mateonunez/architect-frontend-archifront-homepage:1.0
     working_dir: /usr/src/architect/frontend/archifront/homepage
     restart: always
     expose:
@@ -190,6 +200,7 @@ services:
     build:
       context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
+    image: mateonunez/architect-frontend-archifront-authentication:1.0
     working_dir: /usr/src/architect/frontend/archifront/authentication
     restart: always
     expose:
