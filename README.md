@@ -52,7 +52,7 @@ pod/archifront-authentication-7b7d47d69-k9qjw   0/1     ContainerCreating   0   
 pod/archifront-homepage-5bf88459cf-k5x6t        0/1     ContainerCreating   0          65s
 
 NAME                                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/archifront-authentication-service   ClusterIP   10.98.113.56    <none>        3030/TCP   40s
+service/archifront-authentication-service   ClusterIP   10.98.113.56    <none>        3010/TCP   40s
 service/archifront-homepage-service         ClusterIP   10.111.35.164   <none>        3030/TCP   65s
 service/kubernetes                          ClusterIP   10.96.0.1       <none>        443/TCP    31h
 
@@ -89,7 +89,7 @@ The nginx is serving correctly, now I'll check my services.
 ```bash
 $ kubectl get svc
 NAME                                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-archifront-authentication-service   ClusterIP      10.98.113.56    <none>        3030/TCP       4m16s
+archifront-authentication-service   ClusterIP      10.98.113.56    <none>        3010/TCP       4m16s
 archifront-homepage-service         ClusterIP      10.111.35.164   <none>        3030/TCP       4m41s
 kubernetes                          ClusterIP      10.96.0.1       <none>        443/TCP        31h
 nginx-archifront                    LoadBalancer   10.106.60.62    <pending>     80:30000/TCP   117s
