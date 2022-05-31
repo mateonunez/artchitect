@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-backend-laravel
+  labels:
+    app: nginx-backend-laravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-backend-laravel
+  template:
+    metadata:
+      labels:
+        app: nginx-backend-laravel
+    spec:
+      containers:
+        - name: nginx-backend-laravel
+          image: mateonunez/architect-nginx-laravel:1.2
+          ports:
+            - containerPort: 8000
+          env:
+            - name: NGINX_FPM_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-backend-laravel-configmap
+                  key: backend-laravel-host
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-backend-laravel
+spec:
+  selector:
+    app: nginx-backend-laravel
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30010

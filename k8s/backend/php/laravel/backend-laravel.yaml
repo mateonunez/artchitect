@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-laravel
+  labels:
+    app: backend-laravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-laravel
+  template:
+    metadata:
+      labels:
+        app: backend-laravel
+    spec:
+      containers:
+        - name: backend-laravel
+          image: mateonunez/architect-backend-php-laravel:1.1
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-laravel-service
+spec:
+  selector:
+    app: backend-laravel
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
