@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }: PropsWithChildren<Element | Element[]
   const doLogin = async ({ email, password }: DoLoginProps) => {
     setLoading(true);
 
-    const response = await fetch('/auth/api/login', {
+    const { BASE_URL } = process.env;
+
+    const response = await fetch(`${BASE_URL}/auth/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

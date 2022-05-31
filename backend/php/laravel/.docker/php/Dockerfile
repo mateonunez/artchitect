@@ -39,6 +39,8 @@ COPY ./.docker/php/php.ini /usr/local/etc/php/conf.d/php.ini
 
 COPY ./ /usr/src/architect/backend/php/laravel/
 
+WORKDIR /usr/src/architect/backend/php/laravel/
+
 RUN chown -R www-data:www-data /usr/src/architect/backend/php/laravel
 
 RUN envsubst '$DB_HOST' < /usr/src/architect/backend/php/laravel/.env

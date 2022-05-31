@@ -6,7 +6,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }): Promise<a
   const { ARCHITOKEN: token = null } = cookie.parse(req.headers.cookie || '');
 
   if (token) {
-    const response = await fetch('http://architect_nginx_archifront/auth/api/users/me', {
+    const { BASE_URL } = process.env;
+    
+    const response = await fetch(`${BASE_URL}/auth/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
