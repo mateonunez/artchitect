@@ -16,9 +16,15 @@ spec:
     spec:
       containers:
         - name: archivel-laravel
-          image: mateonunez/architect-backend-php-laravel:1.1
+          image: mateonunez/architect-backend-php-laravel:1.2.4
           ports:
             - containerPort: 9000
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: archivel-mysql-configmap
+                  key: endpoint
 ---
 apiVersion: v1
 kind: Service
