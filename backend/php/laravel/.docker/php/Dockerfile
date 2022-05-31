@@ -37,4 +37,6 @@ COPY ./.docker/php/php.ini /usr/local/etc/php/conf.d/php.ini
 
 WORKDIR /usr/src/architect/backend/php/laravel
 
+COPY ./ /usr/src/architect/backend/php/laravel/
+
 RUN chown -R www-data:www-data .

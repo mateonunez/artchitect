@@ -7,7 +7,7 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    image: mateonunez/architect-backend-php-laravel:1.0
+    image: mateonunez/architect-backend-php-laravel:1.1
     expose:
       - 9000
     working_dir: /usr/src/architect/backend/php/laravel
@@ -129,16 +129,17 @@ services:
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-laravel:1.0
+    image: mateonunez/architect-nginx-laravel:1.2
     ports:
-      - 8000:80
+      - 8000:8000
     volumes:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     depends_on:
       - architect_backend_php_laravel
     environment:
-      - NGINX_FPM_HOSTNGINX_FPM_HOST=architect_backend_php_laravel
+      - NGINX_FPM_HOST=architect_backend_php_laravel
       - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+      - NGINX_FPM_PORT=9000
     networks:
       - architect_network
 
