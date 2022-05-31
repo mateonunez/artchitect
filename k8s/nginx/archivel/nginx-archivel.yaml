@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-backend-laravel
+  name: nginx-archivel
   labels:
-    app: nginx-backend-laravel
+    app: nginx-archivel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-backend-laravel
+      app: nginx-archivel
   template:
     metadata:
       labels:
-        app: nginx-backend-laravel
+        app: nginx-archivel
     spec:
       containers:
-        - name: nginx-backend-laravel
+        - name: nginx-archivel
           image: mateonunez/architect-nginx-laravel:1.2
           ports:
             - containerPort: 8000
@@ -23,16 +23,16 @@ spec:
             - name: NGINX_FPM_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: nginx-backend-laravel-configmap
-                  key: backend-laravel-host
+                  name: nginx-archivel-configmap
+                  key: archivel-host
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-backend-laravel
+  name: nginx-archivel
 spec:
   selector:
-    app: nginx-backend-laravel
+    app: nginx-archivel
   type: LoadBalancer
   ports:
     - protocol: TCP

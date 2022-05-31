@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-laravel
+  name: archivel-laravel
   labels:
-    app: backend-laravel
+    app: archivel-laravel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-laravel
+      app: archivel-laravel
   template:
     metadata:
       labels:
-        app: backend-laravel
+        app: archivel-laravel
     spec:
       containers:
-        - name: backend-laravel
+        - name: archivel-laravel
           image: mateonunez/architect-backend-php-laravel:1.1
           ports:
             - containerPort: 9000
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-laravel-service
+  name: archivel-laravel-service
 spec:
   selector:
-    app: backend-laravel
+    app: archivel-laravel
   ports:
     - protocol: TCP
       port: 9000
