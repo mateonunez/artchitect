@@ -7,13 +7,15 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    image: mateonunez/architect-backend-php-laravel:1.1
+    image: mateonunez/architect-backend-php-laravel:1.2.4
     expose:
       - 9000
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    environment:
+      DB_HOST: architect_database_mysql
     depends_on:
       - architect_database_mysql
     networks:
