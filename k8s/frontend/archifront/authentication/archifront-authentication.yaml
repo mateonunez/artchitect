@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: archifront-authentication
-          image: mateonunez/architect-frontend-archifront-authentication:1.1.10
+          image: mateonunez/architect-frontend-archifront-authentication:1.1.14
           ports:
             - containerPort: 3010
           env:

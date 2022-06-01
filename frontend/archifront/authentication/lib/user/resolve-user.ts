@@ -5,7 +5,7 @@ export default async function resolveUser(): Promise<MeResponse> {
 
   console.log(`http://${BASE_URL}/auth/api/users/me`);
   
-  const response = await fetch(`http://${BASE_URL}/auth/api/users/me`, {
+  const response = await fetch(`http://${BASE_URL}:3010/auth/api/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
