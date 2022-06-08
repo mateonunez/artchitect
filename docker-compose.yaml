@@ -194,8 +194,10 @@ services:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     environment:
-      - ARCHIVEL_ENDPOINT=architect_nginx_laravel
-      - ARCHIFRONT_AUTHENTICATION_HOST=architect_frontend_archifront_authentication
+      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
+      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
+      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
+      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
     # env_file:
     #   - ./frontend/archifront/homepage/.env.local
     networks:
@@ -217,7 +219,9 @@ services:
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
       - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
-      - ARCHIFRONT_AUTHENTICATION_HOST=http://architect_frontend_archifront_authentication:3010
+      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
+      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
+      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
     depends_on:
       - architect_nginx_laravel
     # env_file:

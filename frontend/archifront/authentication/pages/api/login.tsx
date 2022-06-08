@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   
   const { NEXT_PUBLIC_ARCHIVEL_ENDPOINT } = process.env
-  
+
   const response = await fetch(`${NEXT_PUBLIC_ARCHIVEL_ENDPOINT}/api/auth/login`, {
     method: 'POST',
     headers: {

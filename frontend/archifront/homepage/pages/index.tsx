@@ -6,9 +6,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }): Promise<a
   const { ARCHITOKEN: token = null } = cookie.parse(req.headers.cookie || '');
 
   if (token) {
-    const { BASE_URL } = process.env;
+    const { NEXT_PUBLIC_ARCHIFRONT_ENDPOINT } = process.env;
     
-    const response = await fetch(`${BASE_URL}/auth/api/users/me`, {
+    const response = await fetch(`${NEXT_PUBLIC_ARCHIFRONT_ENDPOINT}/auth/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

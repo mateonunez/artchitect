@@ -10,7 +10,7 @@ export type MeResponse = {
 
 export async function getMe(token: string): Promise<Response> {
   const { ARCHIVEL_ENDPOINT } = process.env
-  
+
   const response = await fetch(`${ARCHIVEL_ENDPOINT}/api/users/me`, {
     method: 'GET',
     headers: {
