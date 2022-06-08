@@ -18,6 +18,7 @@ services:
       DB_HOST: architect_database_mysql
     depends_on:
       - architect_database_mysql
+      - architect_rabbitmq
     networks:
       - architect_network
 
@@ -193,7 +194,7 @@ services:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     environment:
-      - ARCHIVEL_ENDPOINT=architect_backend_php_laravel
+      - ARCHIVEL_ENDPOINT=architect_nginx_laravel
       - ARCHIFRONT_AUTHENTICATION_HOST=architect_frontend_archifront_authentication
     # env_file:
     #   - ./frontend/archifront/homepage/.env.local
@@ -206,7 +207,7 @@ services:
     build:
       context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-authentication:1.1.14
+    # image: mateonunez/architect-frontend-archifront-authentication:1.1.14
     working_dir: /usr/src/architect/frontend/archifront/authentication
     restart: always
     expose:
@@ -215,10 +216,10 @@ services:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
-      - ARCHIVEL_ENDPOINT=architect_backend_php_laravel
-      - ARCHIFRONT_AUTHENTICATION_HOST=architect_frontend_archifront_authentication
+      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
+      - ARCHIFRONT_AUTHENTICATION_HOST=http://architect_frontend_archifront_authentication:3010
     depends_on:
-      - architect_backend_php_laravel
+      - architect_nginx_laravel
     # env_file:
     #   - ./frontend/archifront/authentication/.env.local
     networks:
