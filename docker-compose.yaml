@@ -211,13 +211,13 @@ services:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
-      #KONG_ADMIN_LISTEN: ${KONG_ADMIN_LISTEN}
-    restart: on-failure
+      KONG_PROXY_LISTEN: architect_kong:8000
+      KONG_ADMIN_LISTEN: architect_kong:8001
     ports:
-      - 8033:8000
-      - 8433:8443
-        #- $KONG_PROXY_ADMIN_API_PORT:8001
-        #- $KONG_PROXY_ADMIN_SSL_API_PORT:8444
+      - 8033:8000 # Kong API Gateway port
+      - 8433:8443 # Kong SSL API Gateway port
+      - 8034:8001 # Kong Admin port
+      - 8444:8444 # Kong SSL Admin port
     depends_on:
       - architect_kong_migrations
     networks:
