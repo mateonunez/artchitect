@@ -24,12 +24,12 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: nginx-archifront-configmap
-                  key: archifront-homepage-host
+                  key: archifront-homepage-endpoint
             - name: ARCHIFRONT_AUTHENTICATION_HOST
               valueFrom:
                 configMapKeyRef:
                   name: nginx-archifront-configmap
-                  key: archifront-authentication-host
+                  key: archifront-authentication-endpoint
 ---
 apiVersion: v1
 kind: Service
