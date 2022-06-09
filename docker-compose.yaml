@@ -110,8 +110,6 @@ services:
   # PostgresDB Service for Kong
   architect_database_postgres_kong:
     container_name: architect_database_postgres_kong
-    build:
-      context: ./kong/postgres
     image: postgres:latest
     environment:
       POSTGRES_DB: architect_database_kong
