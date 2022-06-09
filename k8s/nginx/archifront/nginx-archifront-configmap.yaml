@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: nginx-archifront-configmap
 data:
-  archifront-host: nginx-archifront-service
-  archifront-homepage-host: archifront-homepage-service
-  archifront-authentication-host: archifront-authentication-service
+  archifront-endpoint: nginx-archifront-service
+  archifront-homepage-endpoint: archifront-homepage-service
+  archifront-authentication-endpoint: archifront-authentication-service

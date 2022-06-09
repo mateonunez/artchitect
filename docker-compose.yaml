@@ -185,7 +185,7 @@ services:
     build:
       context: ./frontend/archifront/homepage
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-homepage:1.1.3
+    image: mateonunez/architect-frontend-archifront-homepage:1.1.4
     working_dir: /usr/src/architect/frontend/archifront/homepage
     restart: always
     expose:
@@ -209,7 +209,7 @@ services:
     build:
       context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
-    # image: mateonunez/architect-frontend-archifront-authentication:1.1.14
+    image: mateonunez/architect-frontend-archifront-authentication:1.1.16
     working_dir: /usr/src/architect/frontend/archifront/authentication
     restart: always
     expose:
