@@ -16,9 +16,32 @@ spec:
     spec:
       containers:
         - name: archifront-homepage
-          image: mateonunez/architect-frontend-archifront-homepage:1.0
+          image: mateonunez/architect-frontend-archifront-homepage:1.1.4
           ports:
             - containerPort: 3030
+          env:
+            - name: ARCHIVEL_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archivel-configmap
+                  key: archivel-host
+            - name: ARCHIFRONT_ENDPOINT_WITHOUT_PROTOCOL
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archifront-configmap
+                  key: archifront-endpoint
+            - name: ARCHIFRONT_AUTHENTICATION_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archifront-configmap
+                  key: archifront-authentication-endpoint
+            - name: ARCHIFRONT_HOMEPAGE_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archifront-configmap
+                  key: archifront-homepage-endpoint
+            - name: ARCHIFRONT_ENDPOINT
+              value: http://$(ARCHIFRONT_ENDPOINT_WITHOUT_PROTOCOL)
 ---
 apiVersion: v1
 kind: Service

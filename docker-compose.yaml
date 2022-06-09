@@ -7,15 +7,18 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    image: mateonunez/architect-backend-php-laravel:1.0
+    image: mateonunez/architect-backend-php-laravel:1.2.4
     expose:
       - 9000
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    environment:
+      DB_HOST: architect_database_mysql
     depends_on:
       - architect_database_mysql
+      - architect_rabbitmq
     networks:
       - architect_network
 
@@ -129,16 +132,17 @@ services:
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-laravel:1.0
+    image: mateonunez/architect-nginx-laravel:1.2
     ports:
-      - 8000:80
+      - 8000:8000
     volumes:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     depends_on:
       - architect_backend_php_laravel
     environment:
-      - NGINX_FPM_HOSTNGINX_FPM_HOST=architect_backend_php_laravel
+      - NGINX_FPM_HOST=architect_backend_php_laravel
       - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+      - NGINX_FPM_PORT=9000
     networks:
       - architect_network
 
@@ -181,7 +185,7 @@ services:
     build:
       context: ./frontend/archifront/homepage
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-homepage:1.0
+    image: mateonunez/architect-frontend-archifront-homepage:1.1.4
     working_dir: /usr/src/architect/frontend/archifront/homepage
     restart: always
     expose:
@@ -189,8 +193,13 @@ services:
     volumes:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
-    env_file:
-      - ./frontend/archifront/homepage/.env.local
+    environment:
+      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
+      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
+      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
+      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
+    # env_file:
+    #   - ./frontend/archifront/homepage/.env.local
     networks:
       - architect_network
 
@@ -200,7 +209,7 @@ services:
     build:
       context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-authentication:1.0
+    image: mateonunez/architect-frontend-archifront-authentication:1.1.16
     working_dir: /usr/src/architect/frontend/archifront/authentication
     restart: always
     expose:
@@ -208,10 +217,15 @@ services:
     volumes:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
+    environment:
+      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
+      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
+      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
+      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
     depends_on:
-      - architect_backend_php_laravel
-    env_file:
-      - ./frontend/archifront/authentication/.env.local
+      - architect_nginx_laravel
+    # env_file:
+    #   - ./frontend/archifront/authentication/.env.local
     networks:
       - architect_network
 

@@ -13,6 +13,6 @@ COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 80
+EXPOSE 8000
 
 ENTRYPOINT ["entrypoint.sh"]
