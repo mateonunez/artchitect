@@ -107,6 +107,28 @@ services:
     networks:
       - architect_network
 
+  # PostgresDB Service for Kong
+  architect_database_postgres_kong:
+    container_name: architect_database_postgres_kong
+    build:
+      context: ./kong/postgres
+    environment:
+      POSTGRES_USERS: architect_kong:architect_kong|architect_konga:architect_konga
+      POSTGRES_DATABASES: architect_database_kong:architect_kong|architect_database_konga:architect_konga
+      POSTGRES_PASSWORD: architect_kong
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "architect_kong" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./kong/postgres/data:/var/lib/postgresql/data
+    networks:
+      - architect_network
+
   # Nginx Architect Frontend Service
   architect_nginx_archifront:
     container_name: architect_nginx_archifront
@@ -176,6 +198,70 @@ services:
       - 5672:5672
       # UI Management port
       - 15672:15672
+    networks:
+      - architect_network
+
+  # Kong API Gateway Service
+  architect_kong:
+    container_name: architect_kong
+    image: kong:latest
+    environment:
+      KONG_DATABASE: architect_postgres_kong
+      KONG_PG_HOST: architect_database_postgres_kong
+      KONG_PG_DATABASE: architect_postgres_kong
+      KONG_PG_USER: architect_kong
+      KONG_PG_PASSWORD: architect_kong
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      #KONG_ADMIN_LISTEN: ${KONG_ADMIN_LISTEN}
+    restart: on-failure
+    ports:
+      - 8033:8000
+      - 8433:8443
+        #- $KONG_PROXY_ADMIN_API_PORT:8001
+        #- $KONG_PROXY_ADMIN_SSL_API_PORT:8444
+    networks:
+      - architect_network
+
+  # Kong Migrations
+  architect_kong_migrations:
+    container_name: architect_kong_migrations
+    image: kong:latest
+    build:
+      context: ./kong/postgres
+    entrypoint: sh -c "sleep 10 && kong migrations bootstrap -v"
+    environment:
+      KONG_DATABASE: architect_postgres_kong
+      KONG_PG_HOST: architect_database_postgres_kong
+      KONG_PG_DATABASE: architect_postgres_kong
+      KONG_PG_USER: architect_kong
+      KONG_PG_PASSWORD: architect_kong
+    depends_on:
+      - architect_database_postgres_kong
+    restart: on-failure
+    networks:
+      - architect_network
+
+  architect_konga:
+    container_name: architect_konga
+    image: pantsel/konga
+    environment:
+      TOKEN_SECRET: architect_secret_token
+      DB_ADAPTER: architect_postgres_kong
+      DB_HOST: architect_database_postgres_kong
+      DB_PORT: 5432
+      DB_DATABASE: architect_database_konga
+      DB_USER: architect_konga
+      DB_PASSWORD: architect_konga
+      NODE_ENV: development
+      KONGA_HOOK_TIMEOUT: 10000
+    restart: on-failure
+    ports:
+      - 9033:1337
+    depends_on:
+      - architect_database_postgres_kong
     networks:
       - architect_network
 
