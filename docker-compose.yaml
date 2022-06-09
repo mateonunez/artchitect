@@ -107,6 +107,22 @@ services:
     networks:
       - architect_network
 
+  # PostgresDB Service for Kong
+  architect_database_postgres_kong:
+    container_name: architect_database_postgres_kong
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: architect_database_kong
+      POSTGRES_USER: architect_kong
+      POSTGRES_PASSWORD: architect_kong
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./kong/postgres/data:/var/lib/postgresql/data
+    networks:
+      - architect_network
+
   # Nginx Architect Frontend Service
   architect_nginx_archifront:
     container_name: architect_nginx_archifront
@@ -176,6 +192,71 @@ services:
       - 5672:5672
       # UI Management port
       - 15672:15672
+    networks:
+      - architect_network
+
+  # Kong API Gateway Service
+  architect_kong:
+    container_name: architect_kong
+    image: kong:latest
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: architect_database_postgres_kong
+      KONG_PG_DATABASE: architect_database_kong
+      KONG_PG_USER: architect_kong
+      KONG_PG_PASSWORD: architect_kong
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: architect_kong:8000
+      KONG_ADMIN_LISTEN: architect_kong:8001
+    ports:
+      - 8033:8000 # Kong API Gateway port
+      - 8433:8443 # Kong SSL API Gateway port
+      - 8034:8001 # Kong Admin port
+      - 8444:8444 # Kong SSL Admin port
+    depends_on:
+      - architect_kong_migrations
+    networks:
+      - architect_network
+
+  # Konga Dashboard Service
+  architect_konga:
+    container_name: architect_konga
+    image: pantsel/konga
+    environment:
+      TOKEN_SECRET: architect-konga-token-secret
+      DB_ADAPTER: postgres
+      DB_HOST: architect_database_postgres_kong
+      DB_PORT: 5432
+      DB_DATABASE: architect_database_kong
+      DB_USER: architect_kong
+      DB_PASSWORD: architect_kong
+      NODE_ENV: development
+      KONGA_HOOK_TIMEOUT: 10000
+    restart: on-failure
+    ports:
+      - 8037:1337
+    depends_on:
+      - architect_database_postgres_kong
+    networks:
+      - architect_network
+
+  # Kong Migrations
+  architect_kong_migrations:
+    container_name: architect_kong_migrations
+    image: kong:latest
+    command: kong migrations bootstrap
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: architect_database_postgres_kong
+      KONG_PG_DATABASE: architect_database_kong
+      KONG_PG_USER: architect_kong
+      KONG_PG_PASSWORD: architect_kong
+      KONG_PG_PORT: 5432
+      KONG_PG_SCHEMA: public
+    restart: on-failure
     networks:
       - architect_network
 
