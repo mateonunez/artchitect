@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-archivel-configmap
-data:
-  archivel-host: archivel-laravel-service

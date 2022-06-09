@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-archifront-configmap
-data:
-  archifront-endpoint: nginx-archifront-service
-  archifront-homepage-endpoint: archifront-homepage-service
-  archifront-authentication-endpoint: archifront-authentication-service
