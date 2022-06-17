@@ -8,14 +8,23 @@ services:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
     image: mateonunez/architect-backend-php-laravel:1.2.4
-    expose:
-      - 9000
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
+      - /usr/src/architect/backend/laravel/vendor
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
+      # Database 
       DB_HOST: architect_database_mysql
+      DB_PORT: 3306
+      DB_DATABASE: architect_database_mysql
+      DB_USERNAME: architect
+      DB_PASSWORD: architect
+      # Broker
+      RABBITMQ_HOST: architect_rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: architect
+      RABBITMQ_PASS: architect
     depends_on:
       - architect_database_mysql
       - architect_rabbitmq
