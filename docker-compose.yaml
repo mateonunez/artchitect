@@ -162,12 +162,15 @@ services:
       - 8000:8000
     volumes:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    environment:
+      # Laravel
+      - ARCHIVEL_HOST=architect_backend_php_laravel
+      - ARCHIVEL_PORT=9000
+      # Nginx
+      - NGINX_PORT=8000
+      - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
     depends_on:
       - architect_backend_php_laravel
-    environment:
-      - NGINX_FPM_HOST=architect_backend_php_laravel
-      - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
-      - NGINX_FPM_PORT=9000
     networks:
       - architect_network
 
