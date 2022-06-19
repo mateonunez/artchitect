@@ -1,9 +1,13 @@
 extern crate actix_web;
+extern crate dotenv;
 
 use actix_web::{web, App, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 use log::{debug};
 use std::{env, io};
+use dotenv::dotenv;
+
+// IMPLEMENT ENVIRONMENT VARIABLES
 
 #[derive(Serialize, Deserialize)]
 struct User {
@@ -41,10 +45,14 @@ async fn user_logged_in(data: web::Json<User>) -> impl Responder {
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
+  dotenv().ok();
   env::set_var("RUST_LOG", "debug");
   env_logger::init();
 
-  let message: String = format!("[ balancer (RS) ⚖️ ] Server is listening on {}!", PORT);
+  let host: String = env::var("BALANCER_HOST").unwrap().to_string();
+  let port: u16 = env::var("BALANCER_PORT").unwrap().parse().unwrap();
+
+  let message: String = format!("[ balancer (RS) ⚖️ ] Server is listening on {}!", port);
 
   debug!("{}", message);
 
@@ -52,7 +60,7 @@ async fn main() -> io::Result<()> {
     App::new()
       .route("/users/logged-in", web::post().to(user_logged_in))
   })
-    .bind(("architect_backend_rust_balancer", 5500))?
+    .bind((host, port))?
     .run()
     .await
 }
