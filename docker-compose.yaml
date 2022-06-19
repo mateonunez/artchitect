@@ -7,7 +7,7 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    image: mateonunez/architect-backend-php-laravel:1.2.4
+    # image: mateonunez/architect-backend-php-laravel:1.2.4
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
       - /usr/src/architect/backend/laravel/storage
@@ -35,7 +35,8 @@ services:
   # Watchful service
   architect_backend_javascript_watchful:
     container_name: architect_backend_javascript_watchful
-    restart: always
+    restart: on-failure
+    platform: linux/x86_64
     build:
       context: ./backend/javascript/watchful
       dockerfile: ./.docker/Dockerfile
@@ -52,16 +53,20 @@ services:
   # Balancer service Rust
   architect_backend_rust_balancer:
     container_name: architect_backend_rust_balancer
+    restart: on-failure
     build:
       context: ./backend/rust/balancer
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-rust-balancer:1.0
+    # image: mateonunez/architect-backend-rust-balancer:1.0
     working_dir: /usr/src/architect/backend/rust/balancer
     expose:
       - 5500
     volumes:
       - /usr/src/architect/backend/rust/balancer/target
       - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
+    environment:
+      BALANCER_HOST: 0.0.0.0
+      BALANCER_PORT: 5500
     networks:
       - architect_network
 
@@ -71,7 +76,7 @@ services:
     build:
       context: ./backend/javascript/balancer
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-javascript-balancer:1.0
+    # image: mateonunez/architect-backend-javascript-balancer:1.0
     working_dir: /usr/src/architect/backend/javascript/balancer
     expose:
       - 5010
@@ -161,7 +166,7 @@ services:
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-laravel:1.2
+    # image: mateonunez/architect-nginx-laravel:1.2
     ports:
       - 8000:8000
     volumes:
@@ -184,7 +189,7 @@ services:
     build:
       context: ./nginx/balancer
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-balancer:1.0
+    # image: mateonunez/architect-nginx-balancer:1.0
     environment:
       - NGINX_FPM_HOST=architect_nginx_balancer
     ports:

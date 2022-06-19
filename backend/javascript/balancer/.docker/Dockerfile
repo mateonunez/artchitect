@@ -1,15 +1,16 @@
-FROM node:16-alpine
+FROM node:16-alpine as builder
 
 # Setting env variables
-ENV BALANCER_HOST architect_backend_javascript_balancer
+ENV BALANCER_HOST 0.0.0.0
 ENV BALANCER_PORT 5010
 
 # Installing main dependencies
-RUN apt-get update \
-  && apt-get install -y --no-install-recommeds \
-  gettext
+RUN apk update \
+  && apk add gettext ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 
 # Setting the workdir
+RUN mkdir -p /usr/src/architect/backend/javascript/balancer
 WORKDIR /usr/src/architect/backend/javascript/balancer
 
 # Installing dependencies
@@ -19,12 +20,14 @@ COPY package-lock.json package-lock.json
 # Installing balancer dependencies
 RUN npm install
 
-# Copying the application
+# Copying the env file
 COPY .env .env
+
+# Copying the application
 COPY src src
 
 # Set the env variables
 RUN envsubst '${BALANCER_HOST},${BALANCER_PORT}' < .env
 
 # Run the application in dev mode
-RUN npm run dev
+CMD ["npm", "run", "dev"]
