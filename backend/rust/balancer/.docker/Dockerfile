@@ -11,11 +11,21 @@ RUN apk update \
 
 # Creating and checkout the directory
 RUN mkdir -p /usr/src/architect/backend/rust/balancer
-WORKDIR /usr/src/architect/backend/rust/balancer
+WORKDIR /usr/src/architect/backend/rust/
 
-# Installing the dependencies
-COPY Cargo.toml Cargo.toml
-COPY Cargo.lock Cargo.lock
+# We want dependencies cached, so copy those first.
+COPY Cargo.toml Cargo.lock /usr/src/architect/backend/rust/balancer/
+
+# Set the working directory
+WORKDIR /usr/src/architect/backend/rust/balancer/
+
+## Install target platform (Cross-Compilation) --> Needed for Alpine
+RUN rustup target add x86_64-unknown-linux-musl
+
+RUN mkdir -p src && touch src/main.rs && echo "fn main() {}" > src/main.rs
+
+# This is a dummy build to get the dependencies cached.
+RUN cargo build --target x86_64-unknown-linux-musl --release
 
 # Copying the env file
 COPY .env .env
@@ -23,14 +33,16 @@ COPY .env .env
 # Replace the env variables
 RUN envsubst '${BALANCER_HOST},${BALANCER_PORT}' < .env
 
-# Copy the application
+# Now copy in the rest of the sources
 COPY src src
 
-## Install target platform (Cross-Compilation) --> Needed for Alpine
-RUN rustup target add x86_64-unknown-linux-musl
+## Touch main.rs to prevent cached release build
+RUN touch src/main.rs
 
-# Install cargo
+# This is the actual application build.
 RUN cargo build --target x86_64-unknown-linux-musl --release
+
+# Copy the binary to the /usr/bin directory
 RUN mv target/x86_64-unknown-linux-musl/release/balancer-rust /usr/local/bin/balancer-rust
 
 # Run the application in dev mode
