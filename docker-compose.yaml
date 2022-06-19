@@ -10,6 +10,7 @@ services:
     image: mateonunez/architect-backend-php-laravel:1.2.4
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
+      - /usr/src/architect/backend/laravel/storage
       - /usr/src/architect/backend/laravel/vendor
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public

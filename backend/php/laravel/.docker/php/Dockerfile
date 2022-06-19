@@ -69,11 +69,11 @@ COPY routes routes
 COPY storage storage
 COPY tests tests
 
-# Replacing env variables
-RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST}${RABBITMQ_PORT},${RABBITMQ_USER}${RABBITMQ_PASS}' < .env
-
-# Setting permissions
-RUN chown -R www-data:www-data .
-
 # Exposing port
 EXPOSE 9000
+
+# Entrypoint
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT [ "entrypoint.sh" ]
