@@ -78,6 +78,9 @@ services:
     volumes:
       - /usr/src/architect/backend/javascript/balancer/node_modules
       - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
+    environment:
+      BALANCER_HOST: architect_backend_javascript_balancer
+      BALANCER_PORT: 5010
     networks:
       - architect_network
 
