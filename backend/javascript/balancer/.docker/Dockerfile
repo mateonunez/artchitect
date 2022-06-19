@@ -1,7 +1,7 @@
 FROM node:16-alpine as builder
 
 # Setting env variables
-ENV BALANCER_HOST 0.0.0.0
+ENV BALANCER_HOST architect_backend_rust_balancer
 ENV BALANCER_PORT 5010
 
 # Installing main dependencies
@@ -9,7 +9,7 @@ RUN apk update \
   && apk add gettext ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-# Setting the workdir
+# Creating and checkout the directory
 RUN mkdir -p /usr/src/architect/backend/javascript/balancer
 WORKDIR /usr/src/architect/backend/javascript/balancer
 
