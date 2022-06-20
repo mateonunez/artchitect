@@ -20,12 +20,13 @@ COPY Cargo.toml Cargo.lock /usr/src/architect/backend/rust/balancer/
 WORKDIR /usr/src/architect/backend/rust/balancer/
 
 ## Install target platform (Cross-Compilation) --> Needed for Alpine
-RUN rustup target add x86_64-unknown-linux-musl
+# RUN rustup target add x86_64-unknown-linux-musl
 
 RUN mkdir -p src && touch src/main.rs && echo "fn main() {}" > src/main.rs
 
 # This is a dummy build to get the dependencies cached.
-RUN cargo build --target x86_64-unknown-linux-musl --release
+# RUN cargo build --target x86_64-unknown-linux-musl --release | This works on Windows Docker Desktop
+RUN cargo build  --release
 
 # Copying the env file
 COPY .env .env
@@ -40,10 +41,12 @@ COPY src src
 RUN touch src/main.rs
 
 # This is the actual application build.
-RUN cargo build --target x86_64-unknown-linux-musl --release
+RUN cargo build --release
+# RUN mv target/x86_64-unknown-linux-musl/release/balancer-rust /usr/local/bin/balancer-rust | This works on Windows Docker Desktop
 
 # Copy the binary to the /usr/bin directory
-RUN mv target/x86_64-unknown-linux-musl/release/balancer-rust /usr/local/bin/balancer-rust
+RUN mv target/release/balancer-rust /usr/local/bin/balancer-rust
+# RUN mv target/x86_64-unknown-linux-musl/release/balancer-rust /usr/local/bin/balancer-rust | This works on Windows Docker Desktop
 
 # Run the application in dev mode
 CMD ["balancer-rust"]

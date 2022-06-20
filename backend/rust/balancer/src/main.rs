@@ -7,8 +7,6 @@ use log::{debug};
 use std::{env, io};
 use dotenv::dotenv;
 
-// IMPLEMENT ENVIRONMENT VARIABLES
-
 #[derive(Serialize, Deserialize)]
 struct User {
   id: String,
@@ -22,8 +20,6 @@ struct UserLoggedIn {
   user: User,
   appId: String,
 }
-
-const PORT: i32 = 5500;
 
 async fn user_logged_in(data: web::Json<User>) -> impl Responder {
   let user = UserLoggedIn {
