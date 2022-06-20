@@ -40,11 +40,16 @@ services:
     build:
       context: ./backend/javascript/watchful
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-javascript-watchful:1.0
+    # image: mateonunez/architect-backend-javascript-watchful:1.0
     working_dir: /usr/src/architect/backend/javascript/watchful
     volumes:
       - /usr/src/architect/backend/javascript/watchful/node_modules
       - ./backend/javascript/watchful:/usr/src/architect/backend/javascript/watchful
+    environment:
+      RABBITMQ_HOST: architect_rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: architect
+      RABBITMQ_PASS: architect
     depends_on:
       - architect_rabbitmq
     networks:
@@ -174,11 +179,12 @@ services:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Laravel
-      - ARCHIVEL_HOST=architect_backend_php_laravel
-      - ARCHIVEL_PORT=9000
+      ARCHIVEL_HOST: architect_backend_php_laravel
+      ARCHIVEL_PORT: 9000
+
       # Nginx
-      - NGINX_PORT=8000
-      - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
+      NGINX_PORT: 8000
+      NGINX_ROOT: /usr/src/architect/backend/php/laravel/public
     depends_on:
       - architect_backend_php_laravel
     networks:
@@ -204,14 +210,15 @@ services:
   # RabbitMQ Service
   architect_rabbitmq:
     container_name: architect_rabbitmq
-    image: rabbitmq:3.9-management
-    restart: always
+    image: rabbitmq:3.10.5-management
+    restart: on-failure
     environment:
       RABBITMQ_DEFAULT_USER: architect
       RABBITMQ_DEFAULT_PASS: architect
-    ports:
+    expose:
       # AMQP protocol port
-      - 5672:5672
+      - 5672
+    ports:
       # UI Management port
       - 15672:15672
     networks:
@@ -267,7 +274,7 @@ services:
 
   # Kong Migrations
   architect_kong_migrations:
-    container_name: architect_kong_migrations
+    container_name: architect_kabng_migrations
     image: kong:latest
     command: kong migrations bootstrap
     environment:
