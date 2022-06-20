@@ -72,8 +72,4 @@ COPY tests tests
 # Exposing port
 EXPOSE 9000
 
-# Entrypoint
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT [ "entrypoint.sh" ]
+RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < /usr/src/architect/backend/php/laravel/.env
