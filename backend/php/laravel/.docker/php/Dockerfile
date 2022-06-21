@@ -27,6 +27,8 @@ RUN apt-get update \
     libpng-dev \
     libssl-dev \
     libzip-dev \
+    supervisor \
+    vim \
     unzip \
     zip \
     && apt-get clean \
@@ -69,9 +71,18 @@ COPY routes routes
 COPY storage storage
 COPY tests tests
 
+RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < .env
+
+# Supervisor configuration
+COPY ./.docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Touching log files
+RUN touch /var/log/php-error.log && chmod 0644 /var/log/php-error.log
+RUN touch /var/log/php-access.log && chmod 0644 /var/log/php-access.log
+RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
+
 # Exposing port
 EXPOSE 9000
 
-RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < /usr/src/architect/backend/php/laravel/.env
-
-CMD ["php", "artisan", "queue:work"]
+# Running supervisord
+CMD ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisor/conf.d/supervisord.conf"]
