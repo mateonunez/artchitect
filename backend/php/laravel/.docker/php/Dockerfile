@@ -73,3 +73,5 @@ COPY tests tests
 EXPOSE 9000
 
 RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < /usr/src/architect/backend/php/laravel/.env
+
+CMD ["php", "artisan", "queue:work"]
