@@ -173,7 +173,7 @@ services:
       dockerfile: ./Dockerfile
     # image: mateonunez/architect-nginx-laravel:1.2
     ports:
-      - 8000:8000
+      - 8000:80
     volumes:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
@@ -182,7 +182,7 @@ services:
       ARCHIVEL_PORT: 9000
 
       # Nginx
-      NGINX_PORT: 8000
+      NGINX_PORT: 80
       NGINX_ROOT: /usr/src/architect/backend/php/laravel/public
     depends_on:
       - architect_backend_php_laravel
@@ -197,7 +197,17 @@ services:
       dockerfile: ./Dockerfile
     # image: mateonunez/architect-nginx-balancer:1.0
     environment:
-      - NGINX_FPM_HOST=architect_nginx_balancer
+      # Nginx
+      NGINX_PORT: 80
+      NGINX_HOST: architect_nginx_balancer
+
+      # Balancer
+      BALANCER_RUST_HOST: architect_backend_rust_balancer
+      BALANCER_RUST_PORT: 5500
+
+      # Another Balancer
+      BALANCER_JAVASCRIPT_HOST: architect_backend_javascript_balancer
+      BALANCER_JAVASCRIPT_PORT: 5010
     ports:
       - 8080:80
     depends_on:

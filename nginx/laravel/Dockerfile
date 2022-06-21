@@ -3,7 +3,8 @@ FROM nginx:latest
 # Setting environment variables
 ENV ARCHIVEL_HOST architect_backend_php_laravel
 ENV ARCHIVEL_PORT 9000
-ENV NGINX_PORT 8000 
+
+ENV NGINX_PORT 80
 ENV NGINX_ROOT /usr/src/architect/backend/php/laravel/public
 
 # Removing default configurations
@@ -21,7 +22,7 @@ COPY laravel.conf laravel.conf
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Exposing 8000 port
-EXPOSE 8000
+# Exposing 80 port
+EXPOSE 80
 
 ENTRYPOINT ["entrypoint.sh"]
