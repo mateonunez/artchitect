@@ -81,6 +81,10 @@ RUN touch /var/log/php-error.log && chmod 0644 /var/log/php-error.log
 RUN touch /var/log/php-access.log && chmod 0644 /var/log/php-access.log
 RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
 
+# Optimizing
+RUN composer install --optimize-autoloader --no-dev
+RUN php artisan optimize
+
 # Exposing port
 EXPOSE 9000
 
