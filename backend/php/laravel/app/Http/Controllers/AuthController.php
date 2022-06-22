@@ -59,8 +59,9 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+
         try {
-            Log::info('Starting login actions: ' . microtime());
+            $timeStart = microtime(true);
 
             $data = $request->all();
 
@@ -82,11 +83,12 @@ class AuthController extends Controller
 
                 $token = $user->createToken(config('app.name'))->accessToken;
 
-                Log::info('Dispatching Event: ' . microtime());
                 // Dispatching UserLoggedIn event
                 UserLoggedIn::dispatch($user);
 
-                Log::info('End login: ' . microtime());
+                $timeEnd = microtime(true);
+                Log::info('[' . __METHOD__ . ']' .  ' time spent: ' . ($timeEnd - $timeStart));
+
                 return $this->sendResponse(['token' => $token], Message::AUTH_OK);
             }
 
