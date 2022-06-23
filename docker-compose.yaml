@@ -12,7 +12,7 @@ services:
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    # image: mateonunez/architect-backend-php-laravel:1.2.4
+    # image: mateonunez/architect-backend-php-laravel:1.2.5
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
       - /usr/src/architect/backend/laravel/storage
@@ -39,6 +39,7 @@ services:
 
   architect_backend_php_laravel_2:
     <<: *architect_backend_php_laravel
+    # image: mateonunez/architect-backend-php-laravel:1.2.5
     container_name: architect_backend_php_laravel_2
 
   # MySQL Service
@@ -83,15 +84,19 @@ services:
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
-    # image: mateonunez/architect-nginx-laravel:1.2
+    # image: mateonunez/architect-nginx-laravel:1.2.1
     ports:
       - 8000:80
     volumes:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Laravel
-      ARCHIVEL_HOST: architect_backend_php_laravel
+      ARCHIVEL_HOST: architect_backend_php_laravel_1
       ARCHIVEL_PORT: 9000
+
+      # Laravel 2
+      ARCHIVEL_HOST_2: architect_backend_php_laravel_2
+      ARCHIVEL_PORT_2: 9000
 
       # Nginx
       NGINX_PORT: 80
@@ -160,7 +165,7 @@ services:
     build:
       context: ./nginx/archifront
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-archifront:1.2
+    # image: mateonunez/architect-nginx-archifront:1.2
     environment:
       - NGINX_FPM_HOST=architect_nginx_archifront
       - ARCHIFRONT_AUTHENTICATION_HOST=architect_frontend_archifront_authentication

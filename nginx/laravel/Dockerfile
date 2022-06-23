@@ -1,8 +1,10 @@
 FROM nginx:latest
 
 # Setting environment variables
-ENV ARCHIVEL_HOST architect_backend_php_laravel
+ENV ARCHIVEL_HOST architect_backend_php_laravel_1
 ENV ARCHIVEL_PORT 9000
+ENV ARCHIVEL_HOST_2 architect_backend_php_laravel_2
+ENV ARCHIVEL_PORT_2 9000
 
 ENV NGINX_PORT 80
 ENV NGINX_ROOT /usr/src/architect/backend/php/laravel/public
