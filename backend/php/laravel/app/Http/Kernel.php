@@ -41,7 +41,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
+            'throttle:5000,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

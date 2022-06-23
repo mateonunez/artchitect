@@ -1,17 +1,23 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Jobs;
 
-use App\Core\Brokers\RabbitMQ;
 use App\Events\UserLoggedIn;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
+use App\Core\Brokers\RabbitMQ;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class SendUserLoggedInToBroker
+class SendUserLoggedInToBroker implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
-     * Create the event listener.
+     * Create a new job instance.
      *
      * @return void
      */
@@ -21,9 +27,8 @@ class SendUserLoggedInToBroker
     }
 
     /**
-     * Handle the event.
+     * Execute the job.
      *
-     * @param  \App\Events\UserLoggedIn  $event
      * @return void
      */
     public function handle(UserLoggedIn $event)

@@ -1,11 +1,23 @@
 FROM php:8.0-fpm
 
 # Install Composer
-ENV COMPOSER_VERSION 2.1.5
-ENV DB_HOST architect_database_mysql
+ENV COMPOSER_VERSION 2.3.5
 
+# Setting Env variables
+ENV DB_HOST architect_database_mysql
+ENV DB_PORT 3306
+ENV DB_DATABASE architect_database_mysql
+ENV DB_USERNAME architect
+ENV DB_PASSWORD architect
+ENV RABBITMQ_HOST architect_rabbitmq
+ENV RABBITMQ_PORT 5672
+ENV RABBITMQ_USER architect
+ENV RABBITMQ_PASS architect
+
+# Installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=$COMPOSER_VERSION
 
+# Installing dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     gettext \
@@ -15,11 +27,11 @@ RUN apt-get update \
     libpng-dev \
     libssl-dev \
     libzip-dev \
+    supervisor \
+    vim \
     unzip \
     zip \
-    nodejs \
     && apt-get clean \
-    && pecl install redis \
     && docker-php-ext-configure gd \
     && docker-php-ext-configure zip \
     && docker-php-ext-install \
@@ -27,20 +39,54 @@ RUN apt-get update \
     exif \
     opcache \
     pdo_mysql \
-    pdo_pgsql \
-    pgsql \
     pcntl \
     sockets \
     zip \
-    && docker-php-ext-enable redis \
     && rm -rf /var/lib/apt/lists/*;
 
+# Copying php configuration
 COPY ./.docker/php/php.ini /usr/local/etc/php/conf.d/php.ini
 
-COPY ./ /usr/src/architect/backend/php/laravel/
-
+# Creating and manage laravel project's path
 WORKDIR /usr/src/architect/backend/php/laravel/
 
-RUN chown -R www-data:www-data /usr/src/architect/backend/php/laravel
+COPY composer.json composer.json
+COPY composer.lock composer.lock
 
-RUN envsubst '$DB_HOST' < /usr/src/architect/backend/php/laravel/.env
+COPY .env .env
+COPY .env.testing .env.testing
+
+COPY artisan artisan
+
+COPY phpcs.xml.dist phpcs.xml.dist
+COPY phpunit.xml phpunit.xml
+
+COPY app app
+COPY bootstrap bootstrap
+COPY config config
+COPY database database
+COPY lang lang
+COPY public public
+COPY routes routes
+COPY storage storage
+COPY tests tests
+
+RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < .env
+
+# Supervisor configuration
+COPY ./.docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Touching log files
+RUN touch /var/log/php-error.log && chmod 0644 /var/log/php-error.log
+RUN touch /var/log/php-access.log && chmod 0644 /var/log/php-access.log
+RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
+
+# Optimizing
+RUN composer install --optimize-autoloader --no-dev
+RUN php artisan optimize
+
+# Exposing port
+EXPOSE 9000
+
+# Running supervisord
+CMD ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisor/conf.d/supervisord.conf"]

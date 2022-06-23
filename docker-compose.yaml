@@ -1,75 +1,45 @@
 version: "3.8"
 
 services:
-  # PHP Service
-  architect_backend_php_laravel:
-    container_name: architect_backend_php_laravel
+  #################################
+  ###     Archivel Service      ###
+  #################################
+
+  # Laravel Service
+  architect_backend_php_laravel_1:
+    &architect_backend_php_laravel
+    container_name: architect_backend_php_laravel_1
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
-    image: mateonunez/architect-backend-php-laravel:1.2.4
-    expose:
-      - 9000
+    # image: mateonunez/architect-backend-php-laravel:1.2.4
     working_dir: /usr/src/architect/backend/php/laravel
     volumes:
+      - /usr/src/architect/backend/laravel/storage
+      - /usr/src/architect/backend/laravel/vendor
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
+      # Database 
       DB_HOST: architect_database_mysql
+      DB_PORT: 3306
+      DB_DATABASE: architect_database_mysql
+      DB_USERNAME: architect
+      DB_PASSWORD: architect
+      # Broker
+      RABBITMQ_HOST: architect_rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: architect
+      RABBITMQ_PASS: architect
     depends_on:
       - architect_database_mysql
       - architect_rabbitmq
     networks:
       - architect_network
 
-  # Watchful service
-  architect_backend_javascript_watchful:
-    container_name: architect_backend_javascript_watchful
-    restart: always
-    build:
-      context: ./backend/javascript/watchful
-      dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-javascript-watchful:1.0
-    working_dir: /usr/src/architect/backend/javascript/watchful
-    volumes:
-      - /usr/src/architect/backend/javascript/watchful/node_modules
-      - ./backend/javascript/watchful:/usr/src/architect/backend/javascript/watchful
-    depends_on:
-      - architect_rabbitmq
-    networks:
-      - architect_network
-
-  # Balancer service Rust
-  architect_backend_rust_balancer:
-    container_name: architect_backend_rust_balancer
-    build:
-      context: ./backend/rust/balancer
-      dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-rust-balancer:1.0
-    working_dir: /usr/src/architect/backend/rust/balancer
-    expose:
-      - 5500
-    volumes:
-      - /usr/src/architect/backend/rust/balancer/target
-      - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
-    networks:
-      - architect_network
-
-  # Balancer service Javascript
-  architect_backend_javascript_balancer:
-    container_name: architect_backend_javascript_balancer
-    build:
-      context: ./backend/javascript/balancer
-      dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-backend-javascript-balancer:1.0
-    working_dir: /usr/src/architect/backend/javascript/balancer
-    expose:
-      - 5010
-    volumes:
-      - /usr/src/architect/backend/javascript/balancer/node_modules
-      - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
-    networks:
-      - architect_network
+  architect_backend_php_laravel_2:
+    <<: *architect_backend_php_laravel
+    container_name: architect_backend_php_laravel_2
 
   # MySQL Service
   architect_database_mysql:
@@ -107,19 +77,80 @@ services:
     networks:
       - architect_network
 
-  # PostgresDB Service for Kong
-  architect_database_postgres_kong:
-    container_name: architect_database_postgres_kong
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: architect_database_kong
-      POSTGRES_USER: architect_kong
-      POSTGRES_PASSWORD: architect_kong
-    restart: on-failure
-    stdin_open: true
-    tty: true
+  # Nginx Laravel Service
+  architect_nginx_laravel:
+    container_name: architect_nginx_laravel
+    build:
+      context: ./nginx/laravel
+      dockerfile: ./Dockerfile
+    # image: mateonunez/architect-nginx-laravel:1.2
+    ports:
+      - 8000:80
     volumes:
-      - ./kong/postgres/data:/var/lib/postgresql/data
+      - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
+    environment:
+      # Laravel
+      ARCHIVEL_HOST: architect_backend_php_laravel
+      ARCHIVEL_PORT: 9000
+
+      # Nginx
+      NGINX_PORT: 80
+      NGINX_ROOT: /usr/src/architect/backend/php/laravel/public
+    depends_on:
+      - architect_backend_php_laravel_1
+      - architect_backend_php_laravel_2
+    networks:
+      - architect_network
+
+  #################################
+  ###   Archifront Service      ###
+  #################################
+
+  # Homepage
+  architect_frontend_archifront_homepage:
+    container_name: architect_frontend_archifront_homepage
+    build:
+      context: ./frontend/archifront/homepage
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-frontend-archifront-homepage:1.1.4
+    working_dir: /usr/src/architect/frontend/archifront/homepage
+    restart: always
+    expose:
+      - 3000
+    volumes:
+      - /usr/src/architect/frontend/archifront/homepage/node_modules
+      - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
+    environment:
+      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIFRONT_ENDPOINT: http://architect_nginx_archifront
+      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://architect_frontend_archifront_authentication
+      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://architect_frontend_archifront_homepage
+    # env_file:
+    #   - ./frontend/archifront/homepage/.env.local
+    networks:
+      - architect_network
+
+  # User Authentication
+  architect_frontend_archifront_authentication:
+    container_name: architect_frontend_archifront_authentication
+    build:
+      context: ./frontend/archifront/authentication
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-frontend-archifront-authentication:1.1.16
+    working_dir: /usr/src/architect/frontend/archifront/authentication
+    restart: on-failure
+    volumes:
+      - /usr/src/architect/frontend/archifront/authentication/node_modules
+      - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
+    environment:
+      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIFRONT_ENDPOINT: http://architect_nginx_archifront
+      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://architect_frontend_archifront_authentication
+      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://architect_frontend_archifront_homepage
+    expose:
+      - 3000
+    depends_on:
+      - architect_nginx_laravel
     networks:
       - architect_network
 
@@ -142,23 +173,46 @@ services:
     networks:
       - architect_network
 
-  # Nginx Laravel Service
-  architect_nginx_laravel:
-    container_name: architect_nginx_laravel
+  #################################
+  ###    Balancer Service       ###
+  #################################
+
+  # Balancer service Rust
+  architect_backend_rust_balancer:
+    container_name: architect_backend_rust_balancer
+    restart: on-failure
     build:
-      context: ./nginx/laravel
-      dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-laravel:1.2
-    ports:
-      - 8000:8000
+      context: ./backend/rust/balancer
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-backend-rust-balancer:1.0
+    working_dir: /usr/src/architect/backend/rust/balancer
+    expose:
+      - 5500
     volumes:
-      - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
-    depends_on:
-      - architect_backend_php_laravel
+      - /usr/src/architect/backend/rust/balancer/target
+      - ./backend/rust/balancer:/usr/src/architect/backend/rust/balancer
     environment:
-      - NGINX_FPM_HOST=architect_backend_php_laravel
-      - NGINX_ROOT=/usr/src/architect/backend/php/laravel/public
-      - NGINX_FPM_PORT=9000
+      BALANCER_HOST: architect_backend_rust_balancer
+      BALANCER_PORT: 5500
+    networks:
+      - architect_network
+
+  # Balancer service Javascript
+  architect_backend_javascript_balancer:
+    container_name: architect_backend_javascript_balancer
+    build:
+      context: ./backend/javascript/balancer
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-backend-javascript-balancer:1.0
+    working_dir: /usr/src/architect/backend/javascript/balancer
+    expose:
+      - 5010
+    volumes:
+      - /usr/src/architect/backend/javascript/balancer/node_modules
+      - ./backend/javascript/balancer:/usr/src/architect/backend/javascript/balancer
+    environment:
+      BALANCER_HOST: architect_backend_javascript_balancer
+      BALANCER_PORT: 5010
     networks:
       - architect_network
 
@@ -168,9 +222,19 @@ services:
     build:
       context: ./nginx/balancer
       dockerfile: ./Dockerfile
-    image: mateonunez/architect-nginx-balancer:1.0
+    # image: mateonunez/architect-nginx-balancer:1.0
     environment:
-      - NGINX_FPM_HOST=architect_nginx_balancer
+      # Nginx
+      NGINX_PORT: 80
+      NGINX_HOST: architect_nginx_balancer
+
+      # Balancer
+      BALANCER_RUST_HOST: architect_backend_rust_balancer
+      BALANCER_RUST_PORT: 5500
+
+      # Another Balancer
+      BALANCER_JAVASCRIPT_HOST: architect_backend_javascript_balancer
+      BALANCER_JAVASCRIPT_PORT: 5010
     ports:
       - 8080:80
     depends_on:
@@ -179,21 +243,53 @@ services:
     networks:
       - architect_network
 
+  #################################
+  ###    Watchful Service       ###
+  #################################
+
+  # Watchful service
+  architect_backend_javascript_watchful:
+    container_name: architect_backend_javascript_watchful
+    restart: on-failure
+    platform: linux/x86_64
+    build:
+      context: ./backend/javascript/watchful
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-backend-javascript-watchful:1.0
+    working_dir: /usr/src/architect/backend/javascript/watchful
+    volumes:
+      - /usr/src/architect/backend/javascript/watchful/node_modules
+      - ./backend/javascript/watchful:/usr/src/architect/backend/javascript/watchful
+    environment:
+      RABBITMQ_HOST: architect_rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: architect
+      RABBITMQ_PASS: architect
+    depends_on:
+      - architect_rabbitmq
+    networks:
+      - architect_network
+
   # RabbitMQ Service
   architect_rabbitmq:
     container_name: architect_rabbitmq
-    image: rabbitmq:3.9-management
-    restart: always
+    image: rabbitmq:3.10.5-management
+    restart: on-failure
     environment:
       RABBITMQ_DEFAULT_USER: architect
       RABBITMQ_DEFAULT_PASS: architect
-    ports:
+    expose:
       # AMQP protocol port
-      - 5672:5672
+      - 5672
+    ports:
       # UI Management port
       - 15672:15672
     networks:
       - architect_network
+
+  #################################
+  ###   Kong Gateway Service    ###
+  #################################
 
   # Kong API Gateway Service
   architect_kong:
@@ -221,6 +317,22 @@ services:
     networks:
       - architect_network
 
+  # PostgresDB Service for Kong
+  architect_database_postgres_kong:
+    container_name: architect_database_postgres_kong
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: architect_database_kong
+      POSTGRES_USER: architect_kong
+      POSTGRES_PASSWORD: architect_kong
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./kong/postgres/data:/var/lib/postgresql/data
+    networks:
+      - architect_network
+
   # Konga Dashboard Service
   architect_konga:
     container_name: architect_konga
@@ -245,7 +357,7 @@ services:
 
   # Kong Migrations
   architect_kong_migrations:
-    container_name: architect_kong_migrations
+    container_name: architect_kabng_migrations
     image: kong:latest
     command: kong migrations bootstrap
     environment:
@@ -257,56 +369,6 @@ services:
       KONG_PG_PORT: 5432
       KONG_PG_SCHEMA: public
     restart: on-failure
-    networks:
-      - architect_network
-
-  # Homepage
-  architect_frontend_archifront_homepage:
-    container_name: architect_frontend_archifront_homepage
-    build:
-      context: ./frontend/archifront/homepage
-      dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-homepage:1.1.4
-    working_dir: /usr/src/architect/frontend/archifront/homepage
-    restart: always
-    expose:
-      - 3030
-    volumes:
-      - /usr/src/architect/frontend/archifront/homepage/node_modules
-      - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
-    environment:
-      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
-      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
-      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
-      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
-    # env_file:
-    #   - ./frontend/archifront/homepage/.env.local
-    networks:
-      - architect_network
-
-  # User Authentication
-  architect_frontend_archifront_authentication:
-    container_name: architect_frontend_archifront_authentication
-    build:
-      context: ./frontend/archifront/authentication
-      dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-authentication:1.1.16
-    working_dir: /usr/src/architect/frontend/archifront/authentication
-    restart: always
-    expose:
-      - 3010
-    volumes:
-      - /usr/src/architect/frontend/archifront/authentication/node_modules
-      - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
-    environment:
-      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
-      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
-      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
-      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
-    depends_on:
-      - architect_nginx_laravel
-    # env_file:
-    #   - ./frontend/archifront/authentication/.env.local
     networks:
       - architect_network
 

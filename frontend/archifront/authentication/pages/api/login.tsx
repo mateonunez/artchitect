@@ -31,10 +31,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return;
   }
 
-  
-  const { NEXT_PUBLIC_ARCHIVEL_ENDPOINT } = process.env
+  const { ARCHIVEL_ENDPOINT } = process.env;
 
-  const response = await fetch(`${NEXT_PUBLIC_ARCHIVEL_ENDPOINT}/api/auth/login`, {
+  const response = await fetch(`${ARCHIVEL_ENDPOINT}/api/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

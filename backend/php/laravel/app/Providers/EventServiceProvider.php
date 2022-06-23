@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Events\UserLoggedIn;
-use App\Listeners\SendUserLoggedInToBroker;
 use App\Models\User;
+use App\Events\UserLoggedIn;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Event;
+use App\Jobs\SendUserLoggedInToBroker;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

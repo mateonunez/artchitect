@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserLoggedIn;
 use App\Lib\Message;
+use App\Events\UserLoggedIn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -59,6 +60,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            $timeStart = microtime(true);
+
             $data = $request->all();
 
             $validator = Validator::make($data, [
@@ -82,10 +85,13 @@ class AuthController extends Controller
                 // Dispatching UserLoggedIn event
                 UserLoggedIn::dispatch($user);
 
+                $timeEnd = microtime(true);
+                Log::info('[' . __METHOD__ . ']' .  ' time spent: ' . ($timeEnd - $timeStart));
+
                 return $this->sendResponse(['token' => $token], Message::AUTH_OK);
-            } else {
-                return $this->sendError(Message::CREDENTIALS_KO);
             }
+
+            return $this->sendError(Message::CREDENTIALS_KO);
         } catch (\Exception $ex) {
             return $this->sendError(Message::AUTH_KO,  [$ex->getMessage()], 400);
         }

@@ -1,18 +1,28 @@
 FROM nginx:latest
 
-ENV NGINX_ROOT /usr/src/architect/backend/php/laravel/public
-ENV NGINX_FPM_HOST architect_backend_php_laravel
-ENV NGINX_FPM_PORT 9000
+# Setting environment variables
+ENV ARCHIVEL_HOST architect_backend_php_laravel
+ENV ARCHIVEL_PORT 9000
 
+ENV NGINX_PORT 80
+ENV NGINX_ROOT /usr/src/architect/backend/php/laravel/public
+
+# Removing default configurations
 RUN rm -f /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/nginx.conf
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./laravel.conf /etc/nginx/laravel.tmpl
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+# Setting working dir
+WORKDIR /etc/nginx
 
+# Copying nginx and laravel configuration files
+COPY nginx.conf nginx.conf
+COPY laravel.conf laravel.conf
+
+# Copy and set permissions on entrypoint file
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 8000
+# Exposing 80 port
+EXPOSE 80
 
 ENTRYPOINT ["entrypoint.sh"]

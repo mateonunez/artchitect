@@ -1,4 +1,5 @@
 #!/bin/bash
 
-envsubst '$NGINX_ROOT $NGINX_FPM_HOST $NGINX_FPM_PORT' < /etc/nginx/laravel.tmpl > /etc/nginx/conf.d/default.conf
+envsubst '${NGINX_ROOT},${NGINX_PORT},${ARCHIVEL_HOST},${ARCHIVEL_PORT}' < /etc/nginx/laravel.conf > /etc/nginx/conf.d/default.conf
+
 exec nginx -g "daemon off;"
