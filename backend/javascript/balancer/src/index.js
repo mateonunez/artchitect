@@ -12,6 +12,7 @@ const server = () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
+  // Logged In Event
   app.post('/users/logged-in', (req, res) => {
     console.log('[ balancer (JS) ⚖️ ] Called API: /users/logged-in');
 
@@ -19,6 +20,23 @@ const server = () => {
 
     res.send({
       loggedIn: true,
+      user: {
+        id,
+        name,
+        email
+      },
+      appId: 'javascript-balancer'
+    });
+  });
+
+  // Registered event
+  app.post('/users/registered', (req, res) => {
+    console.log('[ balancer (JS) ⚖️ ] Called API: /users/registered');
+
+    const { id, name, email } = req.body;
+
+    res.send({
+      registered: true,
       user: {
         id,
         name,

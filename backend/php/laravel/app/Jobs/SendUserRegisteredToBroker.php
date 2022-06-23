@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Events\UserLoggedIn;
+use App\Events\UserRegistered;
 use Illuminate\Bus\Queueable;
 use App\Core\Brokers\RabbitMQ;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SendUserLoggedInToBroker implements ShouldQueue
+class SendUserRegisteredToBroker implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class SendUserLoggedInToBroker implements ShouldQueue
      *
      * @return void
      */
-    public function handle(UserLoggedIn $event)
+    public function handle(UserRegistered $event)
     {
         $rabbitMQClient = new RabbitMQ(default: true);
         $rabbitMQClient->bind(
@@ -43,10 +43,10 @@ class SendUserLoggedInToBroker implements ShouldQueue
 
         $payload = [
             'data' => $user,
-            'event' => 'user-logged-in',
+            'event' => 'user-registered',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://architect_nginx_balancer/users/logged-in', // ! Change this!
+                    'url' => 'http://architect_nginx_balancer/users/registered', // ! Change this!
                     'method' => 'POST',
                 ],
             ],
@@ -54,6 +54,6 @@ class SendUserLoggedInToBroker implements ShouldQueue
 
         $message = $rabbitMQClient->produce(json_encode($payload));
 
-        Log::info('Dispatching UserLoggedIn event to RabbitMQ: ' . json_encode($message));
+        Log::info('Dispatching UserRegistered event to RabbitMQ: ' . json_encode($message));
     }
 }

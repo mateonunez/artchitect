@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Events\UserLoggedIn;
+use App\Events\UserRegistered;
 use App\Observers\UserObserver;
-use Illuminate\Support\Facades\Event;
 use App\Jobs\SendUserLoggedInToBroker;
+use App\Jobs\SendUserRegisteredToBroker;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -19,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserLoggedIn::class => [
             SendUserLoggedInToBroker::class,
-        ]
+        ],
+        UserRegistered::class => [
+            SendUserRegisteredToBroker::class,
+        ],
     ];
 
     /**
