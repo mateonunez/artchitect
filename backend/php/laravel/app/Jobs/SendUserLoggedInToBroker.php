@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class SendUserLoggedInToBroker implements ShouldQueue
 {
@@ -47,7 +46,7 @@ class SendUserLoggedInToBroker implements ShouldQueue
             'event' => 'user-logged-in',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://architect_nginx_balancer/users/logged-in',
+                    'url' => 'http://architect_nginx_balancer/users/logged-in', // ! Change this!
                     'method' => 'POST',
                 ],
             ],
