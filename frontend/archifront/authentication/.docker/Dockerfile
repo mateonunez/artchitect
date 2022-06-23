@@ -4,8 +4,8 @@ ENV PORT 3000
 
 ENV ARCHIVEL_ENDPOINT http://architect_nginx_laravel
 ENV ARCHIFRONT_ENDPOINT http://architect_nginx_archifront
-ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://architect_frontend_archifront_authentication:3010
-ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://architect_frontend_archifront_homepage:3030
+ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://architect_frontend_archifront_authentication
+ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://architect_frontend_archifront_homepage
 
 # Installing main dependencies
 RUN apk update \
@@ -37,7 +37,7 @@ COPY postcss.config.js postcss.config.js
 COPY tailwind.config.js tailwind.config.js
 COPY tsconfig.json tsconfig.json
 
-RUN envsubst '${ARCHIVEL_ENDPOINT},${ARCHIFRONT_ENDPOINT},${ARCHIFRONT_AUTHENTICATION_ENDPOINT},${ARCHIFRONT_HOMEPAGE_ENDPOINT}' < /usr/src/architect/frontend/archifront/authentication/.env.local
+RUN envsubst '${ARCHIVEL_ENDPOINT},${ARCHIFRONT_ENDPOINT},${ARCHIFRONT_AUTHENTICATION_ENDPOINT},${ARCHIFRONT_HOMEPAGE_ENDPOINT}' < .env.local
 
 # Run the app
 CMD ["npm", "run", "dev"]
