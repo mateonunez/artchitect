@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lib\Message;
 use App\Events\UserLoggedIn;
+use App\Events\UserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
+            $timeStart = microtime(true);
+
             $data = $request->all();
 
             $validator = Validator::make($data, [
@@ -43,6 +46,11 @@ class AuthController extends Controller
             $user = \App\Models\User::create($data);
 
             $token = $user->createToken(config('app.name'))->accessToken;
+
+            UserRegistered::dispatch($user);
+
+            $timeEnd = microtime(true);
+            Log::info('[' . __METHOD__ . ']' .  ' time spent: ' . ($timeEnd - $timeStart));
 
             return $this->sendResponse(['token' => $token], Message::REGISTER_OK, 201);
         } catch (\Exception $ex) {
