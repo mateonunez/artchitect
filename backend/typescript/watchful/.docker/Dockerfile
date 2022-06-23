@@ -12,8 +12,8 @@ RUN apk update \
   && rm -rf /var/lib/apt/lists/*
 
 # Create the directory
-RUN mkdir -p /usr/src/architect/backend/javascript/watchful
-WORKDIR /usr/src/architect/backend/javascript/watchful
+RUN mkdir -p /usr/src/architect/backend/typescript/watchful
+WORKDIR /usr/src/architect/backend/typescript/watchful
 
 # Copy packages
 COPY package.json package.json

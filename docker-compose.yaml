@@ -248,18 +248,18 @@ services:
   #################################
 
   # Watchful service
-  architect_backend_javascript_watchful:
-    container_name: architect_backend_javascript_watchful
+  architect_backend_typescript_watchful:
+    container_name: architect_backend_typescript_watchful
     restart: on-failure
     platform: linux/x86_64
     build:
-      context: ./backend/javascript/watchful
+      context: ./backend/typescript/watchful
       dockerfile: ./.docker/Dockerfile
     # image: mateonunez/architect-backend-javascript-watchful:1.0
-    working_dir: /usr/src/architect/backend/javascript/watchful
+    working_dir: /usr/src/architect/backend/typescript/watchful
     volumes:
-      - /usr/src/architect/backend/javascript/watchful/node_modules
-      - ./backend/javascript/watchful:/usr/src/architect/backend/javascript/watchful
+      - /usr/src/architect/backend/typescript/watchful/node_modules
+      - ./backend/typescript/watchful:/usr/src/architect/backend/typescript/watchful
     environment:
       RABBITMQ_HOST: architect_rabbitmq
       RABBITMQ_PORT: 5672
