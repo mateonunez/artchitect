@@ -112,19 +112,19 @@ services:
     build:
       context: ./frontend/archifront/homepage
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-homepage:1.1.4
+    # image: mateonunez/architect-frontend-archifront-homepage:1.1.4
     working_dir: /usr/src/architect/frontend/archifront/homepage
     restart: always
     expose:
-      - 3030
+      - 3000
     volumes:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     environment:
-      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
-      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
-      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
-      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
+      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIFRONT_ENDPOINT: http://architect_nginx_archifront
+      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://architect_frontend_archifront_authentication
+      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://architect_frontend_archifront_homepage
     # env_file:
     #   - ./frontend/archifront/homepage/.env.local
     networks:
@@ -136,23 +136,21 @@ services:
     build:
       context: ./frontend/archifront/authentication
       dockerfile: ./.docker/Dockerfile
-    image: mateonunez/architect-frontend-archifront-authentication:1.1.16
+    # image: mateonunez/architect-frontend-archifront-authentication:1.1.16
     working_dir: /usr/src/architect/frontend/archifront/authentication
-    restart: always
-    expose:
-      - 3010
+    restart: on-failure
     volumes:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
-      - ARCHIVEL_ENDPOINT=http://architect_nginx_laravel:8000
-      - ARCHIFRONT_ENDPOINT=http://architect_nginx_archifront:80
-      - ARCHIFRONT_AUTHENTICATION_ENDPOINT=http://architect_frontend_archifront_authentication:3010
-      - ARCHIFRONT_HOMEPAGE_ENDPOINT=http://architect_frontend_archifront_homepage:3030
+      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIFRONT_ENDPOINT: http://architect_nginx_archifront
+      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://architect_frontend_archifront_authentication
+      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://architect_frontend_archifront_homepage
+    expose:
+      - 3000
     depends_on:
       - architect_nginx_laravel
-    # env_file:
-    #   - ./frontend/archifront/authentication/.env.local
     networks:
       - architect_network
 
