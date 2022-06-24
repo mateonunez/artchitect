@@ -2,7 +2,7 @@
   "name": "watchful",
   "version": "1.0.0",
   "description": "Queues Watchful",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "test",
     "dev": "nodemon src/index.ts",
