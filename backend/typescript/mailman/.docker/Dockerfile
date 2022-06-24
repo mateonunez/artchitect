@@ -26,7 +26,7 @@ RUN npm install
 COPY .env .env
 
 # Replacing env variables
-RUN envsubst '${MAILGUN_DOMAIN},${MAILGUN_API_URL},${MAILPUN_API_USER},${MAILGUN_API_KEY}' < .env
+RUN envsubst '${HOST},${PORT},${MAILGUN_DOMAIN},${MAILGUN_API_URL},${MAILPUN_API_USER},${MAILGUN_API_KEY}' < .env
 
 # Run the application in dev mode
 CMD ["npm", "run", "dev"]

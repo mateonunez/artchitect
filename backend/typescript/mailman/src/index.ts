@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import { fastify } from 'fastify';
 import pino from 'pino';
 import { sendEmail } from './lib/mailgun';
@@ -16,7 +17,10 @@ const server = fastify({
 });
 
 const Mailman = async () => {
-  console.log('Mailman is running');
+  dotenv.config();
+
+  const host: string = process.env.HOST || '0.0.0.0';
+  const port: number = parseInt(<string>process.env.PORT, 10) || 5555;
 
   server.post('/send-email', async (request, response) => {
     const { to, subject, template, props } = request.body as SendEmailProps;
@@ -44,7 +48,7 @@ const Mailman = async () => {
   });
 
   try {
-    await server.listen(3000);
+    await server.listen(port, host);
   } catch (err) {
     server.log.error(err);
     process.exit(1);
