@@ -3,12 +3,13 @@ import FormData from 'form-data';
 import Mailgun from 'mailgun.js';
 import Client from 'mailgun.js/client';
 import ReactDOMServer from 'react-dom/server';
-import { DefaultTemplate } from '../templates';
+import { DefaultTemplate, UserRegisteredTemplate } from '../templates';
 
 export const from: string = 'No-Reply - Architect Mailman <no-reply@architect.com>';
 
 export const templates = {
-  default: DefaultTemplate
+  default: DefaultTemplate,
+  'user-registered': UserRegisteredTemplate
 } as any;
 
 export const initClient = (): Client => {
@@ -17,8 +18,6 @@ export const initClient = (): Client => {
   const url: string = process.env.MAILGUN_API_URL || 'https://api.mailgun.net/';
   const username: string = process.env.MAILGUN_USERNAME || 'api';
   const key: string = process.env.MAILGUN_API_KEY || 'api-key';
-
-  console.log(url, username, key);
 
   const mailgun = new Mailgun(FormData);
 
@@ -52,7 +51,9 @@ export const sendEmail = async ({
       ? templates[template]
       : templates.default;
 
-    const contentString = ReactDOMServer.renderToString(templateWillUse(props));
+    const contentString = ReactDOMServer.renderToStaticMarkup(templateWillUse(props));
+
+    console.log(contentString, props);
 
     await client.messages.create(domain, {
       from,

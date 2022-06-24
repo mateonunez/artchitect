@@ -1,6 +1,13 @@
 import { fastify } from 'fastify';
 import pino from 'pino';
 import { sendEmail } from './lib/mailgun';
+
+export type SendEmailProps = {
+  to: string;
+  subject: string;
+  template: string;
+  props?: any;
+};
 /**
  * Declaring routes
  */
@@ -12,15 +19,21 @@ const Mailman = async () => {
   console.log('Mailman is running');
 
   server.post('/send-email', async (request, response) => {
-    server.log.info('Received a request to send an email');
+    const { to, subject, template, props } = request.body as SendEmailProps;
+
+    if (!to || !subject || !template) {
+      server.log.error(`[Mailman] Missing parameters: ${to}, ${subject}, ${template}`);
+
+      return response.status(400).send({
+        error: 'Missing parameters'
+      });
+    }
 
     await sendEmail({
-      to: 'mateonunez95@gmail.com',
-      subject: 'Test',
-      props: {
-        title: 'Test',
-        content: 'Test'
-      }
+      to,
+      subject,
+      template,
+      props
     }).catch(error => {
       console.error(error);
     });
