@@ -34,8 +34,8 @@ const handler = async (props: RouterProps): Promise<void> => {
             `[ yellow router 🟨 ] Error executing callback ${callbackKey} [${
               callback.url
             }], response with code ${
-              error.response.status
-            } and the following data: ${JSON.stringify(error.response.data)}`
+              error.response?.status
+            } and the following data: ${JSON.stringify(error.response?.data)}`
           );
 
           channel.nack(message, false, false);
