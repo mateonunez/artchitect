@@ -249,6 +249,32 @@ services:
       - architect_network
 
   #################################
+  ###     Mailman Service       ###
+  ################################# 
+  architect_mailman:
+    container_name: architect_mailman
+    restart: on-failure
+    build:
+      context: ./backend/typescript/mailman
+      dockerfile: ./.docker/Dockerfile
+    # image: mateonunez/architect-backend-typescript-mailman:1.0
+    working_dir: /usr/src/architect/backend/typescript/mailman
+    volumes:
+      - /usr/src/architect/backend/typescript/mailman/node_modules
+      - ./backend/typescript/mailman:/usr/src/architect/backend/typescript/mailman
+    ports:
+      - 5555:5555
+    # environment:
+    #   MAILGUN_DOMAIN: architect.com
+    #   MAILGUN_API_URL: https://api.mailgun.net/
+    #   MAILGUN_API_USER: api
+    #   MAILGUN_API_KEY: architect_mailgun_api_key
+    env_file:
+      - ./backend/typescript/mailman/.env
+    networks:
+      - architect_network
+
+  #################################
   ###    Watchful Service       ###
   #################################
 

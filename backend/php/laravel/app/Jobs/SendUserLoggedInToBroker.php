@@ -49,6 +49,19 @@ class SendUserLoggedInToBroker implements ShouldQueue
                     'url' => 'http://architect_nginx_balancer/users/logged-in', // ! Change this!
                     'method' => 'POST',
                 ],
+                'mailman_callback' => [
+                    'url' => 'http://architect_mailman:5555/send-email', // ! Change this!
+                    'method' => 'POST',
+                    'body' => [
+                        'template' => 'default',
+                        'to' => $user['email'],
+                        'subject' => 'Recent Acitivty',
+                        'props' => [
+                            'title' => 'We noticed that you are logged in.',
+                            'content' => 'We just wanted to welcome you and give you a big hug.',
+                        ]
+                    ]
+                ],
             ],
         ];
 
