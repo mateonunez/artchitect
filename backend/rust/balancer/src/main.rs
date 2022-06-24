@@ -15,6 +15,12 @@ struct User {
 }
 
 #[derive(Serialize)]
+struct Response {
+  message: String,
+  appId: String,
+}
+
+#[derive(Serialize)]
 struct UserLoggedIn {
   loggedIn: bool,
   user: User,
@@ -26,6 +32,19 @@ struct UserRegistered {
   registered: bool,
   user: User,
   appId: String,
+}
+
+async fn index() -> impl Responder {
+  let response = Response {
+    message: "Hello Architect!".to_string(),
+    appId: "rust-balancer".to_string(),
+  };
+
+  let message: String = format!("[ balancer (RS) ⚖️ ] Called API: /");
+
+  debug!("{}", message);
+
+  return web::Json(response)
 }
 
 async fn user_logged_in(data: web::Json<User>) -> impl Responder {
@@ -79,6 +98,7 @@ async fn main() -> io::Result<()> {
 
   HttpServer::new(|| {
     App::new()
+      .route("/", web::get().to(index))
       .route("/users/logged-in", web::post().to(user_logged_in))
       .route("/users/registered", web::post().to(user_registered))
   })
