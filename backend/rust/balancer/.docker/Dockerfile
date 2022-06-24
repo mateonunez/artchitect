@@ -29,7 +29,7 @@ RUN mkdir -p src && touch src/main.rs && echo "fn main() {}" > src/main.rs
 RUN cargo build  --release
 
 # Copying the env file
-COPY .env .env
+COPY .env.example .env
 
 # Replace the env variables
 RUN envsubst '${BALANCER_HOST},${BALANCER_PORT}' < .env

@@ -53,8 +53,8 @@ WORKDIR /usr/src/architect/backend/php/laravel/
 COPY composer.json composer.json
 COPY composer.lock composer.lock
 
-COPY .env .env
-COPY .env.testing .env.testing
+COPY .env.example .env
+COPY .env.testing.example .env.testing
 
 COPY artisan artisan
 

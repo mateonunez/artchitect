@@ -23,7 +23,7 @@ COPY package-lock.json package-lock.json
 RUN npm install
 
 # Copying the env file
-COPY .env .env
+COPY .env.example .env
 
 # Replacing env variables
 RUN envsubst '${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASSWORD}' < .env

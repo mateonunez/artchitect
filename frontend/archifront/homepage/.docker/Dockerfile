@@ -30,7 +30,7 @@ COPY pages pages
 COPY public public
 COPY styles styles
 
-COPY .env.local .env.local
+COPY .env.local.example .env.local
 COPY next-env.d.ts next-env.d.ts
 COPY next-sitemap.config.js next-sitemap.config.js
 COPY postcss.config.js postcss.config.js

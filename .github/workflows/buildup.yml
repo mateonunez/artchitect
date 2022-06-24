@@ -1,0 +1,36 @@
+name: docker-compose-build-up
+
+on:
+  push:
+    branches:
+      - main
+      - canary
+  pull_request:
+    branches:
+      - main
+      - canary
+
+jobs:
+  build-up:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build the stack
+        run: docker-compose up -d --build
+
+      - name: Testing Archifront
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://architect_nginx_archifront/
+
+      - name: Testing Archivel
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://architect_nginx_laravel/
+
+      - name: Testing Balancer
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://architect_nginx_balancer/
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose stop

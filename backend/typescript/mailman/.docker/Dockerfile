@@ -23,7 +23,7 @@ COPY package-lock.json package-lock.json
 RUN npm install
 
 # Copying the env file
-COPY .env .env
+COPY .env.example .env
 
 # Replacing env variables
 RUN envsubst '${HOST},${PORT},${MAILGUN_DOMAIN},${MAILGUN_API_URL},${MAILPUN_API_USER},${MAILGUN_API_KEY}' < .env
