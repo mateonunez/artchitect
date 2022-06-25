@@ -3,9 +3,9 @@ FROM node:16-alpine as builder
 ENV PORT 3000
 
 ENV ARCHIVEL_ENDPOINT http://architect_nginx_laravel
-ENV ARCHIFRONT_ENDPOINT http://architect_nginx_archifront
-ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://architect_frontend_archifront_authentication
-ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://architect_frontend_archifront_homepage
+ENV ARCHIFRONT_ENDPOINT http://archifront_nginx
+ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://archifront_authentication
+ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://archifront_homepage
 
 # Installing main dependencies
 RUN apk update \
