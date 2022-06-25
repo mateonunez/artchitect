@@ -2,7 +2,7 @@ FROM node:16-alpine as builder
 
 ENV PORT 3000
 
-ENV ARCHIVEL_ENDPOINT http://architect_nginx_laravel
+ENV ARCHIVEL_ENDPOINT http://archivel_nginx
 ENV ARCHIFRONT_ENDPOINT http://archifront_nginx
 ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://archifront_authentication
 ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://archifront_homepage

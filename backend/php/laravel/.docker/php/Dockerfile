@@ -4,9 +4,9 @@ FROM php:8.0-fpm
 ENV COMPOSER_VERSION 2.3.5
 
 # Setting Env variables
-ENV DB_HOST architect_database_mysql
+ENV DB_HOST database_mysql
 ENV DB_PORT 3306
-ENV DB_DATABASE architect_database_mysql
+ENV DB_DATABASE database_mysql
 ENV DB_USERNAME architect
 ENV DB_PASSWORD architect
 ENV RABBITMQ_HOST architect_rabbitmq

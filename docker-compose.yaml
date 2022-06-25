@@ -6,9 +6,9 @@ services:
   #################################
 
   # Laravel Service
-  architect_backend_php_laravel_1:
-    &architect_backend_php_laravel
-    container_name: architect_backend_php_laravel_1
+  archivel_1:
+    &archivel
+    container_name: archivel_1
     build:
       context: ./backend/php/laravel
       dockerfile: ./.docker/php/Dockerfile
@@ -21,9 +21,9 @@ services:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Database 
-      DB_HOST: architect_database_mysql
+      DB_HOST: database_mysql
       DB_PORT: 3306
-      DB_DATABASE: architect_database_mysql
+      DB_DATABASE: database_mysql
       DB_USERNAME: architect
       DB_PASSWORD: architect
       # Broker
@@ -32,19 +32,19 @@ services:
       RABBITMQ_USER: architect
       RABBITMQ_PASS: architect
     depends_on:
-      - architect_database_mysql
+      - database_mysql
       - architect_rabbitmq
     networks:
       - architect_network
 
-  architect_backend_php_laravel_2:
-    <<: *architect_backend_php_laravel
+  archivel_2:
+    <<: *archivel
     # image: mateonunez/architect-backend-php-laravel:1.2.5
-    container_name: architect_backend_php_laravel_2
+    container_name: archivel_2
 
   # MySQL Service
-  architect_database_mysql:
-    container_name: architect_database_mysql
+  database_mysql:
+    container_name: database_mysql
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
@@ -53,7 +53,7 @@ services:
     ports:
       - 3360:3306
     environment:
-      MYSQL_DATABASE: architect_database_mysql
+      MYSQL_DATABASE: database_mysql
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect
@@ -61,8 +61,8 @@ services:
       - architect_network
 
   # MySQL Testing Service
-  architect_database_mysql_testing:
-    container_name: architect_database_mysql_testing
+  database_mysql_testing:
+    container_name: database_mysql_testing
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
@@ -71,7 +71,7 @@ services:
     ports:
       - 3370:3306
     environment:
-      MYSQL_DATABASE: architect_database_mysql_testing
+      MYSQL_DATABASE: database_mysql_testing
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect
@@ -79,8 +79,8 @@ services:
       - architect_network
 
   # Nginx Laravel Service
-  architect_nginx_laravel:
-    container_name: architect_nginx_laravel
+  archivel_nginx:
+    container_name: archivel_nginx
     build:
       context: ./nginx/laravel
       dockerfile: ./Dockerfile
@@ -91,19 +91,19 @@ services:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Laravel
-      ARCHIVEL_HOST: architect_backend_php_laravel_1
+      ARCHIVEL_HOST: archivel_1
       ARCHIVEL_PORT: 9000
 
       # Laravel 2
-      ARCHIVEL_HOST_2: architect_backend_php_laravel_2
+      ARCHIVEL_HOST_2: archivel_2
       ARCHIVEL_PORT_2: 9000
 
       # Nginx
       NGINX_PORT: 80
       NGINX_ROOT: /usr/src/architect/backend/php/laravel/public
     depends_on:
-      - architect_backend_php_laravel_1
-      - architect_backend_php_laravel_2
+      - archivel_1
+      - archivel_2
     networks:
       - architect_network
 
@@ -127,7 +127,7 @@ services:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     environment:
-      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIVEL_ENDPOINT: http://archivel_nginx
       ARCHIFRONT_ENDPOINT: http://archifront_nginx
       ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://archifront_authentication
       ARCHIFRONT_HOMEPAGE_ENDPOINT: http://archifront_homepage
@@ -150,14 +150,14 @@ services:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
-      ARCHIVEL_ENDPOINT: http://architect_nginx_laravel
+      ARCHIVEL_ENDPOINT: http://archivel_nginx
       ARCHIFRONT_ENDPOINT: http://archifront_nginx
       ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://archifront_authentication
       ARCHIFRONT_HOMEPAGE_ENDPOINT: http://archifront_homepage
     expose:
       - 3000
     depends_on:
-      - architect_nginx_laravel
+      - archivel_nginx
     networks:
       - architect_network
 
