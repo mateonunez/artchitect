@@ -23,13 +23,13 @@ jobs:
         run: docker-compose up -d --build
 
       - name: Testing Archifront
-        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1:8800/
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://localhost:8800/
 
       - name: Testing Archivel
-        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1:8000/
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://localhost:8000/
 
       - name: Testing Balancer
-        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1:8080/
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://localhost:8080/
 
       - name: Stop containers
         if: always()
