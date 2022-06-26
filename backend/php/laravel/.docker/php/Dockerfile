@@ -83,6 +83,7 @@ RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
 
 # Optimizing
 RUN composer install --optimize-autoloader --no-dev
+RUN php artisan key:generate
 RUN php artisan optimize
 
 # Exposing port
