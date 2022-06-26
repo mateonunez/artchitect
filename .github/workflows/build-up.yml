@@ -23,7 +23,7 @@ jobs:
         run: docker-compose up -d --build
 
       - name: Testing Archifront
-        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1/
+        run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1:8800/
 
       - name: Testing Archivel
         run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://127.0.0.1:8000/
