@@ -83,10 +83,10 @@ RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
 
 # Optimizing
 RUN composer install --optimize-autoloader --no-dev
-RUN php artisan key:generate
+# RUN php artisan key:generate
 # RUN php artisan migrate
 # RUN php artisan passport:install
-RUN php artisan optimize
+# RUN php artisan optimize
 
 # Exposing port
 EXPOSE 9000

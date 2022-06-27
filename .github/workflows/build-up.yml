@@ -28,8 +28,14 @@ jobs:
       - name: Copy env file
         run: docker-compose exec -ti archivel_1 cp .env.example .env
 
+      - name: Application Key
+        run: docker-compose exec -ti archivel_1 php key:generate
+
       - name: Run migrations
         run: docker-compose exec -ti archivel_1 php artisan migrate
+
+      - name: Run migrations
+        run: docker-compose exec -ti archivel_1 php artisan optimize
 
       - name: Building Archivel Nginx
         run: docker-compose build archivel_nginx
