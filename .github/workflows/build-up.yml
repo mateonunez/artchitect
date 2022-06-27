@@ -26,10 +26,10 @@ jobs:
         run: docker-compose up -d archivel_1 archivel_2
 
       - name: Copy env file
-        run: docker-compose exec archivel_1 script -e -c "cp .env.example .env"
+        run: docker-compose exec -ti archivel_1 cp .env.example .env
 
       - name: Run migrations
-        run: docker-compose exec archivel_1 script -e -c "php artisan migrate"
+        run: docker-compose exec -ti archivel_1 php artisan migrate
 
       - name: Building Archivel Nginx
         run: docker-compose build archivel_nginx
