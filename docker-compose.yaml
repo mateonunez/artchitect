@@ -21,9 +21,9 @@ services:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Database 
-      DB_HOST: database_mysql
+      DB_HOST: architect_mysql
       DB_PORT: 3306
-      DB_DATABASE: database_mysql
+      DB_DATABASE: architect_mysql
       DB_USERNAME: architect
       DB_PASSWORD: architect
       # Broker
@@ -32,7 +32,7 @@ services:
       RABBITMQ_USER: architect
       RABBITMQ_PASS: architect
     depends_on:
-      - database_mysql
+      - architect_mysql
       - architect_rabbitmq
     networks:
       - architect_network
@@ -43,17 +43,17 @@ services:
     container_name: archivel_2
 
   # MySQL Service
-  database_mysql:
-    container_name: database_mysql
+  architect_mysql:
+    container_name: architect_mysql
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
     volumes:
       - ./backend/php/laravel/.docker/database/mysql/architect:/var/lib/mysql
-    ports:
-      - 3360:3306
+    expose:
+      - 3306
     environment:
-      MYSQL_DATABASE: database_mysql
+      MYSQL_DATABASE: architect_mysql
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect
@@ -61,8 +61,8 @@ services:
       - architect_network
 
   # MySQL Testing Service
-  database_mysql_testing:
-    container_name: database_mysql_testing
+  architect_mysql_testing:
+    container_name: architect_mysql_testing
     image: mysql:8.0.20
     platform: linux/x86_64
     restart: always
@@ -71,7 +71,7 @@ services:
     ports:
       - 3370:3306
     environment:
-      MYSQL_DATABASE: database_mysql_testing
+      MYSQL_DATABASE: architect_mysql_testing
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: architect
       MYSQL_PASSWORD: architect

@@ -4,9 +4,9 @@ FROM php:8.0-fpm
 ENV COMPOSER_VERSION 2.3.5
 
 # Setting Env variables
-ENV DB_HOST database_mysql
+ENV DB_HOST architect_mysql
 ENV DB_PORT 3306
-ENV DB_DATABASE database_mysql
+ENV DB_DATABASE architect_mysql
 ENV DB_USERNAME architect
 ENV DB_PASSWORD architect
 ENV RABBITMQ_HOST architect_rabbitmq
@@ -72,6 +72,7 @@ COPY storage storage
 COPY tests tests
 
 RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD},${RABBITMQ_HOST},${RABBITMQ_PORT},${RABBITMQ_USER},${RABBITMQ_PASS}' < .env
+RUN envsubst '${DB_HOST},${DB_PORT},${DB_DATABASE},${DB_USERNAME},${DB_PASSWORD}' < .env.testing
 
 # Supervisor configuration
 COPY ./.docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -83,10 +84,12 @@ RUN touch /var/log/supervisord.log && chmod 0644 /var/log/supervisord.log
 
 # Optimizing
 RUN composer install --optimize-autoloader --no-dev
-RUN php artisan key:generate
-RUN php artisan migrate
-RUN php artisan passport:install
-RUN php artisan optimize
+
+# RUN php artisan key:generate
+# RUN php artisan optimize
+# RUN php artisan config:cache
+# RUN php artisan migrate
+# RUN php artisan passport:install
 
 # Exposing port
 EXPOSE 9000
