@@ -22,28 +22,26 @@ jobs:
       - name: Building Database MySQL
         run: docker-compose build architect_mysql
 
+      - name: Build RabbitMQ
+        run: docker-compose build architect_rabbitmq
+
       - name: Building Archivel
         run: docker-compose up -d archivel_1 archivel_2
 
       - name: Copy env file
-        run: docker-compose exec -ti archivel_1 cp .env.example .env
+        run: docker exec -ti archivel_1 cp .env.example .env
 
       - name: Application Key
-        run: docker-compose exec -ti archivel_1 php artisan key:generate
+        run: docker exec -ti archivel_1 php artisan key:generate
 
       - name: Run migrations
-        run: docker-compose exec -ti archivel_1 php artisan optimize
+        run: docker exec -ti archivel_1 php artisan optimize
 
       - name: Run migrations
-        run: docker-compose exec -ti archivel_1 php artisan migrate
+        run: docker exec -ti archivel_1 php artisan migrate
 
       - name: Building Archivel Nginx
         run: docker-compose build archivel_nginx
-
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "30s"
 
       - name: Running services Archivel Nginx
         run: docker-compose up -d archivel_nginx
