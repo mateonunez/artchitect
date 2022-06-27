@@ -19,33 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Building Database MySQL
-        run: docker-compose build architect_mysql
-
-      - name: Build RabbitMQ
-        run: docker-compose build architect_rabbitmq
-
-      - name: Building Archivel
-        run: docker-compose up -d archivel_1 archivel_2
-
-      - name: Run composer
-        run: docker exec -t archivel_1 composer install
-
-      - name: Copy .env file
-        run: docker exec -t archivel_1 cp .env.example .env
-
-      - name: Application Key
-        run: docker exec -t archivel_1 php artisan key:generate
-
-      - name: Run migrations
-        run: docker exec -t archivel_1 php artisan optimize
-
-      - name: Run migrations
-        run: docker exec -t archivel_1 php artisan migrate
-
-      - name: Building Archivel Nginx
-        run: docker-compose build archivel_nginx
-
       - name: Running services Archivel Nginx
         run: docker-compose up -d archivel_nginx
 
