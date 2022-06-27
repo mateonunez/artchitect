@@ -28,7 +28,7 @@ jobs:
           time: "30s"
 
       - name: Building Archivel
-        run: docker-compose up -d archivel_1 archivel_2
+        run: docker-compose up -d archivel_1
 
       - name: Building Archivel Nginx
         run: docker-compose up -d archivel_nginx
