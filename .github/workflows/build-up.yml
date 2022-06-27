@@ -19,8 +19,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build the stack
-        run: docker-compose up -d --build
+      - name: Building Database MySQL
+        run: docker-compose up -d database_mysql
+
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "30s"
+
+      - name: Building Archivel
+        run: docker-compose up -d archivel_1 archivel_2
+
+      - name: Building Archivel Nginx
+        run: docker-compose up -d archivel_nginx
+
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "30s"
 
       # - name: Testing Archifront
       #   run: docker run --rm --platform linux/x86_64 --network architect_architect_network appropriate/curl -fsSL http://archifront_nginx/
