@@ -31,6 +31,9 @@ jobs:
       - name: Run composer
         run: docker exec -t archivel_1 composer install
 
+      - name: Copy .env file
+        run: docker exec -t archivel_1 cp .env.example .env
+
       - name: Application Key
         run: docker exec -t archivel_1 php artisan key:generate
 
