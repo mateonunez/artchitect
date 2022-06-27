@@ -29,7 +29,7 @@ jobs:
         run: docker-compose exec -ti archivel_1 cp .env.example .env
 
       - name: Application Key
-        run: docker-compose exec -ti archivel_1 php key:generate
+        run: docker-compose exec -ti archivel_1 php artisan key:generate
 
       - name: Run migrations
         run: docker-compose exec -ti archivel_1 php artisan optimize
