@@ -21,7 +21,7 @@ services:
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
       # Database 
-      DB_HOST: database_mysql
+      DB_HOST: 0.0.0.0
       DB_PORT: 3306
       DB_DATABASE: database_mysql
       DB_USERNAME: architect
