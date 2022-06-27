@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Building Database MySQL
-        run: docker-compose up -d database_mysql
+        run: docker-compose build database_mysql
 
       - name: Building Archivel
         run: docker-compose up -d archivel_1 archivel_2
