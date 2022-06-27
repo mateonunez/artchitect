@@ -28,6 +28,9 @@ jobs:
       - name: Building Archivel
         run: docker-compose up -d archivel_1 archivel_2
 
+      - name: Run composer
+        run: docker exec -t archivel_1 composer install
+
       - name: Application Key
         run: docker exec -t archivel_1 php artisan key:generate
 
