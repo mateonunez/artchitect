@@ -1,4 +1,4 @@
-name: docker-compose-build-up
+name: docker-compose-build-up-archivel
 
 on:
   push:
@@ -28,17 +28,14 @@ jobs:
       - name: Building Archivel
         run: docker-compose up -d archivel_1 archivel_2
 
-      - name: Copy env file
-        run: docker exec -ti archivel_1 cp .env.example .env
-
       - name: Application Key
-        run: docker exec -ti archivel_1 php artisan key:generate
+        run: docker exec -t archivel_1 php artisan key:generate
 
       - name: Run migrations
-        run: docker exec -ti archivel_1 php artisan optimize
+        run: docker exec -t archivel_1 php artisan optimize
 
       - name: Run migrations
-        run: docker exec -ti archivel_1 php artisan migrate
+        run: docker exec -t archivel_1 php artisan migrate
 
       - name: Building Archivel Nginx
         run: docker-compose build archivel_nginx
