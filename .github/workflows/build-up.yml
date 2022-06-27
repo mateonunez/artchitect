@@ -25,6 +25,9 @@ jobs:
       - name: Building Archivel
         run: docker-compose build archivel_1 archivel_2
 
+      - name: Runs Laravel's migrations
+        run: docker-compose exec archivel_1 cp .env.example .env && docker-compose exec archivel_1 php artisan migrate && docker-compose exec archivel_1 passport:install
+
       - name: Building Archivel Nginx
         run: docker-compose build archivel_nginx
 
