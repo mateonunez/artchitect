@@ -266,13 +266,13 @@ services:
       - ./backend/typescript/mailman:/usr/src/architect/backend/typescript/mailman
     ports:
       - 5555:5555
-    environment:
-      MAILGUN_DOMAIN: architect_mailgun_domain
-      MAILGUN_API_URL: architect_mailgun_api_url
-      MAILGUN_API_USER: architect_mailgun_api_user
-      MAILGUN_API_KEY: architect_mailgun_api_key # Remove this as soon as possible
-    # env_file:
-    #   - ./backend/typescript/mailman/.env
+    # environment:
+    #   MAILGUN_DOMAIN: architect_mailgun_domain
+    #   MAILGUN_API_URL: architect_mailgun_api_url
+    #   MAILGUN_API_USER: architect_mailgun_api_user
+    #   MAILGUN_API_KEY: architect_mailgun_api_key # Remove this as soon as possible
+    env_file:
+      - ./backend/typescript/mailman/.env
     networks:
       - architect_network
 
