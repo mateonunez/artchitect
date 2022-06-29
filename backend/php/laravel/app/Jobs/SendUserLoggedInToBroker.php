@@ -46,11 +46,11 @@ class SendUserLoggedInToBroker implements ShouldQueue
             'event' => 'user-logged-in',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://architect_nginx_balancer/users/logged-in', // ! Change this!
+                    'url' => 'http://balancer_nginx/users/logged-in', // ! Change this!
                     'method' => 'POST',
                 ],
                 'mailman_callback' => [
-                    'url' => 'http://architect_mailman:5555/send-email', // ! Change this!
+                    'url' => 'http://mailman:5555/send-email', // ! Change this!
                     'method' => 'POST',
                     'body' => [
                         'template' => 'default',

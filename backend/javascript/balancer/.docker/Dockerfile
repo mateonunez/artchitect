@@ -1,7 +1,7 @@
 FROM node:16-alpine as builder
 
 # Setting env variables
-ENV BALANCER_HOST architect_backend_rust_balancer
+ENV BALANCER_HOST balancer_rust
 ENV BALANCER_PORT 5010
 
 # Installing main dependencies

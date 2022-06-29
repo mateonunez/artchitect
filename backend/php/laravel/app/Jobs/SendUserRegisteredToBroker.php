@@ -46,11 +46,11 @@ class SendUserRegisteredToBroker implements ShouldQueue
             'event' => 'user-registered',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://architect_nginx_balancer/users/registered', // ! Change this!
+                    'url' => 'http://balancer_nginx/users/registered', // ! Change this!
                     'method' => 'POST',
                 ],
                 'mailman_callback' => [
-                    'url' => 'http://architect_mailman:5555/send-email', // ! Change this!
+                    'url' => 'http://mailman:5555/send-email', // ! Change this!
                     'method' => 'POST',
                     'body' => [
                         'template' => 'user-registered',

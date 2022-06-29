@@ -1,7 +1,7 @@
 FROM rust:1.61-alpine
 
 # Setting env variables
-ENV BALANCER_HOST architect_backend_rust_balancer
+ENV BALANCER_HOST balancer_rust
 ENV BALANCER_PORT 5500
 
 # Installing main dependencies

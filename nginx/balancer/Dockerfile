@@ -1,13 +1,13 @@
 FROM nginx:latest
 
 ENV NGINX_PORT 80
-ENV NGINX_HOST architect_nginx_balancer
+ENV NGINX_HOST balancer_nginx
 
 ENV BALANCER_RUST_PORT 5500
-ENV BALANCER_RUST_HOST architect_backend_rust_balancer
+ENV BALANCER_RUST_HOST balancer_rust
 
 ENV BALANCER_JAVASCRIPT_PORT 5010
-ENV BALANCER_JAVASCRIPT_HOST architect_backend_javascript_balancer
+ENV BALANCER_JAVASCRIPT_HOST balancer_javascript
 
 RUN rm -f /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/nginx.conf
