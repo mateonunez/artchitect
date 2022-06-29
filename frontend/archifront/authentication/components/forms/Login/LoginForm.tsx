@@ -52,7 +52,7 @@ const LoginForm: FC<Props> = ({}) => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (Object.keys(user).length) {
       router.push('/', undefined, { shallow: true });
     }
   }, [user]);

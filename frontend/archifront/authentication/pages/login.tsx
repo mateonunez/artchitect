@@ -7,11 +7,14 @@ export async function getServerSideProps({ req, res }: GetServerSidePropsContext
   const { ARCHITOKEN: token } = cookie.parse(req.headers.cookie || '');
 
   if (token) {
+    console.log(token);
     const response = await getMe(token);
 
     const data: MeResponse = await response.json();
 
     const user = data?.data;
+
+    console.log(user);
 
     if (user) {
       res.writeHead(301, {
