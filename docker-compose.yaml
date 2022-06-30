@@ -347,6 +347,7 @@ services:
       - 8444:8444 # Kong SSL Admin port
     depends_on:
       - kong_migrations
+      - kong_postgres
     networks:
       - architect_network
 
@@ -365,6 +366,7 @@ services:
       - 5432
     volumes:
       - ./kong/postgres/data:/var/lib/postgresql/data
+      - ./kong/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - architect_network
 
