@@ -1478,9 +1478,9 @@ COPY public.response_ratelimiting_metrics (identifier, period, period_date, serv
 --
 
 COPY public.routes (id, created_at, updated_at, name, service_id, protocols, methods, hosts, paths, snis, sources, destinations, regex_priority, strip_path, preserve_host, tags, https_redirect_status_code, headers, path_handling, ws_id, request_buffering, response_buffering) FROM stdin;
-a9a9e6e2-8d07-4331-9c31-22a2f1ad6032	2022-07-01 13:06:41+00	2022-07-01 13:35:32+00	crud-operations	6b7f4e68-d856-475e-a6d4-b99530a84401	{http,https}	{GET,POST,PUT,PATCH,DELETE}	{localhost,architect.com}	{/users,/users/any/}	{snis}	\N	\N	0	t	f	{archivel,authenticated,users,services,index}	426	{"accept": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
-fd616af9-2120-4d2a-a7ab-78af5ceeb236	2022-06-30 10:03:05+00	2022-06-30 14:43:20+00	register	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{localhost}	{/register}	{snis}	\N	\N	0	f	f	{register,backend,laravel,authentication}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
-40125995-0ca5-49bb-a314-891e0de6d076	2022-06-30 08:40:07+00	2022-06-30 14:43:36+00	login	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{architect.com,localhost}	{/login}	{snis}	\N	\N	0	f	f	{authentication,login,laravel,backend}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+a9a9e6e2-8d07-4331-9c31-22a2f1ad6032	2022-07-01 13:06:41+00	2022-07-01 13:35:32+00	crud-operations	6b7f4e68-d856-475e-a6d4-b99530a84401	{http,https}	{GET,POST,PUT,PATCH,DELETE}	{localhost,architect.com,archifront_nginx}	{/users,/users/any/}	{snis}	\N	\N	0	t	f	{archivel,authenticated,users,services,index}	426	{"accept": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+fd616af9-2120-4d2a-a7ab-78af5ceeb236	2022-06-30 10:03:05+00	2022-06-30 14:43:20+00	register	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{localhost,architect.com,archifront_nginx}	{/register}	{snis}	\N	\N	0	f	f	{register,backend,laravel,authentication}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+40125995-0ca5-49bb-a314-891e0de6d076	2022-06-30 08:40:07+00	2022-06-30 14:43:36+00	login	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{architect.com,localhost,archifront_nginx}	{/login}	{snis}	\N	\N	0	f	f	{authentication,login,laravel,backend}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
 \.
 
 
