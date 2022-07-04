@@ -39,6 +39,10 @@ class SendUserLoggedInToBroker implements ShouldQueue
             'yellow'
         );
 
+        $kongEndpoint = config('gateway.kong_endpoint');
+        $userLoggedInEnpoint = $kongEndpoint . '/users/logged-in';
+        $userSendEmailEndpoint = $kongEndpoint . '/users/send-email';
+
         $user = $event->user->toArray();
 
         $payload = [
@@ -46,16 +50,16 @@ class SendUserLoggedInToBroker implements ShouldQueue
             'event' => 'user-logged-in',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://balancer_nginx/users/logged-in', // ! Change this!
+                    'url' => $userLoggedInEnpoint,
                     'method' => 'POST',
                 ],
                 'mailman_callback' => [
-                    'url' => 'http://mailman:5555/send-email', // ! Change this!
+                    'url' => $userSendEmailEndpoint,
                     'method' => 'POST',
                     'body' => [
                         'template' => 'default',
                         'to' => $user['email'],
-                        'subject' => 'Recent Acitivty',
+                        'subject' => 'Recent Activity',
                         'props' => [
                             'title' => 'We noticed that you are logged in.',
                             'content' => 'We just wanted to welcome you and give you a big hug.',

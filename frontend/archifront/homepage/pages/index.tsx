@@ -6,17 +6,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }): Promise<a
   const { ARCHITOKEN: token = null } = cookie.parse(req.headers.cookie || '');
 
   if (token) {
-    const { NEXT_PUBLIC_ARCHIFRONT_ENDPOINT } = process.env;
-    
-    const response = await fetch(`${NEXT_PUBLIC_ARCHIFRONT_ENDPOINT}/auth/api/users/me`, {
+    const { NEXT_PUBLIC_KONG_GATEWAY_ENDPOINT, NEXT_PUBLIC_HOST } = process.env;
+
+    const response = await fetch(`${NEXT_PUBLIC_KONG_GATEWAY_ENDPOINT}/users/me`, {
       headers: {
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
+        Host: NEXT_PUBLIC_HOST,
         Cookie: req.headers.cookie
       } as HeadersInit
     });
 
     const data: MeResponse = await response.json();
+
     const { data: user = {} } = data;
 
     return {

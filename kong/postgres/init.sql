@@ -1188,6 +1188,52 @@ COPY public.certificates (id, created_at, cert, key, tags, ws_id, cert_alt, key_
 --
 
 COPY public.cluster_events (id, node_id, at, nbf, expire_at, channel, data) FROM stdin;
+549d05b5-61ff-46ac-966a-ed0390b03bac	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 14:56:29.428+00	\N	2022-07-04 15:56:29.428+00	invalidations	services:6559c1f6-364a-4ebb-9a83-51b85d690c64:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+bf839276-7477-45a0-8a30-6ef3b6c75cfe	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:15:21.204+00	\N	2022-07-04 16:15:21.204+00	invalidations	services:f6e099ba-2779-464e-9a9a-2e857fb6d8a8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+08514ac5-cfe4-4670-848c-5bfcb462d4f1	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:40:27.397+00	\N	2022-07-04 16:40:27.397+00	invalidations	routes:2d6e7d56-47ea-4d9d-8a1a-b466b72261a3:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+6c994735-8546-44c5-abcc-60f506cfba14	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:40:27.4+00	\N	2022-07-04 16:40:27.4+00	invalidations	router:version
+87e9be25-6aeb-4c4a-be18-d22a3a3e8e50	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 14:58:35.314+00	\N	2022-07-04 15:58:35.314+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+bbaca989-0788-4c4f-ba4e-f53656a790ee	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 14:58:35.316+00	\N	2022-07-04 15:58:35.316+00	invalidations	router:version
+449912b5-f22c-4143-baf2-f2dee32dee24	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 14:59:32.451+00	\N	2022-07-04 15:59:32.451+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+f76826be-8a1b-4d8c-8eea-d0599ef2deec	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 14:59:32.453+00	\N	2022-07-04 15:59:32.453+00	invalidations	router:version
+b0c6edbf-e8ad-41b2-be90-b215f4369c69	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:01:06.847+00	\N	2022-07-04 16:01:06.847+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+d28b04a1-5a00-4e4b-9027-b30ef9cca766	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:01:06.849+00	\N	2022-07-04 16:01:06.849+00	invalidations	router:version
+630a367b-3efe-4be5-887d-430b5dfde983	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:12.312+00	\N	2022-07-04 16:02:12.312+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+6962c201-b50a-45a8-8957-0754fb0b7890	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:12.314+00	\N	2022-07-04 16:02:12.314+00	invalidations	router:version
+21c1d0bc-defb-4ca7-a29f-2774f5809267	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:28.372+00	\N	2022-07-04 16:02:28.372+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+27271790-1903-4f38-b4f5-4e373ed13986	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:28.377+00	\N	2022-07-04 16:02:28.377+00	invalidations	router:version
+c83481a7-2ffc-4898-bd5c-4edf93198edc	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:50.522+00	\N	2022-07-04 16:02:50.522+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+c7e86cbd-107a-43a5-84d4-bc86a46cf16e	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:02:50.524+00	\N	2022-07-04 16:02:50.524+00	invalidations	router:version
+ff52678e-eeb2-4c33-90c7-226596590a40	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:32.088+00	\N	2022-07-04 16:03:32.088+00	invalidations	services:6559c1f6-364a-4ebb-9a83-51b85d690c64:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+57fdaf01-e652-4985-b229-7ad4524c8819	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:32.09+00	\N	2022-07-04 16:03:32.09+00	invalidations	router:version
+9658318b-913b-4933-9246-7767abc51d7e	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:43.49+00	\N	2022-07-04 16:03:43.49+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+70fccfee-fcce-4f96-b111-dc68c2d8a017	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:43.491+00	\N	2022-07-04 16:03:43.491+00	invalidations	router:version
+1ef34770-8f17-4a84-b4f4-d870c4ebfa54	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:46.935+00	\N	2022-07-04 16:03:46.935+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+0fa7210d-931a-40c4-a86e-376a5c8695c0	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:03:46.936+00	\N	2022-07-04 16:03:46.936+00	invalidations	router:version
+e01175bb-f8f1-4b06-8128-020273033e92	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:04:04.02+00	\N	2022-07-04 16:04:04.02+00	invalidations	services:6559c1f6-364a-4ebb-9a83-51b85d690c64:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+908df8bc-af9a-473a-865b-10a1b39cb06d	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:04:04.024+00	\N	2022-07-04 16:04:04.024+00	invalidations	router:version
+000d3ce1-85db-44a2-997b-2c8e1c9d5614	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:04:12.441+00	\N	2022-07-04 16:04:12.441+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+d0066e9c-cab6-4db9-add8-aaa41ab2d604	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:04:12.442+00	\N	2022-07-04 16:04:12.442+00	invalidations	router:version
+72434786-8ec8-414f-9501-6ad2f59a623c	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:28.909+00	\N	2022-07-04 16:05:28.909+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+1de5d8c3-4d7f-44b8-a73d-8acec422483a	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:28.911+00	\N	2022-07-04 16:05:28.911+00	invalidations	router:version
+2c233637-a65b-4bf0-ae50-246cbb21c89a	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:39.704+00	\N	2022-07-04 16:05:39.704+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+39034387-8c39-43af-a253-b0c983a87dcd	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:39.706+00	\N	2022-07-04 16:05:39.706+00	invalidations	router:version
+356aa109-b172-46f4-ac6c-e0e103de6a86	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:55.467+00	\N	2022-07-04 16:05:55.467+00	invalidations	services:6559c1f6-364a-4ebb-9a83-51b85d690c64:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+8d00dfa6-3d3a-44d7-8e55-47d56443ca9d	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:05:55.469+00	\N	2022-07-04 16:05:55.469+00	invalidations	router:version
+c51a8b2a-39a4-4119-8c16-f1d24f83a817	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:06:12.952+00	\N	2022-07-04 16:06:12.952+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+cdf31fda-885f-4d8f-a0fd-91b3ed5d1ccb	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:06:12.954+00	\N	2022-07-04 16:06:12.954+00	invalidations	router:version
+a2d8f7e3-eb5a-4b9e-a49b-e6b05eafc40b	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:06:39.822+00	\N	2022-07-04 16:06:39.822+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+b8114c40-e5a1-49a2-8cf1-ee95dbba50c1	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:06:39.824+00	\N	2022-07-04 16:06:39.824+00	invalidations	router:version
+47f71da8-1718-4f80-9f43-5112447c7449	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:06.021+00	\N	2022-07-04 16:07:06.021+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+754c4eee-8a28-4ac1-b99c-4ab832a5fb28	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:06.023+00	\N	2022-07-04 16:07:06.023+00	invalidations	router:version
+c19fe431-9021-43f1-8d1d-61ff8c9de034	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:40.865+00	\N	2022-07-04 16:07:40.865+00	invalidations	services:6559c1f6-364a-4ebb-9a83-51b85d690c64:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+f7d5d51f-d234-4830-8e09-064bfc5c4381	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:40.866+00	\N	2022-07-04 16:07:40.866+00	invalidations	router:version
+b58c44fc-c620-4274-89a6-2fdd7f5b2fa4	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:17:26.123+00	\N	2022-07-04 16:17:26.123+00	invalidations	routes:374c531a-fe60-4c86-b4a0-d17b829837c1:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+fc00518b-84d2-436d-8905-e3dd01fcad9a	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:17:26.125+00	\N	2022-07-04 16:17:26.125+00	invalidations	router:version
+819b86d1-f05f-43e3-8ebb-dc3de0e0723c	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:48.791+00	\N	2022-07-04 16:07:48.791+00	invalidations	routes:945a1d67-3fec-4e1a-8ede-524161729cf8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+3e8902aa-393b-40b4-8376-7cb8ca799098	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:07:48.794+00	\N	2022-07-04 16:07:48.794+00	invalidations	router:version
+0abaf46b-4fa3-401d-8185-b294ddeca966	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:34:07.75+00	\N	2022-07-04 16:34:07.75+00	invalidations	services:f6e099ba-2779-464e-9a9a-2e857fb6d8a8:::::8472221a-9632-4b1c-9cfb-25fb3efaad8d
+940e1592-a829-4d23-85a4-a8223ff9067b	97e8ad8c-6d5f-4311-88bb-2aaad8d5cb89	2022-07-04 15:34:07.753+00	\N	2022-07-04 16:34:07.753+00	invalidations	router:version
 \.
 
 
@@ -1254,9 +1300,9 @@ SELECT pg_catalog.setval('public.konga_api_health_checks_id_seq', 1, false);
 --
 
 COPY public.konga_email_transports (id, name, description, schema, settings, active, "createdAt", "updatedAt", "createdUserId", "updatedUserId") FROM stdin;
-1	smtp	Send emails using the SMTP protocol	[{"name":"host","description":"The SMTP host","type":"text","required":true},{"name":"port","description":"The SMTP port","type":"text","required":true},{"name":"username","model":"auth.user","description":"The SMTP user username","type":"text","required":true},{"name":"password","model":"auth.pass","description":"The SMTP user password","type":"text","required":true},{"name":"secure","model":"secure","description":"Use secure connection","type":"boolean"}]	{"host":"","port":"","auth":{"user":"","pass":""},"secure":false}	t	2022-06-30 08:22:42+00	2022-07-01 13:02:49+00	\N	\N
-2	sendmail	Pipe messages to the sendmail command	\N	{"sendmail":true}	f	2022-06-30 08:22:42+00	2022-07-01 13:02:49+00	\N	\N
-3	mailgun	Send emails through Mailgun’s Web API	[{"name":"api_key","model":"auth.api_key","description":"The API key that you got from www.mailgun.com/cp","type":"text","required":true},{"name":"domain","model":"auth.domain","description":"One of your domain names listed at your https://mailgun.com/app/domains","type":"text","required":true}]	{"auth":{"api_key":"","domain":""}}	f	2022-06-30 08:22:42+00	2022-07-01 13:02:49+00	\N	\N
+1	smtp	Send emails using the SMTP protocol	[{"name":"host","description":"The SMTP host","type":"text","required":true},{"name":"port","description":"The SMTP port","type":"text","required":true},{"name":"username","model":"auth.user","description":"The SMTP user username","type":"text","required":true},{"name":"password","model":"auth.pass","description":"The SMTP user password","type":"text","required":true},{"name":"secure","model":"secure","description":"Use secure connection","type":"boolean"}]	{"host":"","port":"","auth":{"user":"","pass":""},"secure":false}	t	2022-06-30 08:22:42+00	2022-07-04 14:51:49+00	\N	\N
+2	sendmail	Pipe messages to the sendmail command	\N	{"sendmail":true}	f	2022-06-30 08:22:42+00	2022-07-04 14:51:49+00	\N	\N
+3	mailgun	Send emails through Mailgun’s Web API	[{"name":"api_key","model":"auth.api_key","description":"The API key that you got from www.mailgun.com/cp","type":"text","required":true},{"name":"domain","model":"auth.domain","description":"One of your domain names listed at your https://mailgun.com/app/domains","type":"text","required":true}]	{"auth":{"api_key":"","domain":""}}	f	2022-06-30 08:22:42+00	2022-07-04 14:51:50+00	\N	\N
 \.
 
 
@@ -1288,8 +1334,8 @@ SELECT pg_catalog.setval('public.konga_kong_nodes_id_seq', 1, true);
 --
 
 COPY public.konga_kong_services (id, service_id, kong_node_id, description, tags, "createdAt", "updatedAt", "createdUserId", "updatedUserId") FROM stdin;
-1	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	1	Laravel Backend for Authentication	\N	2022-06-30 08:34:46+00	2022-06-30 13:15:11+00	\N	\N
-4	6b7f4e68-d856-475e-a6d4-b99530a84401	1	Archivel authenticated users services	\N	2022-06-30 13:16:13+00	2022-06-30 13:19:29+00	\N	\N
+1	6559c1f6-364a-4ebb-9a83-51b85d690c64	1	\N	\N	2022-07-04 14:56:29+00	2022-07-04 15:07:40+00	\N	\N
+2	f6e099ba-2779-464e-9a9a-2e857fb6d8a8	1	\N	\N	2022-07-04 15:15:21+00	2022-07-04 15:34:07+00	\N	\N
 \.
 
 
@@ -1297,7 +1343,7 @@ COPY public.konga_kong_services (id, service_id, kong_node_id, description, tags
 -- Name: konga_kong_services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: architect
 --
 
-SELECT pg_catalog.setval('public.konga_kong_services_id_seq', 4, true);
+SELECT pg_catalog.setval('public.konga_kong_services_id_seq', 2, true);
 
 
 --
@@ -1381,7 +1427,7 @@ SELECT pg_catalog.setval('public.konga_passports_id_seq', 1, true);
 --
 
 COPY public.konga_settings (id, data, "createdAt", "updatedAt", "createdUserId", "updatedUserId") FROM stdin;
-1	{"signup_enable":false,"signup_require_activation":false,"info_polling_interval":5000,"email_default_sender_name":"KONGA","email_default_sender":"konga@konga.test","email_notifications":false,"default_transport":"mailgun","notify_when":{"node_down":{"title":"A node is down or unresponsive","description":"Health checks must be enabled for the nodes that need to be monitored.","active":false},"api_down":{"title":"An API is down or unresponsive","description":"Health checks must be enabled for the APIs that need to be monitored.","active":false}},"integrations":[{"id":"slack","name":"Slack","image":"slack_rgb.png","config":{"enabled":false,"fields":[{"id":"slack_webhook_url","name":"Slack Webhook URL","type":"text","required":true,"value":""}],"slack_webhook_url":""}}],"user_permissions":{"apis":{"create":false,"read":true,"update":false,"delete":false},"services":{"create":false,"read":true,"update":false,"delete":false},"routes":{"create":false,"read":true,"update":false,"delete":false},"consumers":{"create":false,"read":true,"update":false,"delete":false},"plugins":{"create":false,"read":true,"update":false,"delete":false},"upstreams":{"create":false,"read":true,"update":false,"delete":false},"certificates":{"create":false,"read":true,"update":false,"delete":false},"connections":{"create":false,"read":true,"update":false,"delete":false},"users":{"create":false,"read":true,"update":false,"delete":false}}}	2022-06-30 08:22:42+00	2022-07-01 13:02:49+00	\N	\N
+1	{"signup_enable":false,"signup_require_activation":false,"info_polling_interval":5000,"email_default_sender_name":"KONGA","email_default_sender":"konga@konga.test","email_notifications":false,"default_transport":"mailgun","notify_when":{"node_down":{"title":"A node is down or unresponsive","description":"Health checks must be enabled for the nodes that need to be monitored.","active":false},"api_down":{"title":"An API is down or unresponsive","description":"Health checks must be enabled for the APIs that need to be monitored.","active":false}},"integrations":[{"id":"slack","name":"Slack","image":"slack_rgb.png","config":{"enabled":false,"fields":[{"id":"slack_webhook_url","name":"Slack Webhook URL","type":"text","required":true,"value":""}],"slack_webhook_url":""}}],"user_permissions":{"apis":{"create":false,"read":true,"update":false,"delete":false},"services":{"create":false,"read":true,"update":false,"delete":false},"routes":{"create":false,"read":true,"update":false,"delete":false},"consumers":{"create":false,"read":true,"update":false,"delete":false},"plugins":{"create":false,"read":true,"update":false,"delete":false},"upstreams":{"create":false,"read":true,"update":false,"delete":false},"certificates":{"create":false,"read":true,"update":false,"delete":false},"connections":{"create":false,"read":true,"update":false,"delete":false},"users":{"create":false,"read":true,"update":false,"delete":false}}}	2022-06-30 08:22:42+00	2022-07-04 14:51:50+00	\N	\N
 \.
 
 
@@ -1478,9 +1524,12 @@ COPY public.response_ratelimiting_metrics (identifier, period, period_date, serv
 --
 
 COPY public.routes (id, created_at, updated_at, name, service_id, protocols, methods, hosts, paths, snis, sources, destinations, regex_priority, strip_path, preserve_host, tags, https_redirect_status_code, headers, path_handling, ws_id, request_buffering, response_buffering) FROM stdin;
-a9a9e6e2-8d07-4331-9c31-22a2f1ad6032	2022-07-01 13:06:41+00	2022-07-01 13:35:32+00	crud-operations	6b7f4e68-d856-475e-a6d4-b99530a84401	{http,https}	{GET,POST,PUT,PATCH,DELETE}	{localhost,architect.com}	{/users,/users/any/}	{snis}	\N	\N	0	t	f	{archivel,authenticated,users,services,index}	426	{"accept": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+a9a9e6e2-8d07-4331-9c31-22a2f1ad6032	2022-07-01 13:06:41+00	2022-07-04 12:03:41+00	crud-operations	6b7f4e68-d856-475e-a6d4-b99530a84401	{http,https}	{GET,POST,PUT,PATCH,DELETE}	{localhost,architect.com,archifront_nginx}	{/users,/users/any/}	{snis}	\N	\N	0	t	f	{archivel,authenticated,users,services,index}	426	{"accept": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+40125995-0ca5-49bb-a314-891e0de6d076	2022-06-30 08:40:07+00	2022-07-04 12:27:57+00	login	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{architect.com,localhost,archifront_nginx}	{/login}	{snis}	\N	\N	0	f	f	{authentication,login,laravel,backend}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+945a1d67-3fec-4e1a-8ede-524161729cf8	2022-07-04 14:58:35+00	2022-07-04 15:07:48+00	logged-in	6559c1f6-364a-4ebb-9a83-51b85d690c64	{http,https}	{POST}	{localhost,architect.com,balancer_nginx}	{/users/logged-in}	{snis}	\N	\N	0	f	f	{balancer,users,services,logged-in}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+374c531a-fe60-4c86-b4a0-d17b829837c1	2022-07-04 15:17:26+00	2022-07-04 15:17:26+00	send-email	f6e099ba-2779-464e-9a9a-2e857fb6d8a8	{http,https}	{POST}	{localhost,architect.com,mailman}	{/users/send-email}	{snis}	\N	\N	0	f	f	{mailman,users,services,send-email,mailgun}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
+2d6e7d56-47ea-4d9d-8a1a-b466b72261a3	2022-07-04 15:40:27+00	2022-07-04 15:40:27+00	registered	6559c1f6-364a-4ebb-9a83-51b85d690c64	{http,https}	{POST}	{localhost,architect.com,balancer_nginx}	{/users/registered}	{snis}	\N	\N	0	f	f	{balancer,users,services,registered}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
 fd616af9-2120-4d2a-a7ab-78af5ceeb236	2022-06-30 10:03:05+00	2022-06-30 14:43:20+00	register	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{localhost}	{/register}	{snis}	\N	\N	0	f	f	{register,backend,laravel,authentication}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
-40125995-0ca5-49bb-a314-891e0de6d076	2022-06-30 08:40:07+00	2022-06-30 14:43:36+00	login	f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	{http,https}	{POST}	{architect.com,localhost}	{/login}	{snis}	\N	\N	0	f	f	{authentication,login,laravel,backend}	426	{"content-type": ["application/json"]}	v1	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t	t
 \.
 
 
@@ -1510,6 +1559,8 @@ schema_meta	ip-restriction	001_200_to_210	{001_200_to_210}	{}
 --
 
 COPY public.services (id, created_at, updated_at, name, retries, protocol, host, port, path, connect_timeout, write_timeout, read_timeout, tags, client_certificate_id, tls_verify, tls_verify_depth, ca_certificates, ws_id, enabled) FROM stdin;
+6559c1f6-364a-4ebb-9a83-51b85d690c64	2022-07-04 14:56:29+00	2022-07-04 15:07:40+00	balancer-user-services	5	http	balancer_nginx	80	/	60000	60000	60000	{balancer,users,services,backend,javascript,rust}	\N	\N	\N	\N	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t
+f6e099ba-2779-464e-9a9a-2e857fb6d8a8	2022-07-04 15:15:21+00	2022-07-04 15:34:07+00	mailman-user-services	5	http	mailman	5555	/	60000	60000	60000	{mailman,users,services,backend,typescript,mailgun}	\N	\N	\N	\N	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t
 f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	2022-06-30 08:34:46+00	2022-06-30 13:15:11+00	archivel-authentication-services	5	http	archivel_nginx	80	/api/auth/	60000	60000	60000	{laravel,backend,authentication,archivel}	\N	\N	\N	\N	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t
 6b7f4e68-d856-475e-a6d4-b99530a84401	2022-06-30 13:16:13+00	2022-06-30 13:19:29+00	archivel-authenticated-users-services	5	http	archivel_nginx	80	/api/users/	60000	60000	60000	{archivel,autheticated,users,services,backend,laravel}	\N	\N	\N	\N	8472221a-9632-4b1c-9cfb-25fb3efaad8d	t
 \.
@@ -1540,10 +1591,15 @@ COPY public.tags (entity_id, entity_name, tags) FROM stdin;
 5dc9fb49-396c-48b1-aac4-d20812b461d2	consumers	{backend,archivel,laravel,authenticated}
 51c44ada-fea6-43fc-b75d-3d69a973eca7	consumers	{archivel,backend,authentication,laravel}
 a9a9e6e2-8d07-4331-9c31-22a2f1ad6032	routes	{archivel,authenticated,users,services,index}
+40125995-0ca5-49bb-a314-891e0de6d076	routes	{authentication,login,laravel,backend}
 f0adec3a-e02f-4b82-9ae8-c6ccfb5e4776	services	{laravel,backend,authentication,archivel}
 6b7f4e68-d856-475e-a6d4-b99530a84401	services	{archivel,autheticated,users,services,backend,laravel}
 fd616af9-2120-4d2a-a7ab-78af5ceeb236	routes	{register,backend,laravel,authentication}
-40125995-0ca5-49bb-a314-891e0de6d076	routes	{authentication,login,laravel,backend}
+6559c1f6-364a-4ebb-9a83-51b85d690c64	services	{balancer,users,services,backend,javascript,rust}
+945a1d67-3fec-4e1a-8ede-524161729cf8	routes	{balancer,users,services,logged-in}
+374c531a-fe60-4c86-b4a0-d17b829837c1	routes	{mailman,users,services,send-email,mailgun}
+f6e099ba-2779-464e-9a9a-2e857fb6d8a8	services	{mailman,users,services,backend,typescript,mailgun}
+2d6e7d56-47ea-4d9d-8a1a-b466b72261a3	routes	{balancer,users,services,registered}
 \.
 
 
@@ -3071,4 +3127,3 @@ ALTER TABLE ONLY public.vaults_beta
 --
 -- PostgreSQL database dump complete
 --
-

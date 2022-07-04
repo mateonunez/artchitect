@@ -22,7 +22,7 @@ const Mailman = async () => {
   const host: string = process.env.HOST || '0.0.0.0';
   const port: number = parseInt(<string>process.env.PORT, 10) || 5555;
 
-  server.post('/send-email', async (request, response) => {
+  server.post('/users/send-email', async (request, response) => {
     const { to, subject, template, props } = request.body as SendEmailProps;
 
     if (!to || !subject || !template) {

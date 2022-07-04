@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-ENV NGINX_FPM_HOST archifront_nginx
+ENV NGINX_HOST archifront_nginx
 ENV ARCHIFRONT_AUTHENTICATION_HOST archifront_authentication
 ENV ARCHIFRONT_HOMEPAGE_HOST archifront_homepage
 

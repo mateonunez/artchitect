@@ -31,15 +31,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return;
   }
 
-  const { ARCHIVEL_ENDPOINT } = process.env;
+  const { KONG_GATEWAY_ENDPOINT, NEXT_PUBLIC_HOST } = process.env;
 
-  const response = await fetch(`${ARCHIVEL_ENDPOINT}/api/auth/login`, {
+  const response = await fetch(`${KONG_GATEWAY_ENDPOINT}/login`, {
     method: 'POST',
     headers: {
+      Host: NEXT_PUBLIC_HOST,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password })
-  });
+  } as RequestInit);
 
   const data: LoginReponse = await response.json();
 

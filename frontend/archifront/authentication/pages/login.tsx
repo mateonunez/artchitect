@@ -14,8 +14,6 @@ export async function getServerSideProps({ req, res }: GetServerSidePropsContext
 
     const user = data?.data;
 
-    console.log(user);
-
     if (user) {
       res.writeHead(301, {
         location: 'http://localhost/'

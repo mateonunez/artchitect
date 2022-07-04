@@ -9,15 +9,16 @@ export type MeResponse = {
 };
 
 export async function getMe(token: string): Promise<Response> {
-  const { ARCHIVEL_ENDPOINT } = process.env;
+  const { KONG_GATEWAY_ENDPOINT, NEXT_PUBLIC_HOST } = process.env;
 
-  const response = await fetch(`${ARCHIVEL_ENDPOINT}/api/users/me`, {
+  const response = await fetch(`${KONG_GATEWAY_ENDPOINT}/users/me`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Host: NEXT_PUBLIC_HOST,
       Authorization: `Bearer ${token}`
     }
-  });
+  } as RequestInit);
 
   return response;
 }

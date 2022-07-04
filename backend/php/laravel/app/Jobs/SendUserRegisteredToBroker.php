@@ -39,6 +39,10 @@ class SendUserRegisteredToBroker implements ShouldQueue
             'yellow'
         );
 
+        $kongEndpoint = config('gateway.kong_endpoint');
+        $userRegisteredEnpoint = $kongEndpoint . '/users/registered';
+        $userSendEmailEndpoint = $kongEndpoint . '/users/send-email';
+
         $user = $event->user->toArray();
 
         $payload = [
@@ -46,11 +50,11 @@ class SendUserRegisteredToBroker implements ShouldQueue
             'event' => 'user-registered',
             'callbacks' => [
                 'testing_callback' => [
-                    'url' => 'http://balancer_nginx/users/registered', // ! Change this!
+                    'url' => $userRegisteredEnpoint,
                     'method' => 'POST',
                 ],
                 'mailman_callback' => [
-                    'url' => 'http://mailman:5555/send-email', // ! Change this!
+                    'url' => $userSendEmailEndpoint,
                     'method' => 'POST',
                     'body' => [
                         'template' => 'user-registered',

@@ -20,6 +20,9 @@ services:
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
+      # Kong Gateway
+      KONG_GATEWAY_ENDPOINT: http://kong:8000/
+
       # Database 
       DB_HOST: architect_mysql
       DB_PORT: 3306
@@ -82,7 +85,7 @@ services:
   archivel_nginx:
     container_name: archivel_nginx
     build:
-      context: ./nginx/laravel
+      context: ./nginx/archivel
       dockerfile: ./Dockerfile
     # image: mateonunez/architect-nginx-laravel:1.2.1
     ports:
@@ -127,10 +130,9 @@ services:
       - /usr/src/architect/frontend/archifront/homepage/node_modules
       - ./frontend/archifront/homepage:/usr/src/architect/frontend/archifront/homepage
     environment:
-      ARCHIVEL_ENDPOINT: http://archivel_nginx
+      HOST: archifront_nginx
+      KONG_GATEWAY_ENDPOINT: http://kong:8000
       ARCHIFRONT_ENDPOINT: http://archifront_nginx
-      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://archifront_authentication
-      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://archifront_homepage
     # env_file:
     #   - ./frontend/archifront/homepage/.env.local
     networks:
@@ -150,10 +152,9 @@ services:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
-      ARCHIVEL_ENDPOINT: http://archivel_nginx
+      HOST: archifront_nginx
+      KONG_GATEWAY_ENDPOINT: http://kong:8000
       ARCHIFRONT_ENDPOINT: http://archifront_nginx
-      ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://archifront_authentication
-      ARCHIFRONT_HOMEPAGE_ENDPOINT: http://archifront_homepage
     expose:
       - 3000
     depends_on:
@@ -169,7 +170,7 @@ services:
       dockerfile: ./Dockerfile
     # image: mateonunez/architect-nginx-archifront:1.2
     environment:
-      - NGINX_FPM_HOST=archifront_nginx
+      - NGINX_HOST=archifront_nginx
       - ARCHIFRONT_AUTHENTICATION_HOST=archifront_authentication
       - ARCHIFRONT_HOMEPAGE_HOST=archifront_homepage
     ports:
