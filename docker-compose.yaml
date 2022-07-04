@@ -151,7 +151,8 @@ services:
       - /usr/src/architect/frontend/archifront/authentication/node_modules
       - ./frontend/archifront/authentication:/usr/src/architect/frontend/archifront/authentication
     environment:
-      ARCHIVEL_ENDPOINT: http://archivel_nginx
+      HOST: archifront_nginx
+      KONG_GATEWAY_ENDPOINT: http://kong:8000
       ARCHIFRONT_ENDPOINT: http://archifront_nginx
       ARCHIFRONT_AUTHENTICATION_ENDPOINT: http://archifront_authentication
       ARCHIFRONT_HOMEPAGE_ENDPOINT: http://archifront_homepage

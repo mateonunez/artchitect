@@ -2,7 +2,8 @@ FROM node:16-alpine as builder
 
 ENV PORT 3000
 
-ENV ARCHIVEL_ENDPOINT http://archivel_nginx
+ENV HOST archifront_nginx
+ENV KONG_GATEWAY http://kong:8000
 ENV ARCHIFRONT_ENDPOINT http://archifront_nginx
 ENV ARCHIFRONT_AUTHENTICATION_ENDPOINT http://archifront_authentication
 ENV ARCHIFRONT_HOMEPAGE_ENDPOINT http://archifront_homepage
@@ -37,7 +38,7 @@ COPY postcss.config.js postcss.config.js
 COPY tailwind.config.js tailwind.config.js
 COPY tsconfig.json tsconfig.json
 
-RUN envsubst '${ARCHIVEL_ENDPOINT},${ARCHIFRONT_ENDPOINT},${ARCHIFRONT_AUTHENTICATION_ENDPOINT},${ARCHIFRONT_HOMEPAGE_ENDPOINT}' < .env.local
+RUN envsubst '${KONG_GATEWAY_ENDPOINT},${ARCHIFRONT_ENDPOINT},${ARCHIFRONT_AUTHENTICATION_ENDPOINT},${ARCHIFRONT_HOMEPAGE_ENDPOINT}' < .env.local
 
 # Run the app
 CMD ["npm", "run", "dev"]

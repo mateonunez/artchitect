@@ -4,10 +4,15 @@ module.exports = {
   basePath: '/auth',
   env: {
     BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
-    ARCHIVEL_ENDPOINT: process.env.NEXT_PUBLIC_ARCHIVEL_ENDPOINT || 'http://architect_nginx_laravel:8000',
-    ARCHIFRONT_ENDPOINT: process.env.NEXT_PUBLIC_ARCHIFRONT_ENDPOINT || 'http://architect_nginx_archifront:80',
-    ARCHIFRONT_AUTHENTICATION_ENDPOINT: process.env.NEXT_PUBLIC_ARCHIFRONT_AUTHENTICATION_ENDPOINT || 'http://architect_frontend_archifront_authentication:3010',
-    ARCHIFRONT_HOMEPAGE_ENDPOINT: process.env.NEXT_PUBLIC_ARCHIFRONT_HOMEPAGE_ENDPOINT || 'http://architect_frontend_archifront_homepage:3030',
+    HOST: process.env.NEXT_PUBLIC_HOST || 'archifront_nginx',
+    KONG_GATEWAY_ENDPOINT: process.env.NEXT_PUBLIC_KONG_GATEWAY_ENDPOINT || 'http://kong:8000',
+    ARCHIFRONT_ENDPOINT:
+      process.env.NEXT_PUBLIC_ARCHIFRONT_ENDPOINT || 'http://archifront_nginx:80',
+    ARCHIFRONT_AUTHENTICATION_ENDPOINT:
+      process.env.NEXT_PUBLIC_ARCHIFRONT_AUTHENTICATION_ENDPOINT ||
+      'http://archifront_authentication:3010',
+    ARCHIFRONT_HOMEPAGE_ENDPOINT:
+      process.env.NEXT_PUBLIC_ARCHIFRONT_HOMEPAGE_ENDPOINT || 'http://archifront_homepage:3030'
   },
   webpackDevMiddleware: config => {
     config.watchOptions = {
