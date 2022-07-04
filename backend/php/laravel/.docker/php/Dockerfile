@@ -92,7 +92,7 @@ RUN composer install --optimize-autoloader --no-dev
 # RUN php artisan passport:install
 
 # Exposing port
-EXPOSE 9000
+EXPOSE 8000
 
 # Running supervisord
 CMD ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisor/conf.d/supervisord.conf"]

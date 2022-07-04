@@ -92,11 +92,11 @@ services:
     environment:
       # Laravel
       ARCHIVEL_HOST: archivel_1
-      ARCHIVEL_PORT: 9000
+      ARCHIVEL_PORT: 8000
 
       # Laravel 2
       ARCHIVEL_HOST_2: archivel_2
-      ARCHIVEL_PORT_2: 9000
+      ARCHIVEL_PORT_2: 8000
 
       # Nginx
       NGINX_PORT: 80
