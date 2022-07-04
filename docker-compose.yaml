@@ -20,6 +20,9 @@ services:
       - ./backend/php/laravel:/usr/src/architect/backend/php/laravel
       - ./backend/php/laravel/public:/usr/src/architect/backend/php/laravel/public
     environment:
+      # Kong Gateway
+      KONG_GATEWAY_ENDPOINT: http://kong:8000/
+
       # Database 
       DB_HOST: architect_mysql
       DB_PORT: 3306

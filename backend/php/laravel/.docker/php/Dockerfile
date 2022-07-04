@@ -4,11 +4,14 @@ FROM php:8.0-fpm
 ENV COMPOSER_VERSION 2.3.5
 
 # Setting Env variables
+ENV KONG_GATEWAY_ENDPOINT http://kong:8000
+
 ENV DB_HOST architect_mysql
 ENV DB_PORT 3306
 ENV DB_DATABASE architect_mysql
 ENV DB_USERNAME architect
 ENV DB_PASSWORD architect
+
 ENV RABBITMQ_HOST architect_rabbitmq
 ENV RABBITMQ_PORT 5672
 ENV RABBITMQ_USER architect
