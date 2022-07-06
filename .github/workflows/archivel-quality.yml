@@ -21,8 +21,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: backend/php/laravel
 
       - name: Install PHP Versions
         uses: shivammathur/setup-php@v2
