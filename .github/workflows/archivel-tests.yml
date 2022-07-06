@@ -59,19 +59,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      - name: Cache PHP Dependencies
-        uses: actions/cache@v2
-        id: vendor-cache
-        with:
-          path: vendor
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
+      # - name: Cache PHP Dependencies
+      #   uses: actions/cache@v2
+      #   id: vendor-cache
+      #   with:
+      #     path: vendor
+      #     key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
 
       - name: Copy .env.testing
         run: php -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
 
       - name: Install Dependencies
         if: steps.vendor-cache.outputs.cache-hit != 'true'
-        run: composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Dump auto load
         run: composer dump-autoload
