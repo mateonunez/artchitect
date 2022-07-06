@@ -1,5 +1,9 @@
 # Laravel
 
+## IDE Helper
+
+
+
 ## Manual Configuration
 
 Run the migrations and seeders:

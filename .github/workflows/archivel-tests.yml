@@ -1,4 +1,4 @@
-name: Tests
+name: Archivel Tests
 
 on:
   pull_request:
@@ -71,7 +71,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.vendor-cache.outputs.cache-hit != 'true'
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install
 
       - name: Dump auto load
         run: composer dump-autoload
