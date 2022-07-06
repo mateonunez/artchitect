@@ -93,7 +93,7 @@ class ControllerUtils
     /**
      * Retrieve an array of filters from a string. [filter1=value1,filter2=value2, ...]
      *
-     * @param array $filters
+     * @param array<string> $filters
      *
      * @return array
      */
@@ -103,8 +103,8 @@ class ControllerUtils
 
         $filtersArray = [];
         foreach ($filters as $filter) {
-            foreach ($operators as $k => $v) {
-                $params = explode($k, $filter);
+            foreach ($operators as $operator) {
+                $params = explode($operator, $filter);
 
                 if (count($params) > 1) {
                     if ($params[1] === 'null') {
@@ -120,7 +120,7 @@ class ControllerUtils
                     }
 
                     $column = $params[0];
-                    $operator = $operators[$k];
+                    $operator = $operators[$operator];
                     $value = $params[1];
 
                     if ($operator === 'LIKE') {

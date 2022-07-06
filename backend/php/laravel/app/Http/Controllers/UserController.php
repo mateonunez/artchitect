@@ -10,14 +10,14 @@ use Illuminate\Http\JsonResponse;
 class UserController extends Controller
 {
     /**
-     * @var \App\Models\User
+     * @var \App\Models\User|string
      */
     protected $model = User::class;
 
     /**
      * Return user logged profile
      *
-     * @param \Illumiante\Http\Request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function me(Request $request): JsonResponse

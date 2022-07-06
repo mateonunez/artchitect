@@ -20,6 +20,9 @@ abstract class TestCase extends BaseTestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
+
+        /** @phpstan-ignore-next-line */
         if (!$this->app) {
             $this->refreshApplication();
         }

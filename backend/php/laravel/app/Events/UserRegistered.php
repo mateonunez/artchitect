@@ -27,6 +27,4 @@ class UserRegistered
     {
         $this->user = $user;
     }
-
-    
 }
