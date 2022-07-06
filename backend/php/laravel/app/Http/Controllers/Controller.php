@@ -267,7 +267,6 @@ class Controller extends BaseController
      *
      * @param string $error
      * @param array $errorMessages
-     * @param int $statusCode
      *
      * @return \Illuminate\Http\JsonResponse
      */

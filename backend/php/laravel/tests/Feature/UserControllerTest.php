@@ -36,7 +36,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_index()
+    public function testIndex()
     {
         User::factory()->count(10)->create();
 
