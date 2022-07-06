@@ -2,7 +2,13 @@
 
 ## IDE Helper
 
+**GraphQL**:
 
+> php artisan lighthouse:ide-helper
+
+**Barryvd**:
+
+> php artisan ide-helper:generate
 
 ## Manual Configuration
 
