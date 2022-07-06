@@ -101,7 +101,7 @@ class AuthController extends Controller
 
             return $this->sendError(Message::CREDENTIALS_KO);
         } catch (\Exception $ex) {
-            return $this->sendError(Message::AUTH_KO,  [$ex->getMessage()], 400);
+            return $this->sendError(Message::AUTH_KO, [$ex->getMessage()], 400);
         }
     }
 }

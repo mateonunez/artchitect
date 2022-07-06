@@ -3,11 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Passport\Passport;
 
 class UserControllerTest extends TestCase
 {
@@ -24,7 +21,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_store()
+    public function testStore()
     {
         $payload = [
             'name' => 'Test',
@@ -50,7 +47,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_show()
+    public function testShow()
     {
         $user = User::factory()->create();
 
@@ -61,7 +58,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_update_put()
+    public function testUpdatePut()
     {
         $user = User::factory()->create();
 
@@ -81,7 +78,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_update_patch()
+    public function testUpdatePatch()
     {
         $user = User::factory()->create();
 
@@ -99,7 +96,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_delete()
+    public function testDelete()
     {
         $user = User::factory()->create();
 
@@ -109,7 +106,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @group user_controller */
-    public function test_create_with_same_email()
+    public function testCreateWithTheSameEmail()
     {
         $user = User::factory()->create();
 
