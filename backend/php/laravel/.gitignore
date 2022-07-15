@@ -26,7 +26,6 @@ supervisord.log
 # Barryvdh IDE Helper
 _ide_helper.php
 
-
 # Lighthouse IDE Helper
 _lighthouse_ide_helper.php
 programmatic-types.graphql

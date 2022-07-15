@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archivel-laravel
+  labels:
+    app: archivel-laravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: archivel-laravel
+  template:
+    metadata:
+      labels:
+        app: archivel-laravel
+    spec:
+      containers:
+        - name: archivel-laravel
+          image: mateonunez/architect-backend-php-laravel:1.2.5
+          ports:
+            - containerPort: 9000
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: archivel-mysql-configmap
+                  key: db_host
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_DATABASE
+              value: architect_database_mysql
+            - name: DB_USERNAME
+              value: "architect"
+            - name: DB_PASSWORD
+              value: "architect"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: archivel-laravel-service
+spec:
+  selector:
+    app: archivel-laravel
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

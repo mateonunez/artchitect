@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archivel-mysql
+  labels:
+    app: archivel-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: archivel-mysql
+  template:
+    metadata:
+      labels:
+        app: archivel-mysql
+    spec:
+      containers:
+        - name: archivel-mysql
+          image: amd64/mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              value: architect_database_mysql
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: archivel-mysql-secret
+                  key: root-password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: archivel-mysql-secret
+                  key: user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: archivel-mysql-secret
+                  key: pass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: archivel-mysql-service
+spec:
+  selector:
+    app: archivel-mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

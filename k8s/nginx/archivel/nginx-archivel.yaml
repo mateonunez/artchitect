@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-archivel
+  labels:
+    app: nginx-archivel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-archivel
+  template:
+    metadata:
+      labels:
+        app: nginx-archivel
+    spec:
+      containers:
+        - name: nginx-archivel
+          image: mateonunez/architect-nginx-laravel:1.2.1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ARCHIVEL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-archivel-configmap
+                  key: archivel-host
+            - name: ARCHIVEL_PORT
+              value: 9000
+            - name: NGINX_PORT
+              value: 80
+            - name: NGINX_ROOT
+              value: /usr/src/architect/backend/php/laravel/public
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-archivel-service
+spec:
+  selector:
+    app: nginx-archivel
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
