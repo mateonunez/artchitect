@@ -1098,16 +1098,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.25.1",
+            "version": "v9.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109"
+                "reference": "1ccfb91afee7a351b09ba1f1b97739096a3ad1cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/e8af8c2212e3717757ea7f459a655a2e9e771109",
-                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1ccfb91afee7a351b09ba1f1b97739096a3ad1cf",
+                "reference": "1ccfb91afee7a351b09ba1f1b97739096a3ad1cf",
                 "shasum": ""
             },
             "require": {
@@ -1274,7 +1274,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-08-16T16:36:05+00:00"
+            "time": "2022-08-23T19:00:07+00:00"
         },
         {
             "name": "laravel/passport",
@@ -7892,16 +7892,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.58.1",
+            "version": "v5.58.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "7df4ea71bea4953fe43c25967ed14923cf8fb775"
+                "reference": "e415ce33ed2bfb94d400f9c59557f3efd38d0c29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/7df4ea71bea4953fe43c25967ed14923cf8fb775",
-                "reference": "7df4ea71bea4953fe43c25967ed14923cf8fb775",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/e415ce33ed2bfb94d400f9c59557f3efd38d0c29",
+                "reference": "e415ce33ed2bfb94d400f9c59557f3efd38d0c29",
                 "shasum": ""
             },
             "require": {
@@ -8015,7 +8015,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-08-14T11:36:36+00:00"
+            "time": "2022-08-24T13:08:20+00:00"
         },
         {
             "name": "phar-io/manifest",
