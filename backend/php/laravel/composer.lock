@@ -205,28 +205,28 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89"
+                "reference": "ade2b3bbfb776f27f0558e26eed43b5d9fe1b392"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89",
-                "reference": "8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/ade2b3bbfb776f27f0558e26eed43b5d9fe1b392",
+                "reference": "ade2b3bbfb776f27f0558e26eed43b5d9fe1b392",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^8.2",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-strict-rules": "^0.12",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-                "vimeo/psalm": "^4.10"
+                "doctrine/coding-standard": "^9",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpstan/phpstan-strict-rules": "^1.3",
+                "phpunit/phpunit": "^8.5 || ^9.5",
+                "vimeo/psalm": "^4.25"
             },
             "type": "library",
             "autoload": {
@@ -276,7 +276,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.4"
+                "source": "https://github.com/doctrine/inflector/tree/2.0.5"
             },
             "funding": [
                 {
@@ -292,7 +292,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-22T20:16:43+00:00"
+            "time": "2022-09-07T09:01:28+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -7851,16 +7851,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.58.2",
+            "version": "v5.59.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "e415ce33ed2bfb94d400f9c59557f3efd38d0c29"
+                "reference": "d1b90a1dd18c0ef702a8949a43bc553790e1f8c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/e415ce33ed2bfb94d400f9c59557f3efd38d0c29",
-                "reference": "e415ce33ed2bfb94d400f9c59557f3efd38d0c29",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/d1b90a1dd18c0ef702a8949a43bc553790e1f8c4",
+                "reference": "d1b90a1dd18c0ef702a8949a43bc553790e1f8c4",
                 "shasum": ""
             },
             "require": {
@@ -7906,7 +7906,7 @@
                 "bensampo/laravel-enum": "Convenient enum definitions that can easily be registered in your Schema",
                 "laravel/scout": "Required for the @search directive",
                 "mll-lab/graphql-php-scalars": "Useful scalar types, required for @whereConditions",
-                "mll-lab/laravel-graphql-playground": "GraphQL IDE for better development workflow - integrated with Laravel",
+                "mll-lab/laravel-graphiql": "A graphical interactive in-browser GraphQL IDE - integrated with Laravel",
                 "pusher/pusher-php-server": "Required when using the Pusher Subscriptions driver"
             },
             "type": "library",
@@ -7974,7 +7974,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-08-24T13:08:20+00:00"
+            "time": "2022-09-07T19:25:59+00:00"
         },
         {
             "name": "phar-io/manifest",
