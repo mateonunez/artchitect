@@ -7922,16 +7922,16 @@
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "2.2.1",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/larastan.git",
-                "reference": "a2567963b61ee35dedf87aac95136ac4944e86fa"
+                "reference": "65f8254194c4db0324c7ba2207440c11a4348890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/a2567963b61ee35dedf87aac95136ac4944e86fa",
-                "reference": "a2567963b61ee35dedf87aac95136ac4944e86fa",
+                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/65f8254194c4db0324c7ba2207440c11a4348890",
+                "reference": "65f8254194c4db0324c7ba2207440c11a4348890",
                 "shasum": ""
             },
             "require": {
@@ -7997,7 +7997,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/larastan/issues",
-                "source": "https://github.com/nunomaduro/larastan/tree/2.2.1"
+                "source": "https://github.com/nunomaduro/larastan/tree/2.2.4"
             },
             "funding": [
                 {
@@ -8017,7 +8017,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-10-04T16:15:14+00:00"
+            "time": "2022-10-15T19:24:23+00:00"
         },
         {
             "name": "nuwave/lighthouse",
