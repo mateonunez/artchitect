@@ -2966,16 +2966,16 @@
         },
         {
             "name": "php-amqplib/php-amqplib",
-            "version": "v3.3.1",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "192171d4883bc30bdadc08db988aeaf1126b3cfd"
+                "reference": "5c537cb724f2e181183c202e63f4303935344c5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/192171d4883bc30bdadc08db988aeaf1126b3cfd",
-                "reference": "192171d4883bc30bdadc08db988aeaf1126b3cfd",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/5c537cb724f2e181183c202e63f4303935344c5f",
+                "reference": "5c537cb724f2e181183c202e63f4303935344c5f",
                 "shasum": ""
             },
             "require": {
@@ -3041,9 +3041,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-amqplib/php-amqplib/issues",
-                "source": "https://github.com/php-amqplib/php-amqplib/tree/v3.3.1"
+                "source": "https://github.com/php-amqplib/php-amqplib/tree/v3.4.0"
             },
-            "time": "2022-10-04T14:56:25+00:00"
+            "time": "2022-10-18T20:52:02+00:00"
         },
         {
             "name": "php-http/message-factory",
