@@ -7943,16 +7943,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.64.0",
+            "version": "v5.64.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "9ef34c85f5a6450e2c1923e23948e4b42f23e7e3"
+                "reference": "0e5799e3ffb881ba366377901f16c31cc8d76ca6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/9ef34c85f5a6450e2c1923e23948e4b42f23e7e3",
-                "reference": "9ef34c85f5a6450e2c1923e23948e4b42f23e7e3",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/0e5799e3ffb881ba366377901f16c31cc8d76ca6",
+                "reference": "0e5799e3ffb881ba366377901f16c31cc8d76ca6",
                 "shasum": ""
             },
             "require": {
@@ -8067,7 +8067,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-11-01T11:34:37+00:00"
+            "time": "2022-11-02T14:08:54+00:00"
         },
         {
             "name": "phar-io/manifest",
