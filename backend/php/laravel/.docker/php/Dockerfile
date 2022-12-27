@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
 # Install Composer
 ENV COMPOSER_VERSION 2.3.5
