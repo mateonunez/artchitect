@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder 
+FROM node:19-alpine as builder 
 
 # Set the environment variables
 ENV RABBITMQ_HOST architect_rabbitmq

@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder
+FROM node:19-alpine as builder
 
 # Setting env variables
 ENV BALANCER_HOST balancer_rust
