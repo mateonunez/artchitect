@@ -29,7 +29,7 @@
     "axios": "^0.27.2",
     "fastify": "^4.8.1",
     "fastify-plugin": "^4.0.0",
-    "mailgun.js": "^7.0.2",
+    "mailgun.js": "^8.0.0",
     "pino": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
