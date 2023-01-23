@@ -27,7 +27,7 @@
   "homepage": "https://github.com/mateonunez/architect#readme",
   "dependencies": {
     "axios": "^1.0.0",
-    "fastify": "^4.10.2",
+    "fastify": "^4.11.0",
     "fastify-plugin": "^4.0.0",
     "mailgun.js": "^8.0.0",
     "pino": "^8.8.0",
