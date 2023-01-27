@@ -1,4 +1,4 @@
-FROM rust:1.66-alpine
+FROM rust:1.67-alpine
 
 # Setting env variables
 ENV BALANCER_HOST balancer_rust
