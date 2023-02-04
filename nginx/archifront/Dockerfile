@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.23
 
 ENV NGINX_HOST archifront_nginx
 ENV ARCHIFRONT_AUTHENTICATION_HOST archifront_authentication
