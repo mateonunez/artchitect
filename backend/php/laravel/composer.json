@@ -22,7 +22,7 @@
         "laravel/sail": "^1.0.1",
         "mll-lab/laravel-graphql-playground": "^2.6",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.1",
         "nuwave/lighthouse": "^5.56",
         "phpstan/phpstan": "^1.8",
