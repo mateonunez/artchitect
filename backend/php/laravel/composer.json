@@ -27,7 +27,7 @@
         "nuwave/lighthouse": "^5.56",
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-phpunit": "^1.1",
-        "phpunit/phpunit": "^9.5.10",
+        "phpunit/phpunit": "^10.0.0",
         "spatie/laravel-ignition": "^1.0",
         "squizlabs/php_codesniffer": "^3.7"
     },
