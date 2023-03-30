@@ -1,4 +1,4 @@
-FROM rust:1.68-alpine
+FROM rust:1.68-alpine@sha256:2407ec536824500be7479f802ab94382d67c760bfc47d7bb51a7f58852552537
 
 # Setting env variables
 ENV BALANCER_HOST balancer_rust
