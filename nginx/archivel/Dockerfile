@@ -1,4 +1,4 @@
-FROM nginx:1.23
+FROM nginx:1.23@sha256:2ab30d6ac53580a6db8b657abf0f68d75360ff5cc1670a85acb5bd85ba1b19c0
 
 # Setting environment variables
 ENV ARCHIVEL_HOST archivel_1

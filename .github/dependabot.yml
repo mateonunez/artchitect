@@ -1,0 +1,86 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend/javascript/balancer/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /backend/javascript/balancer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend/php/laravel/.docker/php
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend/rust/balancer/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /backend/rust/balancer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend/typescript/mailman/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /backend/typescript/mailman
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend/typescript/watchful/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /backend/typescript/watchful
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /frontend/archifront/authentication/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /frontend/archifront/authentication
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /frontend/archifront/homepage/.docker
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /frontend/archifront/homepage
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /nginx/archifront
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /nginx/archivel
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /nginx/balancer
+    schedule:
+      interval: daily

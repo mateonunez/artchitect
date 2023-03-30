@@ -1,4 +1,4 @@
-FROM node:19-alpine as builder
+FROM node:19-alpine@sha256:fcf4e6f4557788bcd3338f717e39dbaa5061bc0154e7d96bda0bca9447ec8056 as builder
 
 # Setting env variables
 ENV BALANCER_HOST balancer_rust
