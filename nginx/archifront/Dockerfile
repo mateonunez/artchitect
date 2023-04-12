@@ -1,4 +1,4 @@
-FROM nginx:1.24@sha256:0bdc6959fe6df99b5fdebc871a7325d1ee8d6a6be00c571e3592bc6cd472ccd7
+FROM nginx:1.24@sha256:fc6ecdf9b653238a3f37e6f41dfdf8eddc99c38b0949ecd2995bc4fa5f31ec61
 
 ENV NGINX_HOST archifront_nginx
 ENV ARCHIFRONT_AUTHENTICATION_HOST archifront_authentication
