@@ -1,4 +1,4 @@
-FROM php:8.2-fpm@sha256:4cb8a2a9ba6b7299cfa433eee98fd3118a06a7383e22adf47aa5d29dfea1208c
+FROM php:8.2-fpm@sha256:0aca73da5fc7cfa4189d114acca405a5f7d72ae93ded068b73166178b9b2410b
 
 # Install Composer
 ENV COMPOSER_VERSION 2.3.5
