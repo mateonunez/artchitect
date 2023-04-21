@@ -1,4 +1,4 @@
-FROM node:19-alpine@sha256:53741c7511b1836b5eb7e788a7b399c058b0b549f205d2c6af831ec1a9a81c31 as builder 
+FROM node:20-alpine@sha256:cc4e8f3d78a276fa05eae1803b6f8cbb43145441f54c828ab14e0c19dd95c6fd as builder 
 
 # Set the environment variables
 ENV MAILGUN_DOMAIN architect.com
